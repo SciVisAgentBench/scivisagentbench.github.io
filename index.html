@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SciVisAgentBench - Dataset Collection</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>SciVisAgentBench</h1>
+                <p class="tagline">A Comprehensive Evaluation Framework for Scientific Visualization Agents</p>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" data-page="dashboard" class="active">Dashboard</a></li>
+                <li><a href="#" data-page="submit">Submit Dataset</a></li>
+                <li><a href="#" data-page="about">About</a></li>
+                <li><a href="https://github.com/KuangshiAi/SciVisAgentBench" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Dashboard Page -->
+        <div id="page-dashboard" class="page active">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h2>Building the Future of Scientific Visualization Agents</h2>
+                        <p class="hero-description">
+                            Join us in creating a comprehensive benchmark that transforms SciVis agents from
+                            experimental tools into reliable scientific instruments through systematic evaluation.
+                        </p>
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <span class="stat-number" id="total-datasets">0</span>
+                                <span class="stat-label">Datasets</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" id="total-contributors">0</span>
+                                <span class="stat-label">Contributors</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" id="total-tasks">0</span>
+                                <span class="stat-label">Test Cases</span>
+                            </div>
+                        </div>
+                        <div class="cta-buttons">
+                            <a href="#" data-page="submit" class="btn btn-primary">Contribute Dataset</a>
+                            <a href="#" data-page="about" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard Section -->
+            <section class="dashboard-section">
+                <div class="container">
+                    <h2 class="section-title">Dashboard</h2>
+
+                    <!-- Category Breakdown -->
+                    <div class="category-grid">
+                        <div class="category-card">
+                            <h3>Attribute Types</h3>
+                            <div class="category-stats" id="attribute-types-stats">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+
+                        <div class="category-card">
+                            <h3>Atomic Operations</h3>
+                            <div class="category-stats" id="atomic-operations-stats">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+
+                        <div class="category-card category-card-wide">
+                            <h3>Workflow Tasks</h3>
+                            <div class="category-stats category-stats-grid" id="workflow-tasks-stats">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contributors Table -->
+                    <div class="contributors-section">
+                        <h3>Contributors</h3>
+                        <div class="table-container">
+                            <table class="contributors-table">
+                                <thead>
+                                    <tr>
+                                        <th>Contributor</th>
+                                        <th>Institution</th>
+                                        <th># of Questions</th>
+                                        <th>Subjects</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contributors-tbody">
+                                    <tr class="empty-state">
+                                        <td colspan="4">No contributions yet. Be the first to contribute!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Submit Page -->
+        <div id="page-submit" class="page">
+            <section class="submit-section">
+                <div class="container">
+                    <h2 class="section-title">Submit Dataset</h2>
+                    <p class="section-description">
+                        Help build a comprehensive benchmark for scientific visualization agents.
+                        Submit your dataset along with task descriptions and evaluation criteria.
+                    </p>
+
+                    <div class="info-box">
+                        <h4>📁 About File Uploads</h4>
+                        <p>Currently, this demo uses browser LocalStorage. Files are simulated but not actually uploaded. For production deployment, please see the <a href="#" data-page="about">deployment documentation</a>.</p>
+                        <ul>
+                            <li><strong>Recommended data size:</strong> &lt; 500MB per dataset</li>
+                            <li><strong>Ground truth images:</strong> PNG format, minimum 1024x1024 pixels</li>
+                            <li><strong>Supported data formats:</strong> VTK, NIfTI, NRRD, HDF5, RAW</li>
+                        </ul>
+                    </div>
+
+                    <form id="submission-form" class="submission-form">
+                        <!-- Contributor Information -->
+                        <div class="form-section">
+                            <h3>Contributor Information</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="contributor-name">Name *</label>
+                                    <input type="text" id="contributor-name" name="contributorName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contributor-email">Email *</label>
+                                    <input type="email" id="contributor-email" name="contributorEmail" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contributor-institution">Institution *</label>
+                                    <input type="text" id="contributor-institution" name="contributorInstitution" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contributor-orcid">ORCID (optional)</label>
+                                    <input type="text" id="contributor-orcid" name="contributorOrcid" placeholder="0000-0000-0000-0000">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dataset Information -->
+                        <div class="form-section">
+                            <h3>Dataset Information</h3>
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label for="dataset-name">Dataset Name *</label>
+                                    <input type="text" id="dataset-name" name="datasetName" required>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="dataset-description">Description *</label>
+                                    <textarea id="dataset-description" name="datasetDescription" rows="4" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Application Domain -->
+                        <div class="form-section">
+                            <h3>Application Domain (Data Source)</h3>
+                            <div class="form-group">
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="applicationDomain" value="climate">
+                                        <span>Climate Data</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="applicationDomain" value="sem">
+                                        <span>SEM Image Data</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="applicationDomain" value="ct-objects">
+                                        <span>CT Scan for Objects</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="applicationDomain" value="medical">
+                                        <span>Medical/CT/MRI Scan</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="applicationDomain" value="simulation">
+                                        <span>Simulation Data</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="applicationDomain" value="molecular">
+                                        <span>Molecular Data</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="applicationDomain" value="other">
+                                        <span>Other (please specify)</span>
+                                    </label>
+                                </div>
+                                <input type="text" id="application-domain-other" name="applicationDomainOther" placeholder="Specify other application domain" style="display:none; margin-top: 10px;">
+                            </div>
+                        </div>
+
+                        <!-- Data Type -->
+                        <div class="form-section">
+                            <h3>Data Type *</h3>
+                            <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">Select the data structure type(s)</p>
+
+                            <div class="form-group">
+                                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Structured Data</h4>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="dataType" value="image-data">
+                                        <span>Image Data (uniform rectilinear grids)</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="dataType" value="rectilinear-grids">
+                                        <span>Rectilinear Grids</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="dataType" value="structured-grids">
+                                        <span>Structured Grids (curvilinear)</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="dataType" value="amr">
+                                        <span>AMR (Adaptive Mesh Refinement)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Unstructured Data</h4>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="dataType" value="unstructured-grids">
+                                        <span>Unstructured Grids (arbitrary cell types)</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="dataType" value="polygonal-data">
+                                        <span>Polygonal Data (surfaces, meshes)</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="dataType" value="point-clouds">
+                                        <span>Point Clouds</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Specialized Types</h4>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="dataType" value="hyper-tree-grids">
+                                        <span>Hyper-tree Grids</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="dataType" value="composite-datasets">
+                                        <span>Composite/Multi-block Datasets</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="dataType" value="graph-network">
+                                        <span>Graph/Network Data</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="dataType" value="other">
+                                        <span>Other (please specify)</span>
+                                    </label>
+                                </div>
+                                <input type="text" id="data-type-other" name="dataTypeOther" placeholder="Specify other data type" style="display:none; margin-top: 10px;">
+                            </div>
+                        </div>
+
+                        <!-- Temporal Dimension -->
+                        <div class="form-section">
+                            <h3>Temporal Dimension *</h3>
+                            <div class="form-group">
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="temporalDimension" value="static" required>
+                                        <span>Static/Single-Timestep</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="temporalDimension" value="time-series">
+                                        <span>Time-Series (multiple discrete steps)</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="temporalDimension" value="time-dependent">
+                                        <span>Time-Dependent Processing (interpolation, particle tracing)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Attribute Types -->
+                        <div class="form-section">
+                            <h3>Attribute Types *</h3>
+                            <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">What information does the data represent?</p>
+                            <div class="form-group">
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="attributeType" value="scalar-fields">
+                                        <span>Scalar Fields (temperature, pressure, density)</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="attributeType" value="vector-fields">
+                                        <span>Vector Fields (velocity, force, displacement)</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="attributeType" value="tensor-fields">
+                                        <span>Tensor Fields (stress, strain, diffusion tensors)</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="attributeType" value="multivariate">
+                                        <span>Multi-variate/Multi-field (multiple scalar/vector fields)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task Taxonomy -->
+                        <div class="form-section">
+                            <h3>Task Taxonomy *</h3>
+                            <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">Select the type(s) of visualization/analysis tasks</p>
+
+                            <div class="form-group">
+                                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Atomic Operations</h4>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="extraction-subsetting">
+                                        <span>Extraction & Subsetting</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="geometry-topology">
+                                        <span>Geometry & Topology Transformation</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="attribute-computation">
+                                        <span>Attribute Computation & Derivation</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="representation-mapping">
+                                        <span>Representation & Mapping</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="smoothing-enhancement">
+                                        <span>Smoothing & Enhancement</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Workflow</h4>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="data-exploration">
+                                        <span>Data Understanding & Exploration</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="analysis-quantification">
+                                        <span>Analysis & Quantification</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="feature-extraction">
+                                        <span>Feature Extraction & Tracking</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="comparative-temporal">
+                                        <span>Comparative & Temporal Analysis</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="flow-transport">
+                                        <span>Flow & Transport Analysis</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="verification-validation">
+                                        <span>Verification & Validation</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="data-processing">
+                                        <span>Data Processing & Optimization</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="communication">
+                                        <span>Communication & Dissemination</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Scientific Insights</h4>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="taskTaxonomy" value="scientific-insights">
+                                        <span>Scientific Insights (application-specific questions derived from analysis)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task Complexity -->
+                        <div class="form-section">
+                            <h3>Task Complexity *</h3>
+                            <div class="form-group">
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="complexity" value="easy" required>
+                                        <span class="complexity-easy">Easy (single action, e.g., load data and apply filter)</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="complexity" value="medium">
+                                        <span class="complexity-medium">Medium (workflow, sequence of actions)</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="complexity" value="hard">
+                                        <span class="complexity-hard">Hard (derive specific scientific insight from data)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task Description -->
+                        <div class="form-section">
+                            <h3>Task Description for LLM Agent *</h3>
+                            <div class="form-group full-width">
+                                <label for="task-description">Provide a detailed natural language description of the visualization task *</label>
+                                <textarea id="task-description" name="taskDescription" rows="6" placeholder="Example: 'Load the dataset and create a volume rendering. Adjust the transfer function to show a potted tree with a brown pot, silver branches, and golden leaves.'" required></textarea>
+                            </div>
+                        </div>
+
+                        <!-- File Uploads -->
+                        <div class="form-section">
+                            <h3>File Uploads *</h3>
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label for="source-data">Source Data File *</label>
+                                    <input type="file" id="source-data" name="sourceData" required>
+                                    <small>Any format accepted: VTK, NIfTI, RAW, NRRD, HDF5, etc. (Max size: 500MB recommended)</small>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="ground-truth-images">Ground Truth Images (multi-view) *</label>
+                                    <input type="file" id="ground-truth-images" name="groundTruthImages" multiple required>
+                                    <small>Any format accepted: PNG, JPG, TIFF, etc. Upload multiple views of the expected visualization</small>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="viz-engine-state">Visualization Engine State (ParaView state file, etc.)</label>
+                                    <input type="file" id="viz-engine-state" name="vizEngineState" accept=".pvsm,.py">
+                                    <small>Optional: ParaView state file or Python script</small>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="metadata-file">Additional Metadata</label>
+                                    <input type="file" id="metadata-file" name="metadataFile">
+                                    <small>Optional: Any format (JSON, YAML, TXT, etc.)</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Evaluation Metrics -->
+                        <div class="form-section">
+                            <h3>Evaluation Metrics *</h3>
+                            <div class="form-group full-width">
+                                <label for="eval-criteria">How should the agent's output be evaluated? *</label>
+                                <textarea id="eval-criteria" name="evalCriteria" rows="6" placeholder="Example: 1) Overall visualization quality (10 pts), 2) Correct color mapping for pot (5 pts), 3) Correct color for branches (5 pts), etc." required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="useImageMetrics" value="true">
+                                    <span>Use quantitative image metrics (PSNR, SSIM, LPIPS)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Additional Information -->
+                        <div class="form-section">
+                            <h3>Additional Information</h3>
+                            <div class="form-group full-width">
+                                <label for="additional-notes">Additional Notes or Comments</label>
+                                <textarea id="additional-notes" name="additionalNotes" rows="4" placeholder="Any additional information you'd like to provide..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="agreeToTerms" required>
+                                    <span>I agree to release this dataset under an open license (CC BY 4.0) *</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-large">Submit Contribution</button>
+                            <button type="reset" class="btn btn-secondary">Clear Form</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <!-- About Page -->
+        <div id="page-about" class="page">
+            <section class="about-section">
+                <div class="container">
+                    <h2 class="section-title">About SciVisAgentBench</h2>
+                    <div class="about-content">
+                        <div class="about-text">
+                            <h3>What is SciVisAgentBench?</h3>
+                            <p>
+                                SciVisAgentBench is a comprehensive evaluation framework for scientific data analysis
+                                and visualization agents. We aim to transform SciVis agents from experimental tools
+                                into reliable scientific instruments through systematic evaluation.
+                            </p>
+
+                            <h3>Why Contribute?</h3>
+                            <ul>
+                                <li>Help establish standardized evaluation metrics for visualization agents</li>
+                                <li>Drive innovation in autonomous scientific visualization</li>
+                                <li>Contribute to open science and reproducible research</li>
+                                <li>Be recognized as a contributor to this community effort</li>
+                            </ul>
+
+                            <h3>Evaluation Taxonomy</h3>
+                            <p>
+                                Our benchmark evaluates agents across multiple dimensions including outcome quality,
+                                process efficiency, and task complexity. We combine LLM-as-a-judge with quantitative
+                                metrics for robust assessment.
+                            </p>
+
+                            <h3>File Upload & Storage</h3>
+                            <p><strong>Current Demo Mode:</strong> This demonstration website uses browser LocalStorage to simulate submissions. Files are not actually uploaded or stored.</p>
+
+                            <p><strong>For Production Deployment:</strong></p>
+                            <ul>
+                                <li><strong>Backend Required:</strong> You'll need to set up a backend server (Node.js, Python Flask/Django, etc.) to handle file uploads</li>
+                                <li><strong>File Storage Options:</strong>
+                                    <ul>
+                                        <li>Cloud storage: AWS S3, Google Cloud Storage, Azure Blob Storage</li>
+                                        <li>GitHub Large File Storage (LFS) for version-controlled datasets</li>
+                                        <li>Institutional data repositories</li>
+                                        <li>Self-hosted file server</li>
+                                    </ul>
+                                </li>
+                                <li><strong>File Size Limits:</strong>
+                                    <ul>
+                                        <li>Recommended: &lt; 500MB per dataset</li>
+                                        <li>Ground truth images: ~5-10MB each (PNG format)</li>
+                                        <li>Total per submission: &lt; 1GB recommended</li>
+                                        <li>Limits depend on your hosting solution and budget</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Access:</strong> Files would be stored in a structured directory (e.g., <code>submissions/{submission-id}/</code>) and accessible via API or direct download</li>
+                            </ul>
+
+                            <p>See our <a href="https://github.com/KuangshiAi/SciVisAgentBench" target="_blank">GitHub repository</a> for backend integration examples and deployment guides.</p>
+
+                            <h3>Team</h3>
+                            <p>
+                                This project is a collaboration between University of Notre Dame,
+                                Lawrence Livermore National Laboratory, and Vanderbilt University.
+                            </p>
+
+                            <div class="paper-links">
+                                <a href="https://github.com/KuangshiAi/SciVisAgentBench" class="btn btn-primary" target="_blank">
+                                    View on GitHub
+                                </a>
+                                <a href="https://arxiv.org/abs/2509.15160" class="btn btn-secondary" target="_blank">
+                                    Read Position Paper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>SciVisAgentBench</h4>
+                    <p>Building the future of scientific visualization agents through comprehensive evaluation.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="https://github.com/KuangshiAi/SciVisAgentBench">GitHub Repository</a></li>
+                        <li><a href="https://github.com/KuangshiAi/SciVisAgentBench-tasks">Task Repository</a></li>
+                        <li><a href="https://arxiv.org/abs/2509.15160" target="_blank">Position Paper</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>For questions or collaboration inquiries, please contact us via GitHub.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SciVisAgentBench. Released under CC BY 4.0 License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK (version 9.22.0 - compatible with compat API) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+
+    <!-- Firebase Configuration - UPDATE THIS WITH YOUR CONFIG -->
+    <script src="firebase-config.js"></script>
+
+    <!-- Firebase Integration - Handles uploads and database -->
+    <script src="firebase-integration.js"></script>
+
+    <!-- Main Application Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
