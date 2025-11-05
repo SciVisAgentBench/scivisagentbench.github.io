@@ -196,7 +196,7 @@ function validateSubmission(submission) {
     return true;
 }
 
-async function saveSubmission(submission, files) {
+window.saveSubmission = async function(submission, files) {
     // This function will be overridden by firebase-integration.js if Firebase is available
     // Fallback to localStorage if Firebase is not initialized
 
@@ -218,15 +218,19 @@ async function saveSubmission(submission, files) {
     appState.submissions = submissions;
 
     console.log('Saved to localStorage (demo mode)');
-}
+};
 
-function loadSubmissions() {
+window.loadSubmissions = function() {
     // This function will be overridden by firebase-integration.js if Firebase is available
     // Fallback to localStorage
     const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
     appState.submissions = submissions;
     console.log('Loaded from localStorage (demo mode)');
-}
+};
+
+// Create aliases for internal use
+const saveSubmission = window.saveSubmission;
+const loadSubmissions = window.loadSubmissions;
 
 // Dashboard Updates
 function updateDashboard() {
