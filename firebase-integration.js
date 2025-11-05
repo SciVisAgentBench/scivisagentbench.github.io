@@ -315,16 +315,17 @@ window.loadSubmissions = async function() {
 // ==========================================
 
 // Load submissions from Firebase when page loads
-if (typeof firebase !== 'undefined' && db && storage) {
-    console.log('Firebase integration active');
+// Wait for firebase-config.js to complete initialization
+setTimeout(() => {
+    if (typeof firebase !== 'undefined' && db && storage) {
+        console.log('Firebase integration active');
 
-    // Load submissions immediately
-    setTimeout(() => {
+        // Load submissions
         loadSubmissions();
-    }, 100);
-} else {
-    console.warn('Firebase not initialized - check firebase-config.js');
-}
+    } else {
+        console.warn('Firebase not initialized - check firebase-config.js');
+    }
+}, 500);
 
 // Export functions for use in other scripts
 window.firebaseIntegration = {
