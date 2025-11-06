@@ -1,348 +1,187 @@
-// Firebase Integration for SciVisAgentBench
-// This file replaces localStorage with Firebase Firestore and Storage
+// Firebase Integration - Simple and Clean
+// Replaces localStorage functions with Firebase versions
 
-// ==========================================
-// FIREBASE FUNCTIONS
-// ==========================================
-
-/**
- * Save submission to Firebase
- * @param {Object} submission - The submission data
- * @param {Object} files - The file objects from the form
- * @returns {Promise<boolean>} - Success status
- */
-async function saveSubmissionToFirebase(submission, files) {
-    try {
-        const submissionId = generateId();
-
-        // Show progress
-        updateProgress('Uploading files...', 10);
-
-        // Upload files to Firebase Storage
-        const uploadedFileUrls = await uploadFilesToStorage(submissionId, files);
-
-        updateProgress('Saving submission data...', 80);
-
-        // Prepare submission data
-        const submissionData = {
-            ...submission,
-            id: submissionId,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            files: uploadedFileUrls
-        };
-
-        // Save to Firestore
-        await db.collection('submissions').doc(submissionId).set(submissionData);
-
-        updateProgress('Complete!', 100);
-
-        console.log('Submission saved successfully:', submissionId);
-        return true;
-
-    } catch (error) {
-        console.error('Error saving submission:', error);
-        throw error;
-    }
+// Helper: Generate unique ID
+function generateFirebaseId() {
+    return Date.now().toString(36) + Math.random().toString(36).substring(2);
 }
 
-/**
- * Upload files to Firebase Storage
- * @param {string} submissionId - Unique submission ID
- * @param {Object} files - File objects
- * @returns {Promise<Object>} - URLs of uploaded files
- */
-async function uploadFilesToStorage(submissionId, files) {
-    const uploadedFiles = {
-        sourceData: null,
-        groundTruthImages: [],
-        vizEngineState: null,
-        metadataFile: null
-    };
-
-    let progress = 10;
-
-    // Upload source data file
-    if (files.sourceData) {
-        updateProgress('Uploading source data...', progress);
-        const url = await uploadFile(
-            files.sourceData,
-            `submissions/${submissionId}/source/${files.sourceData.name}`
-        );
-        uploadedFiles.sourceData = {
-            name: files.sourceData.name,
-            url: url,
-            size: files.sourceData.size,
-            type: files.sourceData.type
-        };
-        progress += 20;
-    }
-
-    // Upload ground truth images
-    if (files.groundTruthImages && files.groundTruthImages.length > 0) {
-        updateProgress('Uploading ground truth images...', progress);
-        for (const file of files.groundTruthImages) {
-            const url = await uploadFile(
-                file,
-                `submissions/${submissionId}/groundtruth/${file.name}`
-            );
-            uploadedFiles.groundTruthImages.push({
-                name: file.name,
-                url: url,
-                size: file.size,
-                type: file.type
-            });
-        }
-        progress += 30;
-    }
-
-    // Upload visualization engine state
-    if (files.vizEngineState) {
-        updateProgress('Uploading visualization state...', progress);
-        const url = await uploadFile(
-            files.vizEngineState,
-            `submissions/${submissionId}/state/${files.vizEngineState.name}`
-        );
-        uploadedFiles.vizEngineState = {
-            name: files.vizEngineState.name,
-            url: url,
-            size: files.vizEngineState.size,
-            type: files.vizEngineState.type
-        };
-        progress += 10;
-    }
-
-    // Upload metadata file
-    if (files.metadataFile) {
-        updateProgress('Uploading metadata...', progress);
-        const url = await uploadFile(
-            files.metadataFile,
-            `submissions/${submissionId}/metadata/${files.metadataFile.name}`
-        );
-        uploadedFiles.metadataFile = {
-            name: files.metadataFile.name,
-            url: url,
-            size: files.metadataFile.size,
-            type: files.metadataFile.type
-        };
-        progress += 10;
-    }
-
-    return uploadedFiles;
+// Helper: Upload a file to Firebase Storage
+async function uploadFileToStorage(file, path) {
+    const storageRef = window.firebaseStorage.ref(path);
+    await storageRef.put(file);
+    const url = await storageRef.getDownloadURL();
+    return url;
 }
 
-/**
- * Upload a single file to Firebase Storage
- * @param {File} file - The file to upload
- * @param {string} path - Storage path
- * @returns {Promise<string>} - Download URL
- */
-async function uploadFile(file, path) {
-    const storageRef = storage.ref(path);
+// Helper: Show upload progress
+function showUploadProgress(message, percent) {
+    let progressEl = document.getElementById('upload-progress-bar');
 
-    // Upload file
-    const uploadTask = await storageRef.put(file, {
-        contentType: file.type
-    });
-
-    // Get download URL
-    const downloadURL = await uploadTask.ref.getDownloadURL();
-
-    return downloadURL;
-}
-
-/**
- * Load all submissions from Firebase
- * @returns {Promise<Array>} - Array of submissions
- */
-async function loadSubmissionsFromFirebase() {
-    try {
-        const snapshot = await db.collection('submissions')
-            .orderBy('timestamp', 'desc')
-            .get();
-
-        const submissions = [];
-        snapshot.forEach(doc => {
-            const data = doc.data();
-            submissions.push({
-                id: doc.id,
-                ...data,
-                // Convert Firestore timestamp to ISO string
-                timestamp: data.timestamp ? data.timestamp.toDate().toISOString() : new Date().toISOString()
-            });
-        });
-
-        console.log(`Loaded ${submissions.length} submissions from Firebase`);
-        return submissions;
-
-    } catch (error) {
-        console.error('Error loading submissions:', error);
-        return [];
-    }
-}
-
-/**
- * Delete a submission (admin only - not exposed in UI)
- * @param {string} submissionId - Submission ID to delete
- */
-async function deleteSubmission(submissionId) {
-    try {
-        // Delete from Firestore
-        await db.collection('submissions').doc(submissionId).delete();
-
-        // Delete files from Storage (optional - can keep files)
-        const folderRef = storage.ref(`submissions/${submissionId}`);
-        const fileList = await folderRef.listAll();
-
-        const deletePromises = fileList.items.map(item => item.delete());
-        await Promise.all(deletePromises);
-
-        console.log('Submission deleted:', submissionId);
-        return true;
-
-    } catch (error) {
-        console.error('Error deleting submission:', error);
-        return false;
-    }
-}
-
-// ==========================================
-// PROGRESS INDICATOR
-// ==========================================
-
-/**
- * Show upload progress to user
- * @param {string} message - Progress message
- * @param {number} percent - Progress percentage (0-100)
- */
-function updateProgress(message, percent) {
-    // Create or update progress bar
-    let progressContainer = document.getElementById('upload-progress');
-
-    if (!progressContainer) {
-        progressContainer = document.createElement('div');
-        progressContainer.id = 'upload-progress';
-        progressContainer.style.cssText = `
+    if (!progressEl) {
+        const overlay = document.createElement('div');
+        overlay.id = 'upload-progress-bar';
+        overlay.style.cssText = `
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 10000;
-            min-width: 300px;
-            text-align: center;
         `;
-        document.body.appendChild(progressContainer);
+
+        overlay.innerHTML = `
+            <div style="background: white; padding: 2rem; border-radius: 0.5rem; min-width: 350px; text-align: center;">
+                <div id="progress-message" style="margin-bottom: 1rem; font-weight: 600; color: #2563eb;">${message}</div>
+                <div style="width: 100%; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden;">
+                    <div id="progress-fill" style="width: ${percent}%; height: 100%; background: #2563eb; transition: width 0.3s;"></div>
+                </div>
+                <div id="progress-percent" style="margin-top: 0.5rem; color: #64748b;">${percent}%</div>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+        progressEl = overlay;
+    } else {
+        document.getElementById('progress-message').textContent = message;
+        document.getElementById('progress-fill').style.width = percent + '%';
+        document.getElementById('progress-percent').textContent = percent + '%';
     }
 
-    progressContainer.innerHTML = `
-        <div style="margin-bottom: 1rem; font-weight: 600; color: #2563eb;">
-            ${message}
-        </div>
-        <div style="width: 100%; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden;">
-            <div style="width: ${percent}%; height: 100%; background: #2563eb; transition: width 0.3s;"></div>
-        </div>
-        <div style="margin-top: 0.5rem; font-size: 0.875rem; color: #64748b;">
-            ${percent}%
-        </div>
-    `;
-
-    // Remove progress bar when complete
     if (percent >= 100) {
         setTimeout(() => {
-            if (progressContainer && progressContainer.parentNode) {
-                progressContainer.parentNode.removeChild(progressContainer);
+            if (progressEl && progressEl.parentNode) {
+                progressEl.parentNode.removeChild(progressEl);
             }
         }, 1000);
     }
 }
 
-// ==========================================
-// OVERRIDE ORIGINAL FUNCTIONS
-// ==========================================
+// OVERRIDE: Save submission to Firebase
+if (window.firebaseReady) {
+    console.log('🔥 Firebase integration active - using cloud storage');
 
-// Replace the original saveSubmission function
-const originalSaveSubmission = window.saveSubmission;
-window.saveSubmission = async function(submission, files) {
-    // Debug: Check Firebase availability
-    console.log('🔍 DEBUG saveSubmission: firebase=', typeof firebase, 'db=', typeof db, 'storage=', typeof storage);
-    console.log('🔍 DEBUG values: db=', db, 'storage=', storage);
+    // Replace saveSubmission function
+    const originalSaveSubmission = saveSubmission;
+    saveSubmission = async function(submission, files) {
+        try {
+            const submissionId = generateFirebaseId();
 
-    // If Firebase is not initialized, fall back to localStorage
-    if (typeof firebase === 'undefined' || !db || !storage) {
-        console.warn('⚠️ Firebase not initialized, using localStorage. Reason:',
-            typeof firebase === 'undefined' ? 'firebase undefined' :
-            !db ? 'db is falsy' : 'storage is falsy');
-        if (originalSaveSubmission) {
-            return originalSaveSubmission(submission);
+            showUploadProgress('Preparing upload...', 10);
+
+            // Upload source data file
+            let sourceDataUrl = null;
+            if (files.sourceData) {
+                showUploadProgress('Uploading source data...', 20);
+                sourceDataUrl = await uploadFileToStorage(
+                    files.sourceData,
+                    `submissions/${submissionId}/source/${files.sourceData.name}`
+                );
+            }
+
+            // Upload ground truth images
+            showUploadProgress('Uploading ground truth images...', 50);
+            const groundTruthUrls = [];
+            if (files.groundTruthImages && files.groundTruthImages.length > 0) {
+                for (const file of files.groundTruthImages) {
+                    const url = await uploadFileToStorage(
+                        file,
+                        `submissions/${submissionId}/groundtruth/${file.name}`
+                    );
+                    groundTruthUrls.push({ name: file.name, url: url, size: file.size });
+                }
+            }
+
+            // Upload visualization state (optional)
+            let vizStateUrl = null;
+            if (files.vizEngineState) {
+                showUploadProgress('Uploading visualization state...', 70);
+                vizStateUrl = await uploadFileToStorage(
+                    files.vizEngineState,
+                    `submissions/${submissionId}/state/${files.vizEngineState.name}`
+                );
+            }
+
+            // Upload metadata file (optional)
+            let metadataUrl = null;
+            if (files.metadataFile) {
+                showUploadProgress('Uploading metadata...', 80);
+                metadataUrl = await uploadFileToStorage(
+                    files.metadataFile,
+                    `submissions/${submissionId}/metadata/${files.metadataFile.name}`
+                );
+            }
+
+            // Save to Firestore
+            showUploadProgress('Saving to database...', 90);
+            const submissionData = {
+                ...submission,
+                id: submissionId,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                files: {
+                    sourceData: sourceDataUrl ? {
+                        name: files.sourceData.name,
+                        url: sourceDataUrl,
+                        size: files.sourceData.size
+                    } : null,
+                    groundTruthImages: groundTruthUrls,
+                    vizEngineState: vizStateUrl ? {
+                        name: files.vizEngineState.name,
+                        url: vizStateUrl,
+                        size: files.vizEngineState.size
+                    } : null,
+                    metadataFile: metadataUrl ? {
+                        name: files.metadataFile.name,
+                        url: metadataUrl,
+                        size: files.metadataFile.size
+                    } : null
+                }
+            };
+
+            await window.firebaseDB.collection('submissions').doc(submissionId).set(submissionData);
+
+            showUploadProgress('Complete!', 100);
+            console.log('✅ Saved to Firebase:', submissionId);
+
+        } catch (error) {
+            console.error('❌ Firebase save failed:', error);
+            showUploadProgress('Upload failed', 0);
+            throw error;
         }
-        return;
-    }
+    };
 
-    try {
-        await saveSubmissionToFirebase(submission, files);
-        return true;
-    } catch (error) {
-        console.error('Firebase save failed:', error);
-        showError('Upload failed: ' + error.message);
-        return false;
-    }
-};
+    // Replace loadSubmissions function
+    const originalLoadSubmissions = loadSubmissions;
+    loadSubmissions = async function() {
+        try {
+            const snapshot = await window.firebaseDB.collection('submissions')
+                .orderBy('timestamp', 'desc')
+                .get();
 
-// Replace the original loadSubmissions function
-const originalLoadSubmissions = window.loadSubmissions;
-window.loadSubmissions = async function() {
-    // Debug: Check Firebase availability
-    console.log('🔍 DEBUG loadSubmissions: firebase=', typeof firebase, 'db=', typeof db, 'storage=', typeof storage);
-    console.log('🔍 DEBUG values: db=', db, 'storage=', storage);
+            const submissions = [];
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                submissions.push({
+                    id: doc.id,
+                    ...data,
+                    timestamp: data.timestamp ? data.timestamp.toDate().toISOString() : new Date().toISOString()
+                });
+            });
 
-    // If Firebase is not initialized, fall back to localStorage
-    if (typeof firebase === 'undefined' || !db || !storage) {
-        console.warn('⚠️ Firebase not initialized, using localStorage. Reason:',
-            typeof firebase === 'undefined' ? 'firebase undefined' :
-            !db ? 'db is falsy' : 'storage is falsy');
-        if (originalLoadSubmissions) {
+            appState.submissions = submissions;
+            console.log('📂 Loaded from Firebase:', submissions.length, 'submissions');
+
+        } catch (error) {
+            console.error('❌ Firebase load failed:', error);
+            console.log('⚠️ Falling back to localStorage');
             originalLoadSubmissions();
         }
-        return;
-    }
+    };
 
-    try {
-        const submissions = await loadSubmissionsFromFirebase();
-        appState.submissions = submissions;
-        updateDashboard();
-    } catch (error) {
-        console.error('Firebase load failed:', error);
-        // Fall back to localStorage
-        if (originalLoadSubmissions) {
-            originalLoadSubmissions();
-        }
-    }
-};
-
-// ==========================================
-// AUTO-LOAD ON PAGE READY
-// ==========================================
-
-// Load submissions from Firebase when page loads
-// Wait for firebase-config.js to complete initialization
-setTimeout(() => {
-    if (typeof firebase !== 'undefined' && db && storage) {
-        console.log('Firebase integration active');
-
-        // Load submissions
-        loadSubmissions();
-    } else {
-        console.warn('Firebase not initialized - check firebase-config.js');
-    }
-}, 500);
-
-// Export functions for use in other scripts
-window.firebaseIntegration = {
-    saveSubmission: saveSubmissionToFirebase,
-    loadSubmissions: loadSubmissionsFromFirebase,
-    deleteSubmission: deleteSubmission,
-    uploadFile: uploadFile
-};
+} else {
+    console.log('💾 Firebase not available - using localStorage');
+}

@@ -37,7 +37,7 @@ const appState = {
 document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
     initializeForm();
-    window.loadSubmissions();
+    loadSubmissions();
     updateDashboard();
 });
 
@@ -141,8 +141,8 @@ async function handleFormSubmission(form) {
     };
 
     try {
-        // Save to Firebase (or localStorage if Firebase not available)
-        await window.saveSubmission(submission, files);
+        // Save submission
+        await saveSubmission(submission, files);
 
         // Show success message
         showSuccess('Thank you for your contribution! Your dataset submission has been received.');
@@ -151,7 +151,7 @@ async function handleFormSubmission(form) {
         form.reset();
 
         // Update dashboard
-        await window.loadSubmissions();
+        await loadSubmissions();
         updateDashboard();
 
         // Navigate to dashboard
@@ -196,10 +196,7 @@ function validateSubmission(submission) {
     return true;
 }
 
-window.saveSubmission = async function(submission, files) {
-    // This function will be overridden by firebase-integration.js if Firebase is available
-    // Fallback to localStorage if Firebase is not initialized
-
+async function saveSubmission(submission, files) {
     // Add ID and timestamp
     submission.id = generateId();
     submission.timestamp = new Date().toISOString();
@@ -217,16 +214,14 @@ window.saveSubmission = async function(submission, files) {
     localStorage.setItem('submissions', JSON.stringify(submissions));
     appState.submissions = submissions;
 
-    console.log('Saved to localStorage (demo mode)');
-};
+    console.log('💾 Saved to localStorage');
+}
 
-window.loadSubmissions = function() {
-    // This function will be overridden by firebase-integration.js if Firebase is available
-    // Fallback to localStorage
+function loadSubmissions() {
     const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
     appState.submissions = submissions;
-    console.log('Loaded from localStorage (demo mode)');
-};
+    console.log('📂 Loaded from localStorage:', submissions.length, 'submissions');
+}
 
 // Dashboard Updates
 function updateDashboard() {

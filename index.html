@@ -603,18 +603,18 @@
         </div>
     </footer>
 
-    <!-- Firebase SDK (version 9.22.0 - compatible with compat API) -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 
-    <!-- Firebase Configuration - UPDATE THIS WITH YOUR CONFIG -->
-    <script src="firebase-config.js?v=4"></script>
-
-    <!-- Firebase Integration - Handles uploads and database -->
-    <script src="firebase-integration.js?v=4"></script>
+    <!-- Firebase Configuration -->
+    <script src="firebase-config.js"></script>
 
     <!-- Main Application Logic -->
-    <script src="script.js?v=4"></script>
+    <script src="script.js"></script>
+
+    <!-- Firebase Integration (loads last to override functions) -->
+    <script src="firebase-integration.js"></script>
 </body>
 </html>

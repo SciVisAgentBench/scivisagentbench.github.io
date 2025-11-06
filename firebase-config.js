@@ -1,6 +1,5 @@
 // Firebase Configuration
-// Project: scivisagentbench-datacollect
-// Updated: 2025-01-04
+// Initialize Firebase for SciVisAgentBench Data Collection
 
 const firebaseConfig = {
   apiKey: "AIzaSyAuGnZcdEJVC6txISHvYq58eVJCNzdxNdU",
@@ -13,22 +12,22 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let db, storage; // Declare globally so other scripts can access
+let db, storage;
 
 try {
   firebase.initializeApp(firebaseConfig);
-
-  // Get Firebase services
   db = firebase.firestore();
   storage = firebase.storage();
 
-  console.log('✅ Firebase initialized successfully!');
-  console.log('📦 Project ID:', firebaseConfig.projectId);
-  console.log('🔥 Firestore ready');
-  console.log('📁 Storage ready');
+  console.log('✅ Firebase initialized');
+  console.log('📦 Project:', firebaseConfig.projectId);
+
+  // Make available globally
+  window.firebaseDB = db;
+  window.firebaseStorage = storage;
+  window.firebaseReady = true;
 
 } catch (error) {
-  console.error('❌ Firebase initialization failed:', error);
-  console.error('Error details:', error.message);
-  alert('Firebase initialization failed. Check console for details.');
+  console.error('❌ Firebase initialization failed:', error.message);
+  window.firebaseReady = false;
 }
