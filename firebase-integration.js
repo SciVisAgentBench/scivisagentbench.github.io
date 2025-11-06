@@ -266,9 +266,15 @@ function updateProgress(message, percent) {
 // Replace the original saveSubmission function
 const originalSaveSubmission = window.saveSubmission;
 window.saveSubmission = async function(submission, files) {
+    // Debug: Check Firebase availability
+    console.log('🔍 DEBUG saveSubmission: firebase=', typeof firebase, 'db=', typeof db, 'storage=', typeof storage);
+    console.log('🔍 DEBUG values: db=', db, 'storage=', storage);
+
     // If Firebase is not initialized, fall back to localStorage
     if (typeof firebase === 'undefined' || !db || !storage) {
-        console.warn('Firebase not initialized, using localStorage');
+        console.warn('⚠️ Firebase not initialized, using localStorage. Reason:',
+            typeof firebase === 'undefined' ? 'firebase undefined' :
+            !db ? 'db is falsy' : 'storage is falsy');
         if (originalSaveSubmission) {
             return originalSaveSubmission(submission);
         }
@@ -288,9 +294,15 @@ window.saveSubmission = async function(submission, files) {
 // Replace the original loadSubmissions function
 const originalLoadSubmissions = window.loadSubmissions;
 window.loadSubmissions = async function() {
+    // Debug: Check Firebase availability
+    console.log('🔍 DEBUG loadSubmissions: firebase=', typeof firebase, 'db=', typeof db, 'storage=', typeof storage);
+    console.log('🔍 DEBUG values: db=', db, 'storage=', storage);
+
     // If Firebase is not initialized, fall back to localStorage
     if (typeof firebase === 'undefined' || !db || !storage) {
-        console.warn('Firebase not initialized, using localStorage');
+        console.warn('⚠️ Firebase not initialized, using localStorage. Reason:',
+            typeof firebase === 'undefined' ? 'firebase undefined' :
+            !db ? 'db is falsy' : 'storage is falsy');
         if (originalLoadSubmissions) {
             originalLoadSubmissions();
         }
