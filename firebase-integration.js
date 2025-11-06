@@ -119,20 +119,9 @@ if (window.firebaseReady) {
             // Save to Firestore
             showUploadProgress('Saving to database...', 90);
 
-            // Clean submission object - remove any File objects that might have slipped through
-            const cleanSubmission = {};
-            for (const [key, value] of Object.entries(submission)) {
-                if (!(value instanceof File) && !(value instanceof FileList)) {
-                    cleanSubmission[key] = value;
-                } else {
-                    console.log('⚠️ Filtered out File object in field:', key, value);
-                }
-            }
-
-            console.log('🔍 Clean submission:', cleanSubmission);
-
+            // Prepare submission data for Firestore
             const submissionData = {
-                ...cleanSubmission,
+                ...submission,
                 id: submissionId,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                 files: {
@@ -154,9 +143,6 @@ if (window.firebaseReady) {
                     } : null
                 }
             };
-
-            // Debug: Log what we're trying to save
-            console.log('🔍 Attempting to save:', JSON.stringify(submissionData, null, 2));
 
             await window.firebaseDB.collection('submissions').doc(submissionId).set(submissionData);
 

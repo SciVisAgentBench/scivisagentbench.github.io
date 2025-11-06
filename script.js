@@ -114,13 +114,8 @@ async function handleFormSubmission(form) {
     const formData = new FormData(form);
     const submission = {};
 
-    // Collect form data (skip file inputs)
+    // Collect form data
     for (let [key, value] of formData.entries()) {
-        // Skip file inputs - they will be handled separately
-        if (value instanceof File) {
-            continue;
-        }
-
         if (key === 'dataType' || key === 'attributeType' || key === 'taskTaxonomy') {
             if (!submission[key]) {
                 submission[key] = [];
