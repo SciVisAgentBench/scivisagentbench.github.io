@@ -241,10 +241,14 @@ if (window.firebaseReady) {
             appState.submissions = submissions;
             console.log('📂 Loaded from Firebase:', submissions.length, 'submissions');
 
+            // Update dashboard after loading data
+            updateDashboard();
+
         } catch (error) {
             console.error('❌ Firebase load failed:', error);
             console.log('⚠️ Falling back to localStorage');
             originalLoadSubmissions();
+            updateDashboard();
         }
     };
 

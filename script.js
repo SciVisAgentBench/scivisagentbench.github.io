@@ -37,8 +37,7 @@ const appState = {
 document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
     initializeForm();
-    loadSubmissions();
-    updateDashboard();
+    loadSubmissions(); // Will call updateDashboard() after loading
 });
 
 // Navigation
@@ -221,6 +220,9 @@ function loadSubmissions() {
     const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
     appState.submissions = submissions;
     console.log('📂 Loaded from localStorage:', submissions.length, 'submissions');
+
+    // Update dashboard after loading data
+    updateDashboard();
 }
 
 // Dashboard Updates
