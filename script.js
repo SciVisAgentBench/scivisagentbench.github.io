@@ -17,7 +17,8 @@ const appState = {
             'geometry-topology': 0,
             'attribute-computation': 0,
             'representation-mapping': 0,
-            'smoothing-enhancement': 0
+            'smoothing-enhancement': 0,
+            'view-rendering': 0
         },
         workflowTasks: {
             'data-exploration': 0,
@@ -28,6 +29,7 @@ const appState = {
             'verification-validation': 0,
             'data-processing': 0,
             'communication': 0,
+            'uncertainty-quantification': 0,
             'scientific-insights': 0
         }
     }
@@ -252,7 +254,8 @@ function calculateStats() {
             'geometry-topology': 0,
             'attribute-computation': 0,
             'representation-mapping': 0,
-            'smoothing-enhancement': 0
+            'smoothing-enhancement': 0,
+            'view-rendering': 0
         },
         workflowTasks: {
             'data-exploration': 0,
@@ -263,6 +266,7 @@ function calculateStats() {
             'verification-validation': 0,
             'data-processing': 0,
             'communication': 0,
+            'uncertainty-quantification': 0,
             'scientific-insights': 0
         }
     };
@@ -313,7 +317,8 @@ function updateCategoryStats() {
         'geometry-topology': 'Geometry & Topology Transformation',
         'attribute-computation': 'Attribute Computation & Derivation',
         'representation-mapping': 'Representation & Mapping',
-        'smoothing-enhancement': 'Smoothing & Enhancement'
+        'smoothing-enhancement': 'Smoothing & Enhancement',
+        'view-rendering': 'View / Rendering Manipulation'
     };
 
     const workflowLabels = {
@@ -325,6 +330,7 @@ function updateCategoryStats() {
         'verification-validation': 'Verification & Validation',
         'data-processing': 'Data Processing & Optimization',
         'communication': 'Communication & Dissemination',
+        'uncertainty-quantification': 'Uncertainty Quantification & Visualization',
         'scientific-insights': 'Scientific Insights'
     };
 
