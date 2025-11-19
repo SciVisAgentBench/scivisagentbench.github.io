@@ -140,6 +140,10 @@ if (window.firebaseReady) {
                     description: submission.taskDescription || '',
                     evaluationCriteria: submission.evalCriteria || ''
                 },
+                evaluation: {
+                    useImageMetrics: submission.useImageMetrics === 'true',
+                    cameraPositionInfo: submission.cameraPositionInfo || null
+                },
                 files: {
                     sourceData: files.sourceData ? {
                         name: files.sourceData.name,
@@ -151,6 +155,16 @@ if (window.firebaseReady) {
                         size: f.size,
                         type: f.type
                     })),
+                    groundTruthCode: files.groundTruthCode ? {
+                        name: files.groundTruthCode.name,
+                        size: files.groundTruthCode.size,
+                        type: files.groundTruthCode.type
+                    } : null,
+                    groundTruthAnswers: files.groundTruthAnswers ? {
+                        name: files.groundTruthAnswers.name,
+                        size: files.groundTruthAnswers.size,
+                        type: files.groundTruthAnswers.type
+                    } : null,
                     vizEngineState: files.vizEngineState ? {
                         name: files.vizEngineState.name,
                         size: files.vizEngineState.size,

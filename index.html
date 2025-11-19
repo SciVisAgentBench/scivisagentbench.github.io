@@ -357,7 +357,7 @@
                         <div class="form-section">
                             <h3>Task Description for LLM Agent *</h3>
                             <div class="form-group full-width">
-                                <label for="task-description">Provide a detailed natural language description of the visualization task *</label>
+                                <label for="task-description">Provide a detailed natural language description of the visualization task. If the agent must answer any questions, ensure they are formatted as either multiple-choice or yes/no questions *</label>
                                 <textarea id="task-description" name="taskDescription" rows="6" placeholder="Example: 'Load the dataset and create a volume rendering. Adjust the transfer function to show a potted tree with a brown pot, silver branches, and golden leaves.'" required></textarea>
                             </div>
                         </div>
@@ -372,14 +372,9 @@
                                     <small>Any format accepted: VTK, NIfTI, RAW, NRRD, HDF5, etc. (Max size: 5GB recommended)</small>
                                 </div>
                                 <div class="form-group full-width">
-                                    <label for="ground-truth-images">Ground Truth Images (multi-view) *</label>
-                                    <input type="file" id="ground-truth-images" multiple required>
-                                    <small>Any format accepted: PNG, JPG, TIFF, etc. Upload multiple views of the expected visualization</small>
-                                </div>
-                                <div class="form-group full-width">
                                     <label for="viz-engine-state">Visualization Engine State (ParaView state file, etc.)</label>
                                     <input type="file" id="viz-engine-state" accept=".pvsm,.py">
-                                    <small>Optional: ParaView state file or Python script</small>
+                                    <small>Optional: ParaView state file</small>
                                 </div>
                                 <div class="form-group full-width">
                                     <label for="metadata-file">Additional Metadata</label>
@@ -391,16 +386,34 @@
 
                         <!-- Evaluation Metrics -->
                         <div class="form-section">
-                            <h3>Evaluation Metrics *</h3>
+                            <h3>Outcome-Based Evaluation Metrics *</h3>
                             <div class="form-group full-width">
                                 <label for="eval-criteria">How should the agent's output be evaluated? *</label>
                                 <textarea id="eval-criteria" name="evalCriteria" rows="6" placeholder="Example: 1) Overall visualization quality (10 pts), 2) Correct color mapping for pot (5 pts), 3) Correct color for branches (5 pts), etc." required></textarea>
                             </div>
-                            <div class="form-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="useImageMetrics" value="true">
-                                    <span>Use quantitative image metrics (PSNR, SSIM, LPIPS)</span>
-                                </label>
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label for="ground-truth-images">Ground Truth Images (multi-view) *</label>
+                                    <input type="file" id="ground-truth-images" multiple required>
+                                    <small>Any format accepted: PNG, JPG, TIFF, etc. Upload multiple views of the expected visualization</small>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="use-image-metrics" name="useImageMetrics" value="true">
+                                        <span>Use quantitative image metrics (PSNR, SSIM, LPIPS)</span>
+                                    </label>
+                                    <textarea id="camera-position-info" name="cameraPositionInfo" rows="3" placeholder="Camera position parameters for capturing the GT image or any additional info (e.g., background color, lighting conditions, etc.)" style="display:none; margin-top: 10px;"></textarea>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="ground-truth-code">Ground Truth Visualization Code Script (If any)</label>
+                                    <input type="file" id="ground-truth-code" accept=".py,.pvsm,.ipynb,.m,.r">
+                                    <small>Optional: Python, ParaView, Jupyter Notebook, MATLAB, R, or other visualization code</small>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="ground-truth-answers">Ground Truth Answers for Questions (multi-choice or yes/no)</label>
+                                    <input type="file" id="ground-truth-answers" accept=".txt,.json,.yaml,.yml,.csv">
+                                    <small>Optional: File containing correct answers to any questions in the task description</small>
+                                </div>
                             </div>
                         </div>
 

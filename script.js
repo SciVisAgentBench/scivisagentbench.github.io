@@ -95,6 +95,15 @@ function initializeForm() {
         }
     });
 
+    // Show/hide camera position field when image metrics checkbox is checked
+    const imageMetricsCheckbox = document.getElementById('use-image-metrics');
+    if (imageMetricsCheckbox) {
+        imageMetricsCheckbox.addEventListener('change', function() {
+            const cameraPositionField = document.getElementById('camera-position-info');
+            cameraPositionField.style.display = this.checked ? 'block' : 'none';
+        });
+    }
+
     // Form submission
     form.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -128,6 +137,8 @@ async function handleFormSubmission(form) {
     const files = {
         sourceData: document.getElementById('source-data').files[0],
         groundTruthImages: Array.from(document.getElementById('ground-truth-images').files),
+        groundTruthCode: document.getElementById('ground-truth-code').files[0] || null,
+        groundTruthAnswers: document.getElementById('ground-truth-answers').files[0] || null,
         vizEngineState: document.getElementById('viz-engine-state').files[0] || null,
         metadataFile: document.getElementById('metadata-file').files[0] || null
     };
@@ -189,6 +200,8 @@ async function saveSubmission(submission, files) {
     submission.files = {
         sourceData: files.sourceData ? { name: files.sourceData.name, size: files.sourceData.size } : null,
         groundTruthImages: files.groundTruthImages.map(f => ({ name: f.name, size: f.size })),
+        groundTruthCode: files.groundTruthCode ? { name: files.groundTruthCode.name, size: files.groundTruthCode.size } : null,
+        groundTruthAnswers: files.groundTruthAnswers ? { name: files.groundTruthAnswers.name, size: files.groundTruthAnswers.size } : null,
         vizEngineState: files.vizEngineState ? { name: files.vizEngineState.name, size: files.vizEngineState.size } : null,
         metadataFile: files.metadataFile ? { name: files.metadataFile.name, size: files.metadataFile.size } : null
     };
