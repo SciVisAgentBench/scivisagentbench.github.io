@@ -358,7 +358,7 @@
                             <h3>Task Description for LLM Agent *</h3>
                             <div class="form-group full-width">
                                 <label for="task-description">Provide a detailed natural language description of the visualization task. If the agent must answer any questions, ensure they are formatted as either multiple-choice or yes/no questions *</label>
-                                <textarea id="task-description" name="taskDescription" rows="6" placeholder="Example: 'Load the dataset and create a volume rendering. Adjust the transfer function to show a potted tree with a brown pot, silver branches, and golden leaves.'" required></textarea>
+                                <textarea id="task-description" name="taskDescription" rows="8" placeholder="Example: 'Load the dataset and create a volume rendering. Adjust the transfer function to show a potted tree with a brown pot, silver branches, and golden leaves.'&#10;&#10;'How many cylinders are present in this engine dataset? (A) 2 (B) 4 (C) 6 (D) 8.'&#10;&#10;'Is there a visible vortex core near the center of the flow field? (Yes/No)'" required></textarea>
                             </div>
                         </div>
 
@@ -374,7 +374,7 @@
                                 <div class="form-group full-width">
                                     <label for="viz-engine-state">Visualization Engine State (ParaView state file, etc.)</label>
                                     <input type="file" id="viz-engine-state" accept=".pvsm,.py">
-                                    <small>Optional: ParaView state file</small>
+                                    <small>Optional: ParaView state file, or state files of other visualization engines</small>
                                 </div>
                                 <div class="form-group full-width">
                                     <label for="metadata-file">Additional Metadata</label>
@@ -411,8 +411,8 @@
                                 </div>
                                 <div class="form-group full-width">
                                     <label for="ground-truth-answers">Ground Truth Answers for Questions (multi-choice or yes/no)</label>
-                                    <input type="file" id="ground-truth-answers" accept=".txt,.json,.yaml,.yml,.csv">
-                                    <small>Optional: File containing correct answers to any questions in the task description</small>
+                                    <textarea id="ground-truth-answers" name="groundTruthAnswers" rows="4" placeholder="Optional: Provide the correct answers to any questions in the task description. &#10;&#10; Example: Question 1: (A) 2; Question 2: No"></textarea>
+                                    <small>Optional: Enter the correct answers to any questions in the task description</small>
                                 </div>
                             </div>
                         </div>
@@ -516,7 +516,7 @@
                 </div>
                 <div class="footer-section">
                     <h4>Contact</h4>
-                    <p>For questions or collaboration inquiries, please contact us via GitHub, or contact Kuangshi Ai <strong>via kai[at]nd[dot]edu.</strong></p>
+                    <p>For questions or collaboration inquiries, please contact us via GitHub, or contact Kuangshi Ai via <strong>kai@nd.edu</strong></p>
                 </div>
             </div>
             <div class="footer-bottom">

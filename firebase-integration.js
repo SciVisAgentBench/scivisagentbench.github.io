@@ -96,6 +96,16 @@ if (window.firebaseReady) {
                 }
             }
 
+            // Upload ground truth code (optional)
+            let groundTruthCodeUrl = null;
+            if (files.groundTruthCode) {
+                showUploadProgress('Uploading ground truth code...', 60);
+                groundTruthCodeUrl = await uploadFileToStorage(
+                    files.groundTruthCode,
+                    `submissions/${submissionId}/code/${files.groundTruthCode.name}`
+                );
+            }
+
             // Upload visualization state (optional)
             let vizStateUrl = null;
             if (files.vizEngineState) {
@@ -142,7 +152,8 @@ if (window.firebaseReady) {
                 },
                 evaluation: {
                     useImageMetrics: submission.useImageMetrics === 'true',
-                    cameraPositionInfo: submission.cameraPositionInfo || null
+                    cameraPositionInfo: submission.cameraPositionInfo || null,
+                    groundTruthAnswers: submission.groundTruthAnswers || null
                 },
                 files: {
                     sourceData: files.sourceData ? {
@@ -159,11 +170,6 @@ if (window.firebaseReady) {
                         name: files.groundTruthCode.name,
                         size: files.groundTruthCode.size,
                         type: files.groundTruthCode.type
-                    } : null,
-                    groundTruthAnswers: files.groundTruthAnswers ? {
-                        name: files.groundTruthAnswers.name,
-                        size: files.groundTruthAnswers.size,
-                        type: files.groundTruthAnswers.type
                     } : null,
                     vizEngineState: files.vizEngineState ? {
                         name: files.vizEngineState.name,
@@ -206,6 +212,11 @@ if (window.firebaseReady) {
                         size: files.sourceData.size
                     } : null,
                     groundTruthImages: groundTruthUrls,
+                    groundTruthCode: groundTruthCodeUrl ? {
+                        name: files.groundTruthCode.name,
+                        url: groundTruthCodeUrl,
+                        size: files.groundTruthCode.size
+                    } : null,
                     vizEngineState: vizStateUrl ? {
                         name: files.vizEngineState.name,
                         url: vizStateUrl,
