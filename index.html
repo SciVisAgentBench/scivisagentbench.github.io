@@ -186,22 +186,15 @@
                     <!-- Category Breakdown -->
                     <div class="category-grid">
                         <div class="category-card">
-                            <h3>Attribute Types</h3>
-                            <div class="category-stats" id="attribute-types-stats">
+                            <h3>Application Domains</h3>
+                            <div class="category-stats" id="application-domain-stats">
                                 <!-- Dynamically populated -->
                             </div>
                         </div>
 
                         <div class="category-card">
-                            <h3>Atomic Operations</h3>
-                            <div class="category-stats" id="atomic-operations-stats">
-                                <!-- Dynamically populated -->
-                            </div>
-                        </div>
-
-                        <div class="category-card category-card-wide">
-                            <h3>Workflow Tasks</h3>
-                            <div class="category-stats category-stats-grid" id="workflow-tasks-stats">
+                            <h3>Attribute Types</h3>
+                            <div class="category-stats" id="attribute-types-stats">
                                 <!-- Dynamically populated -->
                             </div>
                         </div>
@@ -329,96 +322,6 @@
                             </div>
                         </div>
 
-                        <!-- Data Type -->
-                        <div class="form-section">
-                            <h3>Data Type *</h3>
-                            <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">Select the data structure type(s)</p>
-
-                            <div class="form-group">
-                                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Structured Data</h4>
-                                <div class="checkbox-group">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="dataType" value="image-data">
-                                        <span>Image Data (uniform rectilinear grids)</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="dataType" value="rectilinear-grids">
-                                        <span>Rectilinear Grids</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="dataType" value="structured-grids">
-                                        <span>Structured Grids (curvilinear)</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="dataType" value="amr">
-                                        <span>AMR (Adaptive Mesh Refinement)</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Unstructured Data</h4>
-                                <div class="checkbox-group">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="dataType" value="unstructured-grids">
-                                        <span>Unstructured Grids (arbitrary cell types)</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="dataType" value="polygonal-data">
-                                        <span>Polygonal Data (surfaces, meshes)</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="dataType" value="point-clouds">
-                                        <span>Point Clouds</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Specialized Types</h4>
-                                <div class="checkbox-group">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="dataType" value="hyper-tree-grids">
-                                        <span>Hyper-tree Grids</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="dataType" value="composite-datasets">
-                                        <span>Composite/Multi-block Datasets</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="dataType" value="graph-network">
-                                        <span>Graph/Network Data</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="dataType" value="other">
-                                        <span>Other (please specify)</span>
-                                    </label>
-                                </div>
-                                <input type="text" id="data-type-other" name="dataTypeOther" placeholder="Specify other data type" style="display:none; margin-top: 10px;">
-                            </div>
-                        </div>
-
-                        <!-- Temporal Dimension -->
-                        <div class="form-section">
-                            <h3>Temporal Dimension *</h3>
-                            <div class="form-group">
-                                <div class="checkbox-group">
-                                    <label class="checkbox-label">
-                                        <input type="radio" name="temporalDimension" value="static" required>
-                                        <span>Static/Single-Timestep</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="radio" name="temporalDimension" value="time-series">
-                                        <span>Time-Series (multiple discrete steps)</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="radio" name="temporalDimension" value="time-dependent">
-                                        <span>Time-Dependent Processing (interpolation, particle tracing)</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Attribute Types -->
                         <div class="form-section">
                             <h3>Attribute Types *</h3>
@@ -441,116 +344,12 @@
                                         <input type="checkbox" name="attributeType" value="multivariate">
                                         <span>Multi-variate/Multi-field (multiple scalar/vector fields)</span>
                                     </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Task Taxonomy -->
-                        <div class="form-section">
-                            <h3>Task Taxonomy *</h3>
-                            <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">Select the type(s) of visualization/analysis tasks</p>
-
-                            <div class="form-group">
-                                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Atomic Operations</h4>
-                                <div class="checkbox-group">
                                     <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="extraction-subsetting">
-                                        <span>Extraction & Subsetting</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="geometry-topology">
-                                        <span>Geometry & Topology Transformation</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="attribute-computation">
-                                        <span>Attribute Computation & Derivation</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="representation-mapping">
-                                        <span>Representation & Mapping</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="smoothing-enhancement">
-                                        <span>Smoothing & Enhancement</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="view-rendering">
-                                        <span>View / Rendering Manipulation</span>
+                                        <input type="checkbox" name="attributeType" value="other">
+                                        <span>Other (please specify)</span>
                                     </label>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Workflow</h4>
-                                <div class="checkbox-group">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="data-exploration">
-                                        <span>Data Understanding & Exploration</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="analysis-quantification">
-                                        <span>Analysis & Quantification</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="feature-extraction">
-                                        <span>Feature Extraction & Tracking</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="comparative-temporal">
-                                        <span>Comparative & Temporal Analysis</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="flow-transport">
-                                        <span>Flow & Transport Analysis</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="verification-validation">
-                                        <span>Verification & Validation</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="data-processing">
-                                        <span>Data Processing & Optimization</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="communication">
-                                        <span>Communication & Dissemination</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="uncertainty-quantification">
-                                        <span>Uncertainty Quantification & Visualization</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <h4 style="font-size: 1rem; margin-bottom: 0.75rem;">Scientific Insights</h4>
-                                <div class="checkbox-group">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="taskTaxonomy" value="scientific-insights">
-                                        <span>Scientific Insights (application-specific questions derived from analysis)</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Task Complexity -->
-                        <div class="form-section">
-                            <h3>Task Complexity *</h3>
-                            <div class="form-group">
-                                <div class="checkbox-group">
-                                    <label class="checkbox-label">
-                                        <input type="radio" name="complexity" value="easy" required>
-                                        <span class="complexity-easy">Easy (single action, e.g., load data and apply filter)</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="radio" name="complexity" value="medium">
-                                        <span class="complexity-medium">Medium (workflow, sequence of actions)</span>
-                                    </label>
-                                    <label class="checkbox-label">
-                                        <input type="radio" name="complexity" value="hard">
-                                        <span class="complexity-hard">Hard (derive specific scientific insight from data)</span>
-                                    </label>
-                                </div>
+                                <input type="text" id="attribute-type-other" name="attributeTypeOther" placeholder="Specify other attribute type" style="display:none; margin-top: 10px;">
                             </div>
                         </div>
 

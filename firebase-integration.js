@@ -132,16 +132,13 @@ if (window.firebaseReady) {
                     applicationDomain: submission.applicationDomain
                 },
                 taxonomy: {
-                    dataType: submission.dataType,
-                    temporalDimension: submission.temporalDimension,
-                    attributeType: submission.attributeType,
-                    taskTaxonomy: submission.taskTaxonomy,
-                    dataTypeOther: submission.dataTypeOther || null
+                    attributeType: submission.attributeType || [],
+                    attributeTypeOther: submission.attributeTypeOther || null,
+                    applicationDomainOther: submission.applicationDomainOther || null
                 },
                 task: {
-                    description: submission.taskDescription,
-                    complexity: submission.taskComplexity,
-                    evaluationCriteria: submission.evalCriteria
+                    description: submission.taskDescription || '',
+                    evaluationCriteria: submission.evalCriteria || ''
                 },
                 files: {
                     sourceData: files.sourceData ? {

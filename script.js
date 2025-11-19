@@ -6,31 +6,22 @@ const appState = {
         totalDatasets: 0,
         totalContributors: 0,
         totalTasks: 0,
+        applicationDomains: {
+            'simulation': 0,
+            'medical': 0,
+            'molecular': 0,
+            'climate': 0,
+            'materials': 0,
+            'astronomy': 0,
+            'geoscience': 0,
+            'other': 0
+        },
         attributeTypes: {
             'scalar-fields': 0,
             'vector-fields': 0,
             'tensor-fields': 0,
-            'multivariate': 0
-        },
-        atomicOperations: {
-            'extraction-subsetting': 0,
-            'geometry-topology': 0,
-            'attribute-computation': 0,
-            'representation-mapping': 0,
-            'smoothing-enhancement': 0,
-            'view-rendering': 0
-        },
-        workflowTasks: {
-            'data-exploration': 0,
-            'analysis-quantification': 0,
-            'feature-extraction': 0,
-            'comparative-temporal': 0,
-            'flow-transport': 0,
-            'verification-validation': 0,
-            'data-processing': 0,
-            'communication': 0,
-            'uncertainty-quantification': 0,
-            'scientific-insights': 0
+            'multivariate': 0,
+            'other': 0
         }
     }
 };
@@ -84,7 +75,7 @@ function navigateToPage(pageName) {
 function initializeForm() {
     const form = document.getElementById('submission-form');
     const applicationDomainRadios = document.querySelectorAll('input[name="applicationDomain"]');
-    const dataTypeCheckboxes = document.querySelectorAll('input[name="dataType"]');
+    const attributeTypeCheckboxes = document.querySelectorAll('input[name="attributeType"]');
 
     // Show/hide "other" field for application domain
     applicationDomainRadios.forEach(radio => {
@@ -94,11 +85,11 @@ function initializeForm() {
         });
     });
 
-    // Show/hide "other" field for data type
-    dataTypeCheckboxes.forEach(checkbox => {
+    // Show/hide "other" field for attribute type
+    attributeTypeCheckboxes.forEach(checkbox => {
         if (checkbox.value === 'other') {
             checkbox.addEventListener('change', function() {
-                const otherField = document.getElementById('data-type-other');
+                const otherField = document.getElementById('attribute-type-other');
                 otherField.style.display = this.checked ? 'block' : 'none';
             });
         }
@@ -117,7 +108,7 @@ async function handleFormSubmission(form) {
 
     // Collect form data
     for (let [key, value] of formData.entries()) {
-        if (key === 'dataType' || key === 'attributeType' || key === 'taskTaxonomy') {
+        if (key === 'attributeType') {
             if (!submission[key]) {
                 submission[key] = [];
             }
@@ -171,7 +162,7 @@ function validateSubmission(submission) {
         'contributorInstitution',
         'datasetName',
         'datasetDescription',
-        'temporalDimension',
+        'applicationDomain',
         'taskDescription',
         'evalCriteria'
     ];
@@ -182,15 +173,7 @@ function validateSubmission(submission) {
         }
     }
 
-    if (!submission.dataType || submission.dataType.length === 0) {
-        return false;
-    }
-
     if (!submission.attributeType || submission.attributeType.length === 0) {
-        return false;
-    }
-
-    if (!submission.taskTaxonomy || submission.taskTaxonomy.length === 0) {
         return false;
     }
 
@@ -243,55 +226,37 @@ function calculateStats() {
         totalDatasets: submissions.length,
         totalContributors: new Set(submissions.map(s => s.contributorEmail)).size,
         totalTasks: submissions.length,
+        applicationDomains: {
+            'simulation': 0,
+            'medical': 0,
+            'molecular': 0,
+            'climate': 0,
+            'materials': 0,
+            'astronomy': 0,
+            'geoscience': 0,
+            'other': 0
+        },
         attributeTypes: {
             'scalar-fields': 0,
             'vector-fields': 0,
             'tensor-fields': 0,
-            'multivariate': 0
-        },
-        atomicOperations: {
-            'extraction-subsetting': 0,
-            'geometry-topology': 0,
-            'attribute-computation': 0,
-            'representation-mapping': 0,
-            'smoothing-enhancement': 0,
-            'view-rendering': 0
-        },
-        workflowTasks: {
-            'data-exploration': 0,
-            'analysis-quantification': 0,
-            'feature-extraction': 0,
-            'comparative-temporal': 0,
-            'flow-transport': 0,
-            'verification-validation': 0,
-            'data-processing': 0,
-            'communication': 0,
-            'uncertainty-quantification': 0,
-            'scientific-insights': 0
+            'multivariate': 0,
+            'other': 0
         }
     };
 
     // Calculate category stats
     submissions.forEach(submission => {
+        // Application domains
+        if (submission.applicationDomain && appState.stats.applicationDomains[submission.applicationDomain] !== undefined) {
+            appState.stats.applicationDomains[submission.applicationDomain]++;
+        }
+
         // Attribute types
         if (submission.attributeType) {
             submission.attributeType.forEach(type => {
                 if (appState.stats.attributeTypes[type] !== undefined) {
                     appState.stats.attributeTypes[type]++;
-                }
-            });
-        }
-
-        // Task taxonomy
-        if (submission.taskTaxonomy) {
-            submission.taskTaxonomy.forEach(task => {
-                // Check if it's an atomic operation
-                if (appState.stats.atomicOperations[task] !== undefined) {
-                    appState.stats.atomicOperations[task]++;
-                }
-                // Check if it's a workflow task
-                if (appState.stats.workflowTasks[task] !== undefined) {
-                    appState.stats.workflowTasks[task]++;
                 }
             });
         }
@@ -305,73 +270,54 @@ function updateStatsDisplay() {
 }
 
 function updateCategoryStats() {
+    const domainLabels = {
+        'simulation': 'Simulation',
+        'medical': 'Medical',
+        'molecular': 'Molecular',
+        'climate': 'Climate',
+        'materials': 'Materials Science',
+        'astronomy': 'Astronomy',
+        'geoscience': 'Geoscience',
+        'other': 'Other'
+    };
+
     const attributeLabels = {
         'scalar-fields': 'Scalar Fields',
         'vector-fields': 'Vector Fields',
         'tensor-fields': 'Tensor Fields',
-        'multivariate': 'Multi-variate/Multi-field'
+        'multivariate': 'Multi-variate/Multi-field',
+        'other': 'Other'
     };
 
-    const atomicLabels = {
-        'extraction-subsetting': 'Extraction & Subsetting',
-        'geometry-topology': 'Geometry & Topology Transformation',
-        'attribute-computation': 'Attribute Computation & Derivation',
-        'representation-mapping': 'Representation & Mapping',
-        'smoothing-enhancement': 'Smoothing & Enhancement',
-        'view-rendering': 'View / Rendering Manipulation'
-    };
+    // Application Domains - only show items with count > 0
+    const applicationDomainContainer = document.getElementById('application-domain-stats');
+    if (applicationDomainContainer) {
+        const domainItems = Object.entries(appState.stats.applicationDomains)
+            .filter(([key, count]) => count > 0)
+            .map(([key, count]) => `
+                <div class="stat-item">
+                    <span class="count">${count}</span>
+                    <span class="label">${domainLabels[key]}</span>
+                </div>
+            `).join('');
 
-    const workflowLabels = {
-        'data-exploration': 'Data Understanding & Exploration',
-        'analysis-quantification': 'Analysis & Quantification',
-        'feature-extraction': 'Feature Extraction & Tracking',
-        'comparative-temporal': 'Comparative & Temporal Analysis',
-        'flow-transport': 'Flow & Transport Analysis',
-        'verification-validation': 'Verification & Validation',
-        'data-processing': 'Data Processing & Optimization',
-        'communication': 'Communication & Dissemination',
-        'uncertainty-quantification': 'Uncertainty Quantification & Visualization',
-        'scientific-insights': 'Scientific Insights'
-    };
+        applicationDomainContainer.innerHTML = domainItems || '<div class="stat-item"><span class="label" style="color: var(--text-tertiary);">No data yet</span></div>';
+    }
 
     // Attribute Types - only show items with count > 0
     const attributeTypesContainer = document.getElementById('attribute-types-stats');
-    const attributeItems = Object.entries(appState.stats.attributeTypes)
-        .filter(([key, count]) => count > 0)
-        .map(([key, count]) => `
-            <div class="stat-item">
-                <span class="count">${count}</span>
-                <span class="label">${attributeLabels[key]}</span>
-            </div>
-        `).join('');
+    if (attributeTypesContainer) {
+        const attributeItems = Object.entries(appState.stats.attributeTypes)
+            .filter(([key, count]) => count > 0)
+            .map(([key, count]) => `
+                <div class="stat-item">
+                    <span class="count">${count}</span>
+                    <span class="label">${attributeLabels[key]}</span>
+                </div>
+            `).join('');
 
-    attributeTypesContainer.innerHTML = attributeItems || '<div class="stat-item"><span class="label" style="color: var(--text-tertiary);">No data yet</span></div>';
-
-    // Atomic Operations - only show items with count > 0
-    const atomicOperationsContainer = document.getElementById('atomic-operations-stats');
-    const atomicItems = Object.entries(appState.stats.atomicOperations)
-        .filter(([key, count]) => count > 0)
-        .map(([key, count]) => `
-            <div class="stat-item">
-                <span class="count">${count}</span>
-                <span class="label">${atomicLabels[key]}</span>
-            </div>
-        `).join('');
-
-    atomicOperationsContainer.innerHTML = atomicItems || '<div class="stat-item"><span class="label" style="color: var(--text-tertiary);">No data yet</span></div>';
-
-    // Workflow Tasks - only show items with count > 0
-    const workflowTasksContainer = document.getElementById('workflow-tasks-stats');
-    const workflowItems = Object.entries(appState.stats.workflowTasks)
-        .filter(([key, count]) => count > 0)
-        .map(([key, count]) => `
-            <div class="stat-item">
-                <span class="count">${count}</span>
-                <span class="label">${workflowLabels[key]}</span>
-            </div>
-        `).join('');
-
-    workflowTasksContainer.innerHTML = workflowItems || '<div class="stat-item"><span class="label" style="color: var(--text-tertiary);">No data yet</span></div>';
+        attributeTypesContainer.innerHTML = attributeItems || '<div class="stat-item"><span class="label" style="color: var(--text-tertiary);">No data yet</span></div>';
+    }
 }
 
 function updateContributorsTable() {
@@ -550,11 +496,7 @@ function loadSampleData() {
                 datasetName: 'Cardiac MRI Isosurface',
                 datasetDescription: 'High-resolution cardiac MRI scan for isosurface extraction and visualization',
                 applicationDomain: 'medical',
-                dataType: ['image-data'],
-                temporalDimension: 'static',
                 attributeType: ['scalar-fields'],
-                taskTaxonomy: ['extraction-subsetting', 'representation-mapping', 'data-exploration'],
-                complexity: 'medium',
                 taskDescription: 'Load the cardiac MRI dataset and extract isosurfaces at intensity value 150 to visualize the heart chambers. Apply appropriate color mapping.',
                 evalCriteria: 'Correct isosurface value (10 pts), Chamber visibility (10 pts), Color mapping quality (5 pts)',
                 timestamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
@@ -567,11 +509,7 @@ function loadSampleData() {
                 datasetName: 'CFD Flow Analysis',
                 datasetDescription: 'Computational fluid dynamics simulation with velocity and vorticity fields',
                 applicationDomain: 'simulation',
-                dataType: ['structured-grids'],
-                temporalDimension: 'time-series',
                 attributeType: ['vector-fields'],
-                taskTaxonomy: ['attribute-computation', 'representation-mapping', 'flow-transport', 'feature-extraction'],
-                complexity: 'hard',
                 taskDescription: 'Compute vorticity from the velocity field and visualize using streamlines. Identify and track vortex cores across timesteps.',
                 evalCriteria: 'Correct vorticity computation (15 pts), Streamline quality (10 pts), Vortex identification (10 pts)',
                 timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
@@ -584,11 +522,7 @@ function loadSampleData() {
                 datasetName: 'Brain Tumor Segmentation',
                 datasetDescription: 'MRI brain scan with tumor region requiring segmentation and quantification',
                 applicationDomain: 'medical',
-                dataType: ['image-data'],
-                temporalDimension: 'static',
                 attributeType: ['scalar-fields'],
-                taskTaxonomy: ['extraction-subsetting', 'analysis-quantification', 'representation-mapping'],
-                complexity: 'medium',
                 taskDescription: 'Threshold the MRI data to segment tumor tissue (intensity > 200), extract the connected region, and compute tumor volume.',
                 evalCriteria: 'Correct segmentation threshold (10 pts), Tumor extraction (15 pts), Volume measurement accuracy (10 pts)',
                 timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString()
@@ -601,11 +535,7 @@ function loadSampleData() {
                 datasetName: 'Molecular Stress Tensor Analysis',
                 datasetDescription: 'Molecular dynamics simulation with stress tensor fields',
                 applicationDomain: 'molecular',
-                dataType: ['unstructured-grids'],
-                temporalDimension: 'time-dependent',
                 attributeType: ['tensor-fields'],
-                taskTaxonomy: ['attribute-computation', 'representation-mapping', 'comparative-temporal'],
-                complexity: 'hard',
                 taskDescription: 'Compute eigenvalues and eigenvectors of the stress tensor field. Visualize using tensor glyphs and track principal stress directions over time.',
                 evalCriteria: 'Correct eigenvalue computation (15 pts), Tensor glyph visualization (10 pts), Temporal tracking (10 pts)',
                 timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
