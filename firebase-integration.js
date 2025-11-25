@@ -73,18 +73,21 @@ if (window.firebaseReady) {
 
             showUploadProgress('Preparing upload...', 10);
 
-            // Upload source data file
-            let sourceDataUrl = null;
-            if (files.sourceData) {
-                showUploadProgress('Uploading source data...', 20);
-                sourceDataUrl = await uploadFileToStorage(
-                    files.sourceData,
-                    `submissions/${submissionId}/source/${files.sourceData.name}`
-                );
+            // Upload source data files (now multiple)
+            showUploadProgress('Uploading source data files...', 20);
+            const sourceDataUrls = [];
+            if (files.sourceData && files.sourceData.length > 0) {
+                for (const file of files.sourceData) {
+                    const url = await uploadFileToStorage(
+                        file,
+                        `submissions/${submissionId}/source/${file.name}`
+                    );
+                    sourceDataUrls.push({ name: file.name, url: url, size: file.size });
+                }
             }
 
-            // Upload ground truth images
-            showUploadProgress('Uploading ground truth images...', 50);
+            // Upload ground truth images (already multiple)
+            showUploadProgress('Uploading ground truth images...', 40);
             const groundTruthUrls = [];
             if (files.groundTruthImages && files.groundTruthImages.length > 0) {
                 for (const file of files.groundTruthImages) {
@@ -96,34 +99,43 @@ if (window.firebaseReady) {
                 }
             }
 
-            // Upload ground truth code (optional)
-            let groundTruthCodeUrl = null;
-            if (files.groundTruthCode) {
-                showUploadProgress('Uploading ground truth code...', 60);
-                groundTruthCodeUrl = await uploadFileToStorage(
-                    files.groundTruthCode,
-                    `submissions/${submissionId}/code/${files.groundTruthCode.name}`
-                );
+            // Upload ground truth code files (now multiple)
+            showUploadProgress('Uploading ground truth code files...', 55);
+            const groundTruthCodeUrls = [];
+            if (files.groundTruthCode && files.groundTruthCode.length > 0) {
+                for (const file of files.groundTruthCode) {
+                    const url = await uploadFileToStorage(
+                        file,
+                        `submissions/${submissionId}/code/${file.name}`
+                    );
+                    groundTruthCodeUrls.push({ name: file.name, url: url, size: file.size });
+                }
             }
 
-            // Upload visualization state (optional)
-            let vizStateUrl = null;
-            if (files.vizEngineState) {
-                showUploadProgress('Uploading visualization state...', 70);
-                vizStateUrl = await uploadFileToStorage(
-                    files.vizEngineState,
-                    `submissions/${submissionId}/state/${files.vizEngineState.name}`
-                );
+            // Upload visualization state files (now multiple)
+            showUploadProgress('Uploading visualization state files...', 65);
+            const vizStateUrls = [];
+            if (files.vizEngineState && files.vizEngineState.length > 0) {
+                for (const file of files.vizEngineState) {
+                    const url = await uploadFileToStorage(
+                        file,
+                        `submissions/${submissionId}/state/${file.name}`
+                    );
+                    vizStateUrls.push({ name: file.name, url: url, size: file.size });
+                }
             }
 
-            // Upload user's additional metadata file (optional)
-            let additionalMetadataUrl = null;
-            if (files.metadataFile) {
-                showUploadProgress('Uploading additional metadata...', 75);
-                additionalMetadataUrl = await uploadFileToStorage(
-                    files.metadataFile,
-                    `submissions/${submissionId}/additional/${files.metadataFile.name}`
-                );
+            // Upload user's additional metadata files (now multiple)
+            showUploadProgress('Uploading additional metadata files...', 75);
+            const additionalMetadataUrls = [];
+            if (files.metadataFile && files.metadataFile.length > 0) {
+                for (const file of files.metadataFile) {
+                    const url = await uploadFileToStorage(
+                        file,
+                        `submissions/${submissionId}/additional/${file.name}`
+                    );
+                    additionalMetadataUrls.push({ name: file.name, url: url, size: file.size });
+                }
             }
 
             // Generate and upload metadata.json
@@ -156,31 +168,31 @@ if (window.firebaseReady) {
                     groundTruthAnswers: submission.groundTruthAnswers || null
                 },
                 files: {
-                    sourceData: files.sourceData ? {
-                        name: files.sourceData.name,
-                        size: files.sourceData.size,
-                        type: files.sourceData.type
-                    } : null,
+                    sourceData: files.sourceData.map(f => ({
+                        name: f.name,
+                        size: f.size,
+                        type: f.type
+                    })),
                     groundTruthImages: files.groundTruthImages.map(f => ({
                         name: f.name,
                         size: f.size,
                         type: f.type
                     })),
-                    groundTruthCode: files.groundTruthCode ? {
-                        name: files.groundTruthCode.name,
-                        size: files.groundTruthCode.size,
-                        type: files.groundTruthCode.type
-                    } : null,
-                    vizEngineState: files.vizEngineState ? {
-                        name: files.vizEngineState.name,
-                        size: files.vizEngineState.size,
-                        type: files.vizEngineState.type
-                    } : null,
-                    additionalMetadata: files.metadataFile ? {
-                        name: files.metadataFile.name,
-                        size: files.metadataFile.size,
-                        type: files.metadataFile.type
-                    } : null
+                    groundTruthCode: files.groundTruthCode.map(f => ({
+                        name: f.name,
+                        size: f.size,
+                        type: f.type
+                    })),
+                    vizEngineState: files.vizEngineState.map(f => ({
+                        name: f.name,
+                        size: f.size,
+                        type: f.type
+                    })),
+                    additionalMetadata: files.metadataFile.map(f => ({
+                        name: f.name,
+                        size: f.size,
+                        type: f.type
+                    }))
                 }
             };
 
@@ -206,27 +218,11 @@ if (window.firebaseReady) {
                         url: metadataJsonUrl,
                         size: metadataBlob.size
                     },
-                    sourceData: sourceDataUrl ? {
-                        name: files.sourceData.name,
-                        url: sourceDataUrl,
-                        size: files.sourceData.size
-                    } : null,
+                    sourceData: sourceDataUrls,
                     groundTruthImages: groundTruthUrls,
-                    groundTruthCode: groundTruthCodeUrl ? {
-                        name: files.groundTruthCode.name,
-                        url: groundTruthCodeUrl,
-                        size: files.groundTruthCode.size
-                    } : null,
-                    vizEngineState: vizStateUrl ? {
-                        name: files.vizEngineState.name,
-                        url: vizStateUrl,
-                        size: files.vizEngineState.size
-                    } : null,
-                    additionalMetadata: additionalMetadataUrl ? {
-                        name: files.metadataFile.name,
-                        url: additionalMetadataUrl,
-                        size: files.metadataFile.size
-                    } : null
+                    groundTruthCode: groundTruthCodeUrls,
+                    vizEngineState: vizStateUrls,
+                    additionalMetadata: additionalMetadataUrls
                 }
             };
 

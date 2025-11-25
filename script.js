@@ -133,13 +133,13 @@ async function handleFormSubmission(form) {
         return;
     }
 
-    // Collect file objects (not FormData entries)
+    // Collect file objects (not FormData entries) - all now support multiple files
     const files = {
-        sourceData: document.getElementById('source-data').files[0],
+        sourceData: Array.from(document.getElementById('source-data').files),
         groundTruthImages: Array.from(document.getElementById('ground-truth-images').files),
-        groundTruthCode: document.getElementById('ground-truth-code').files[0] || null,
-        vizEngineState: document.getElementById('viz-engine-state').files[0] || null,
-        metadataFile: document.getElementById('metadata-file').files[0] || null
+        groundTruthCode: Array.from(document.getElementById('ground-truth-code').files),
+        vizEngineState: Array.from(document.getElementById('viz-engine-state').files),
+        metadataFile: Array.from(document.getElementById('metadata-file').files)
     };
 
     try {
@@ -197,11 +197,11 @@ async function saveSubmission(submission, files) {
 
     // Store file metadata only (can't store actual files in localStorage)
     submission.files = {
-        sourceData: files.sourceData ? { name: files.sourceData.name, size: files.sourceData.size } : null,
+        sourceData: files.sourceData.map(f => ({ name: f.name, size: f.size })),
         groundTruthImages: files.groundTruthImages.map(f => ({ name: f.name, size: f.size })),
-        groundTruthCode: files.groundTruthCode ? { name: files.groundTruthCode.name, size: files.groundTruthCode.size } : null,
-        vizEngineState: files.vizEngineState ? { name: files.vizEngineState.name, size: files.vizEngineState.size } : null,
-        metadataFile: files.metadataFile ? { name: files.metadataFile.name, size: files.metadataFile.size } : null
+        groundTruthCode: files.groundTruthCode.map(f => ({ name: f.name, size: f.size })),
+        vizEngineState: files.vizEngineState.map(f => ({ name: f.name, size: f.size })),
+        metadataFile: files.metadataFile.map(f => ({ name: f.name, size: f.size }))
     };
 
     let submissions = JSON.parse(localStorage.getItem('submissions') || '[]');

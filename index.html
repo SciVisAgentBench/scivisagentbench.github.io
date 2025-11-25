@@ -368,18 +368,18 @@
                             <div class="form-grid">
                                 <div class="form-group full-width">
                                     <label for="source-data">Source Data File *</label>
-                                    <input type="file" id="source-data" required>
-                                    <small>Any format accepted: VTK, NIfTI, RAW, NRRD, HDF5, etc. (Max size: 5GB recommended)</small>
+                                    <input type="file" id="source-data" multiple required>
+                                    <small>Any format accepted: VTK, NIfTI, RAW, NRRD, HDF5, etc. Multiple files allowed (Max size: 5GB recommended per file)</small>
                                 </div>
                                 <div class="form-group full-width">
                                     <label for="viz-engine-state">Visualization Engine State (ParaView state file, etc.)</label>
-                                    <input type="file" id="viz-engine-state">
-                                    <small>Optional: Any format accepted (e.g., ParaView state file, or state files of other visualization engines)</small>
+                                    <input type="file" id="viz-engine-state" multiple>
+                                    <small>Optional: Any format accepted (e.g., ParaView state file, or state files of other visualization engines). Multiple files allowed</small>
                                 </div>
                                 <div class="form-group full-width">
                                     <label for="metadata-file">Additional Metadata</label>
-                                    <input type="file" id="metadata-file">
-                                    <small>Optional: Any format (JSON, YAML, TXT, etc.)</small>
+                                    <input type="file" id="metadata-file" multiple>
+                                    <small>Optional: Any format (JSON, YAML, TXT, etc.). Multiple files allowed</small>
                                 </div>
                             </div>
                         </div>
@@ -406,8 +406,8 @@
                                 </div>
                                 <div class="form-group full-width">
                                     <label for="ground-truth-code">Ground Truth Visualization Code Script (If any)</label>
-                                    <input type="file" id="ground-truth-code">
-                                    <small>Optional: Any format accepted (e.g., Python, ParaView, Jupyter Notebook, MATLAB, R, or other visualization code)</small>
+                                    <input type="file" id="ground-truth-code" multiple>
+                                    <small>Optional: Any format accepted (e.g., Python, ParaView, Jupyter Notebook, MATLAB, R, or other visualization code). Multiple files allowed</small>
                                 </div>
                                 <div class="form-group full-width">
                                     <label for="ground-truth-answers">Ground Truth Answers for Questions (multi-choice or yes/no)</label>
