@@ -30,3 +30,6 @@ yarn-error.log*
 # Temporary files
 *.tmp
 .cache/
+downloaded_submissions
+download_from_cloud.py
+statistics

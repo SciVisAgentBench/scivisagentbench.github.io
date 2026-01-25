@@ -16,6 +16,7 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#" data-page="dashboard" class="active">Dashboard</a></li>
+                <li><a href="#" data-page="contributions">Contributions</a></li>
                 <li><a href="#" data-page="submit">Submit Dataset</a></li>
                 <li><a href="#" data-page="about">About</a></li>
                 <li><a href="https://github.com/KuangshiAi/SciVisAgentBench" target="_blank">GitHub</a></li>
@@ -36,16 +37,16 @@
                             <h3 class="overview-title">Current Benchmark Coverage</h3>
                             <div class="overview-stats-highlight">
                                 <div class="highlight-item">
-                                    <span class="highlight-number">73</span>
+                                    <span class="highlight-number">165</span>
                                     <span class="highlight-label">Test Cases</span>
                                 </div>
                                 <div class="highlight-item">
                                     <span class="highlight-number">6</span>
-                                    <span class="highlight-label">Data Domains</span>
+                                    <span class="highlight-label">Categories</span>
                                 </div>
                                 <div class="highlight-item">
-                                    <span class="highlight-number">3</span>
-                                    <span class="highlight-label">Institutions</span>
+                                    <span class="highlight-number">8</span>
+                                    <span class="highlight-label">Application Domains</span>
                                 </div>
                             </div>
                         </div>
@@ -56,55 +57,55 @@
                                     <svg class="section-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                         <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" fill="currentColor"/>
                                     </svg>
-                                    Data Categories
+                                    Categories by Dataset
                                 </h4>
                                 <div class="category-grid-overview">
                                     <div class="category-item">
-                                        <div class="category-icon">🔬</div>
+                                        <div class="category-icon">🎯</div>
                                         <div class="category-content">
-                                            <div class="category-name">Simulation Data</div>
-                                            <div class="category-count">20 cases</div>
-                                            <div class="category-desc">CFD, physics simulations, FEM</div>
-                                        </div>
-                                    </div>
-                                    <div class="category-item">
-                                        <div class="category-icon">📦</div>
-                                        <div class="category-content">
-                                            <div class="category-name">Object Scans & Industrial CT</div>
-                                            <div class="category-count">19 cases</div>
-                                            <div class="category-desc">3D scanning, industrial imaging</div>
-                                        </div>
-                                    </div>
-                                    <div class="category-item">
-                                        <div class="category-icon">🏥</div>
-                                        <div class="category-content">
-                                            <div class="category-name">Medical Imaging</div>
-                                            <div class="category-count">11 cases</div>
-                                            <div class="category-desc">CT, MRI, medical visualization</div>
+                                            <div class="category-name">Main</div>
+                                            <div class="category-count">16 cases</div>
+                                            <div class="category-desc">Core workflow tasks</div>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="category-icon">📊</div>
                                         <div class="category-content">
-                                            <div class="category-name">Geometry & Synthetic</div>
-                                            <div class="category-count">10 cases</div>
-                                            <div class="category-desc">Charts, I/O tests, shapes</div>
+                                            <div class="category-name">ChatVis Bench</div>
+                                            <div class="category-count">20 cases</div>
+                                            <div class="category-desc">Charts, I/O tests</div>
+                                        </div>
+                                    </div>
+                                    <div class="category-item">
+                                        <div class="category-icon">🔬</div>
+                                        <div class="category-content">
+                                            <div class="category-name">Sci Volume Data</div>
+                                            <div class="category-count">39 cases</div>
+                                            <div class="category-desc">Scientific volume rendering</div>
+                                        </div>
+                                    </div>
+                                    <div class="category-item">
+                                        <div class="category-icon">🔀</div>
+                                        <div class="category-content">
+                                            <div class="category-name">Topology</div>
+                                            <div class="category-count">2 cases</div>
+                                            <div class="category-desc">Topological analysis</div>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="category-icon">🧬</div>
                                         <div class="category-content">
-                                            <div class="category-name">Molecular & Biological</div>
-                                            <div class="category-count">11 cases</div>
-                                            <div class="category-desc">Molecular dynamics, microscopy</div>
+                                            <div class="category-name">Bioimage Data</div>
+                                            <div class="category-count">44 cases</div>
+                                            <div class="category-desc">Biological microscopy</div>
                                         </div>
                                     </div>
                                     <div class="category-item">
-                                        <div class="category-icon">🌍</div>
+                                        <div class="category-icon">⚛️</div>
                                         <div class="category-content">
-                                            <div class="category-name">Climate & Geospatial</div>
-                                            <div class="category-count">4 cases</div>
-                                            <div class="category-desc">Climate science, geospatial data</div>
+                                            <div class="category-name">Molecular Vis</div>
+                                            <div class="category-count">44 cases</div>
+                                            <div class="category-desc">Molecular structures</div>
                                         </div>
                                     </div>
                                 </div>
@@ -113,40 +114,171 @@
                             <div class="overview-section">
                                 <h4 class="section-header">
                                     <svg class="section-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                        <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" fill="currentColor"/>
+                                        <path d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z" fill="currentColor"/>
                                     </svg>
-                                    Contributing Institutions
+                                    Application Domain Distribution
                                 </h4>
-                                <div class="institution-grid">
-                                    <div class="institution-card">
-                                        <div class="institution-name">Argonne National Laboratory</div>
-                                        <div class="institution-abbr">ANL</div>
-                                        <div class="institution-count">20 cases</div>
+                                <div class="domain-stats-grid">
+                                    <div class="stat-item-small"><span class="stat-label">Biology</span> <span class="stat-count">57 (34.5%)</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Chemistry</span> <span class="stat-count">45 (27.3%)</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Physics</span> <span class="stat-count">23 (13.9%)</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Medical Science</span> <span class="stat-count">13 (7.9%)</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Others</span> <span class="stat-count">17 (10.3%)</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Mathematics</span> <span class="stat-count">9 (5.5%)</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Astronomy</span> <span class="stat-count">3 (1.8%)</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Earth System Science</span> <span class="stat-count">1 (0.6%)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="overview-section">
+                                <h4 class="section-header">
+                                    <svg class="section-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" fill="currentColor"/>
+                                        <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" fill="currentColor"/>
+                                    </svg>
+                                    Task Difficulty Distribution
+                                </h4>
+                                <div class="domain-stats-grid">
+                                    <div class="stat-item-small"><span class="stat-label">Atomic Operation</span> <span class="stat-count">111 (67.3%)</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Workflow</span> <span class="stat-count">54 (32.7%)</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Scientific Insights</span> <span class="stat-count">7 (4.2%)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="overview-section">
+                                <h4 class="section-header">
+                                    <svg class="section-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" fill="currentColor"/>
+                                    </svg>
+                                    Data Type Distribution
+                                </h4>
+                                <div class="domain-stats-grid">
+                                    <div class="stat-item-small"><span class="stat-label">Scalar Fields</span> <span class="stat-count">114</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Multi-variate</span> <span class="stat-count">90</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Time-varying</span> <span class="stat-count">31</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Vector Fields</span> <span class="stat-count">5</span></div>
+                                </div>
+                                <p class="note-text">Note: Cases can have multiple data type tags</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Test Cases Browser with Filters -->
+                    <div class="test-cases-browser">
+                        <div class="browser-header">
+                            <h3 class="browser-title">Browse Test Cases</h3>
+                            <p class="browser-description">Filter and explore all 165 test cases in the benchmark</p>
+                        </div>
+
+                        <div class="filters-container">
+                            <div class="filters-grid">
+                                <!-- Category Filter -->
+                                <div class="filter-panel">
+                                    <h4 class="filter-title">Category</h4>
+                                    <div class="filter-options" id="filter-category-options">
+                                        <label class="filter-checkbox"><input type="checkbox" value="main"> Main <span class="count">(16)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="chatvis_bench"> ChatVis Bench <span class="count">(20)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="sci_volume_data"> Sci Volume Data <span class="count">(39)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="topology"> Topology <span class="count">(2)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="bioimage_data"> Bioimage Data <span class="count">(44)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="molecular_vis"> Molecular Vis <span class="count">(44)</span></label>
                                     </div>
-                                    <div class="institution-card">
-                                        <div class="institution-name">Lawrence Livermore National Laboratory</div>
-                                        <div class="institution-abbr">LLNL</div>
-                                        <div class="institution-count">42 cases</div>
+                                </div>
+
+                                <!-- Application Domain Filter -->
+                                <div class="filter-panel">
+                                    <h4 class="filter-title">Application Domain</h4>
+                                    <div class="filter-options" id="filter-domain-options">
+                                        <label class="filter-checkbox"><input type="checkbox" value="Biology"> Biology <span class="count">(57)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Chemistry"> Chemistry <span class="count">(45)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Physics"> Physics <span class="count">(23)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Medical Science"> Medical Science <span class="count">(13)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Others"> Others <span class="count">(17)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Mathematics"> Mathematics <span class="count">(9)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Astronomy"> Astronomy <span class="count">(3)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Earth System Science"> Earth System Science <span class="count">(1)</span></label>
                                     </div>
-                                    <div class="institution-card">
-                                        <div class="institution-name">University of Notre Dame</div>
-                                        <div class="institution-abbr">Notre Dame</div>
-                                        <div class="institution-count">11 cases</div>
+                                </div>
+
+                                <!-- Task Difficulty Filter -->
+                                <div class="filter-panel">
+                                    <h4 class="filter-title">Task Difficulty Level</h4>
+                                    <div class="filter-options" id="filter-difficulty-options">
+                                        <label class="filter-checkbox"><input type="checkbox" value="Atomic operation"> Atomic Operation <span class="count">(111)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Workflow"> Workflow <span class="count">(54)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Scientific Insights"> Scientific Insights <span class="count">(7)</span></label>
+                                    </div>
+                                </div>
+
+                                <!-- Data Type Filter -->
+                                <div class="filter-panel">
+                                    <h4 class="filter-title">Data Type</h4>
+                                    <div class="filter-options" id="filter-datatype-options">
+                                        <label class="filter-checkbox"><input type="checkbox" value="Scalar Fields"> Scalar Fields <span class="count">(114)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Multi-variate"> Multi-variate <span class="count">(90)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Time-varying"> Time-varying <span class="count">(31)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Vector Fields"> Vector Fields <span class="count">(5)</span></label>
+                                    </div>
+                                </div>
+
+                                <!-- Visualization Operations Filter -->
+                                <div class="filter-panel filter-panel-wide">
+                                    <h4 class="filter-title">Visualization Operations</h4>
+                                    <div class="filter-options filter-options-grid" id="filter-operation-options">
+                                        <label class="filter-checkbox"><input type="checkbox" value="Color Mapping"> Color Mapping <span class="count">(96)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Volume Representation"> Volume Representation <span class="count">(51)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Object identification"> Object Identification <span class="count">(39)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Spatial/temporal Extraction"> Spatial/Temporal Extraction <span class="count">(39)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="View / Rendering Manipulation"> View/Rendering Manipulation <span class="count">(19)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Structural Operations"> Structural Operations <span class="count">(18)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Glyph-Based Representation"> Glyph-Based Representation <span class="count">(15)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Geometric Primitives"> Geometric Primitives <span class="count">(13)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Scalar Operations"> Scalar Operations <span class="count">(12)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Value-Based Selection"> Value-Based Selection <span class="count">(10)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Advanced Computations"> Advanced Computations <span class="count">(8)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Time-Dependent Processing"> Time-Dependent Processing <span class="count">(8)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Smoothing & enhancement"> Smoothing & Enhancement <span class="count">(4)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Field Derivatives"> Field Derivatives <span class="count">(3)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Plot Drawing"> Plot Drawing <span class="count">(3)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Topological Changes"> Topological Changes <span class="count">(2)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Sampling"> Sampling <span class="count">(2)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Geometric Modification"> Geometric Modification <span class="count">(1)</span></label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="contributors-footer">
-                                <svg class="footer-icon" width="16" height="16" viewBox="0 0 20 20" fill="none">
-                                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" fill="currentColor"/>
-                                </svg>
-                                <span><strong>Contributors:</strong> Tom Peterka (ANL), Haichao Miao (LLNL), Shusen Liu (LLNL), Kuangshi Ai (Notre Dame), Kaiyuan Tang (Notre Dame)</span>
+                            <div class="filter-actions">
+                                <button id="clear-filters" class="btn btn-secondary">Clear All Filters</button>
+                                <span id="filter-count" class="filter-count">Showing 165 of 165 cases</span>
                             </div>
+                        </div>
+
+                        <div class="test-cases-table-container">
+                            <table class="test-cases-table">
+                                <thead>
+                                    <tr>
+                                        <th>Case Name</th>
+                                        <th>Category</th>
+                                        <th>Application Domain</th>
+                                        <th>Task Difficulty</th>
+                                        <th>Visualization Operations</th>
+                                        <th>Data Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="test-cases-tbody">
+                                    <tr class="loading-state">
+                                        <td colspan="6">Loading test cases...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </section>
+        </div>
 
+        <!-- Contributions Page -->
+        <div id="page-contributions" class="page">
             <!-- Hero Section -->
             <section class="hero">
                 <div class="container">

@@ -2,6 +2,8 @@
 const appState = {
     submissions: [],
     currentPage: 'dashboard',
+    testCases: [],
+    filteredTestCases: [],
     stats: {
         totalDatasets: 0,
         totalContributors: 0,
@@ -31,6 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
     initializeForm();
     loadSubmissions(); // Will call updateDashboard() after loading
+    loadTestCases(); // Load test cases from CSV
+    initializeFilters(); // Initialize filter functionality
 });
 
 // Navigation
@@ -561,3 +565,286 @@ function loadSampleData() {
 
 // Uncomment to load sample data on first visit
 // loadSampleData();
+
+// Test Cases Loading and Filtering
+
+async function loadTestCases() {
+    try {
+        const response = await fetch('statistics/final_correct.csv');
+        const csvText = await response.text();
+        const testCases = parseCSV(csvText);
+        appState.testCases = testCases;
+        appState.filteredTestCases = testCases;
+        renderTestCases(testCases);
+        updateFilterCount();
+    } catch (error) {
+        console.error('Error loading test cases:', error);
+        document.getElementById('test-cases-tbody').innerHTML = `
+            <tr class="loading-state">
+                <td colspan="6">Error loading test cases. Please check the CSV file path.</td>
+            </tr>
+        `;
+    }
+}
+
+function parseCSV(csvText) {
+    const lines = csvText.split('\n');
+    const testCases = [];
+    let currentCategory = '';
+
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+
+        // Skip empty lines
+        if (!line) continue;
+
+        // Check if this is a category header
+        if (line.startsWith('main,') || line.startsWith('chatvis_bench,') ||
+            line.startsWith('sci_volume_data,') || line.startsWith('topology,') ||
+            line.startsWith('bioimage_data,') || line.startsWith('molecular_vis,')) {
+            currentCategory = line.split(',')[0];
+            // Skip the next line which is the column headers
+            i++;
+            continue;
+        }
+
+        // Parse case data
+        const parts = parseCSVLine(line);
+        if (parts.length >= 4 && parts[0] && currentCategory) {
+            const caseName = parts[0];
+            const application = parts[1];
+            const task = parts[2];
+            const data = parts[3];
+
+            // Skip if case name is empty or is header
+            if (!caseName || caseName === 'Case Name') continue;
+
+            testCases.push({
+                category: currentCategory,
+                caseName: caseName,
+                application: extractApplicationDomains(application),
+                task: task,
+                data: data,
+                taskDifficulty: extractTaskDifficulty(task),
+                visualizationOps: extractVisualizationOps(task),
+                dataTypes: extractDataTypes(data)
+            });
+        }
+    }
+
+    return testCases;
+}
+
+function parseCSVLine(line) {
+    const parts = [];
+    let current = '';
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+
+        if (char === '"') {
+            inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+            parts.push(current.trim());
+            current = '';
+        } else {
+            current += char;
+        }
+    }
+
+    parts.push(current.trim());
+    return parts;
+}
+
+function extractApplicationDomains(applicationString) {
+    // Split by semicolon and clean up
+    return applicationString.split(';').map(domain => domain.trim()).filter(domain => domain);
+}
+
+function extractTaskDifficulty(taskString) {
+    const difficulties = [];
+    if (taskString.includes('Atomic operation')) difficulties.push('Atomic operation');
+    if (taskString.includes('Workflow')) difficulties.push('Workflow');
+    if (taskString.includes('Scientific Insights')) difficulties.push('Scientific Insights');
+    return difficulties;
+}
+
+function extractVisualizationOps(taskString) {
+    const operations = [];
+    const operationTypes = [
+        'Color Mapping', 'Volume Representation', 'Object identification',
+        'Spatial/temporal Extraction', 'View / Rendering Manipulation',
+        'Structural Operations', 'Glyph-Based Representation',
+        'Geometric Primitives', 'Scalar Operations', 'Value-Based Selection',
+        'Advanced Computations', 'Time-Dependent Processing',
+        'Smoothing & enhancement', 'Field Derivatives', 'Plot Drawing',
+        'Topological Changes', 'Sampling', 'Geometric Modification'
+    ];
+
+    for (const op of operationTypes) {
+        if (taskString.includes(op)) {
+            operations.push(op);
+        }
+    }
+
+    return operations;
+}
+
+function extractDataTypes(dataString) {
+    const types = [];
+    if (dataString.includes('Scalar Fields')) types.push('Scalar Fields');
+    if (dataString.includes('Vector Fields')) types.push('Vector Fields');
+    if (dataString.includes('Multi-variate')) types.push('Multi-variate');
+    if (dataString.includes('Time-varying')) types.push('Time-varying');
+    if (dataString.includes('Tensor Fields')) types.push('Tensor Fields');
+    return types;
+}
+
+function renderTestCases(testCases) {
+    const tbody = document.getElementById('test-cases-tbody');
+
+    if (!testCases || testCases.length === 0) {
+        tbody.innerHTML = `
+            <tr class="loading-state">
+                <td colspan="6">No test cases found.</td>
+            </tr>
+        `;
+        return;
+    }
+
+    const rows = testCases.map(testCase => {
+        // Format category name
+        const categoryNames = {
+            'main': 'Main',
+            'chatvis_bench': 'ChatVis Bench',
+            'sci_volume_data': 'Sci Volume Data',
+            'topology': 'Topology',
+            'bioimage_data': 'Bioimage Data',
+            'molecular_vis': 'Molecular Vis'
+        };
+        const categoryTag = `<span class="tag tag-category">${categoryNames[testCase.category] || testCase.category}</span>`;
+
+        const applicationTags = testCase.application && testCase.application.length > 0
+            ? testCase.application.map(app => `<span class="tag">${escapeHtml(app)}</span>`).join('')
+            : '-';
+
+        const taskDifficultyTags = testCase.taskDifficulty.map(d =>
+            `<span class="tag">${d}</span>`
+        ).join('');
+
+        const visualizationOpsTags = testCase.visualizationOps.map(op =>
+            `<span class="tag">${op}</span>`
+        ).join('');
+
+        const dataTypesTags = testCase.dataTypes.map(dt =>
+            `<span class="tag">${dt}</span>`
+        ).join('');
+
+        return `
+            <tr>
+                <td><span class="case-name">${escapeHtml(testCase.caseName)}</span></td>
+                <td>${categoryTag}</td>
+                <td>${applicationTags}</td>
+                <td>${taskDifficultyTags || '-'}</td>
+                <td>${visualizationOpsTags || '-'}</td>
+                <td>${dataTypesTags || '-'}</td>
+            </tr>
+        `;
+    }).join('');
+
+    tbody.innerHTML = rows;
+}
+
+function initializeFilters() {
+    const clearButton = document.getElementById('clear-filters');
+
+    if (clearButton) {
+        clearButton.addEventListener('click', clearFilters);
+    }
+
+    // Add change event listeners to all checkboxes for real-time filtering
+    const allCheckboxes = document.querySelectorAll('.filter-checkbox input[type="checkbox"]');
+    allCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', applyFilters);
+    });
+}
+
+function applyFilters() {
+    // Get selected checkboxes from each filter group
+    const categoryCheckboxes = document.querySelectorAll('#filter-category-options input[type="checkbox"]:checked');
+    const domainCheckboxes = document.querySelectorAll('#filter-domain-options input[type="checkbox"]:checked');
+    const difficultyCheckboxes = document.querySelectorAll('#filter-difficulty-options input[type="checkbox"]:checked');
+    const operationCheckboxes = document.querySelectorAll('#filter-operation-options input[type="checkbox"]:checked');
+    const dataTypeCheckboxes = document.querySelectorAll('#filter-datatype-options input[type="checkbox"]:checked');
+
+    const categoryFilter = Array.from(categoryCheckboxes).map(cb => cb.value);
+    const domainFilter = Array.from(domainCheckboxes).map(cb => cb.value);
+    const difficultyFilter = Array.from(difficultyCheckboxes).map(cb => cb.value);
+    const operationFilter = Array.from(operationCheckboxes).map(cb => cb.value);
+    const dataTypeFilter = Array.from(dataTypeCheckboxes).map(cb => cb.value);
+
+    let filtered = appState.testCases;
+
+    // Apply category filter - case must match at least one selected category
+    if (categoryFilter.length > 0) {
+        filtered = filtered.filter(tc =>
+            categoryFilter.includes(tc.category)
+        );
+    }
+
+    // Apply domain filter - case must have ALL selected domains
+    // Application domain can be single or multiple values (array)
+    if (domainFilter.length > 0) {
+        filtered = filtered.filter(tc =>
+            domainFilter.every(domain => tc.application.includes(domain))
+        );
+    }
+
+    // Apply difficulty filter - case must have ALL selected difficulties
+    if (difficultyFilter.length > 0) {
+        filtered = filtered.filter(tc =>
+            difficultyFilter.every(difficulty => tc.taskDifficulty.includes(difficulty))
+        );
+    }
+
+    // Apply operation filter - case must have ALL selected operations
+    if (operationFilter.length > 0) {
+        filtered = filtered.filter(tc =>
+            operationFilter.every(operation => tc.visualizationOps.includes(operation))
+        );
+    }
+
+    // Apply data type filter - case must have ALL selected data types
+    if (dataTypeFilter.length > 0) {
+        filtered = filtered.filter(tc =>
+            dataTypeFilter.every(dataType => tc.dataTypes.includes(dataType))
+        );
+    }
+
+    appState.filteredTestCases = filtered;
+    renderTestCases(filtered);
+    updateFilterCount();
+}
+
+function clearFilters() {
+    // Uncheck all checkboxes
+    const allCheckboxes = document.querySelectorAll('.filter-checkbox input[type="checkbox"]');
+    allCheckboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+    // Reset filtered cases
+    appState.filteredTestCases = appState.testCases;
+    renderTestCases(appState.testCases);
+    updateFilterCount();
+}
+
+function updateFilterCount() {
+    const countElement = document.getElementById('filter-count');
+    if (countElement) {
+        const total = appState.testCases.length;
+        const filtered = appState.filteredTestCases.length;
+        countElement.textContent = `Showing ${filtered} of ${total} cases`;
+    }
+}
