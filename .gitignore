@@ -32,4 +32,3 @@ yarn-error.log*
 .cache/
 downloaded_submissions
 download_from_cloud.py
-statistics
