@@ -68,7 +68,7 @@
 | Scalar Fields | 114 |
 | Vector Fields | 5 |
 | Tensor Fields | 0 |
-| Multi-variate | 90 |
+| Multivariate | 90 |
 | Time-varying | 31 |
 
 *Note: Cases can have multiple data type tags*
@@ -136,7 +136,7 @@
 **Data Types:**
 - Scalar Fields: 16
 - Vector Fields: 2
-- Multi-variate: 2
+- Multivariate: 2
 - Time-varying: 2
 
 ### sci_volume_data
@@ -208,7 +208,7 @@
 
 **Data Types:**
 - Scalar Fields: 44
-- Multi-variate: 44
+- Multivariate: 44
 - Time-varying: 29
 
 ### molecular_vis
@@ -236,7 +236,7 @@
 - View / Rendering Manipulation: 4
 
 **Data Types:**
-- Multi-variate: 44
+- Multivariate: 44
 
 ## Key Insights
 

@@ -44,7 +44,7 @@
    * Tensor Fields (matrix at each point)
       * Stress, strain, diffusion tensors
       * Visualized via tensor glyphs, eigenvalue analysis
-   * Multi-variate/Multi-field/Multi-modal
+   * Multivariate/Multi-field/Multi-modal
       * Multiple scalar/vector fields
       * High-dimensional data visualization by analyzing multiple dimensions all at once
 * Data Ensemble

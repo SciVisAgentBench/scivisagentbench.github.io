@@ -33,7 +33,7 @@ TASK2_CATEGORIES = [
     'Object identification'
 ]
 
-DATA_TYPES = ['Scalar Fields', 'Vector Fields', 'Tensor Fields', 'Multi-variate', 'Time-varying']
+DATA_TYPES = ['Scalar Fields', 'Vector Fields', 'Tensor Fields', 'Multivariate', 'Time-varying']
 
 def normalize_tag(tag):
     """Normalize tag capitalization and spacing."""
@@ -65,7 +65,7 @@ def normalize_tag(tag):
         'scalar fields': 'Scalar Fields',
         'vector fields': 'Vector Fields',
         'tensor fields': 'Tensor Fields',
-        'multi-variate': 'Multi-variate',
+        'Multivariate': 'Multivariate',
         'time-varying': 'Time-varying'
     }
 

@@ -29,8 +29,8 @@ import-gltf,Others,Workflow; Structural Operations; View / Rendering Manipulatio
 ml-iso,Others,Workflow; Value-Based Selection,Scalar Fields
 render-histogram,Mathematics,Workflow; Plot Drawing; Scalar Operations,Scalar Fields
 stream-glyph,Physics,Workflow; Time-Dependent Processing; Glyph-Based Representation; Geometric Primitives; Color Mapping,Vector Fields
-color-blocks,Others,Workflow; Color Mapping; Structural Operations,Multi-variate
-line-plot,Physics,Workflow; Plot Drawing; Sampling,Multi-variate
+color-blocks,Others,Workflow; Color Mapping; Structural Operations,Multivariate
+line-plot,Physics,Workflow; Plot Drawing; Sampling,Multivariate
 ml-slice-iso,Others,Workflow; Spatial/temporal Extraction; Geometric Primitives,Scalar Fields
 reset-camera-direction,Mathematics,Workflow; View / Rendering Manipulation,Scalar Fields
 subseries-of-time-series,Physics,Workflow; Spatial/temporal Extraction; Structural Operations; Time-Dependent Processing,Scalar Fields; Time-varying
@@ -89,94 +89,94 @@ QMCPack,Mathematics; Physics,Workflow; Scientific Insights; Field Derivatives; S
 ,,,
 bioimage_data,,,
 Case Name,Application,Task,Data
-open_file - Load a multi-dimensional image file (T; Z; Y; X; C),Biology,Atomic operation; Structural Operations,Scalar Fields; Multi-variate
-delete layers - Delete all loaded layers from the viewer,Biology,Atomic operation; Structural Operations,Scalar Fields; Multi-variate; Time-varying
-open_file - Load a single image file,Biology,Atomic operation; Structural Operations,Scalar Fields; Multi-variate; Time-varying
-list_layers - Get information about loaded layers,Biology,Atomic operation; Scalar Operations,Scalar Fields; Multi-variate; Time-varying
-Z-stack Navigation - Scroll through different depths,Biology,Atomic operation; Spatial/temporal Extraction,Scalar Fields; Multi-variate; Time-varying
-Time Series Navigation - Navigate through time points,Biology,Atomic operation; Time-Dependent Processing,Scalar Fields; Multi-variate; Time-varying
-set_colormap - Change layer colormap,Biology,Atomic operation; Color Mapping,Scalar Fields; Multi-variate; Time-varying
-set_opacity - Adjust layer transparency,Biology,Atomic operation; Color Mapping,Scalar Fields; Multi-variate; Time-varying
-set_blending - Change layer blending mode,Biology,Atomic operation; Color Mapping,Scalar Fields; Multi-variate; Time-varying
-auto_contrast - Auto-adjust contrast,Biology,Atomic operation; Smoothing & enhancement,Scalar Fields; Multi-variate; Time-varying
-set_contrast_limits - Set specific contrast limits,Biology,Atomic operation; Color Mapping,Scalar Fields; Multi-variate; Time-varying
-set_gamma - Adjust gamma correction,Biology,Atomic operation; Color Mapping,Scalar Fields; Multi-variate; Time-varying
-set_interpolation - Change interpolation mode,Biology,Atomic operation; Smoothing & enhancement,Scalar Fields; Multi-variate; Time-varying
-toggle_view - Switch between 2D and 3D view,Biology,Atomic operation; View / Rendering Manipulation,Scalar Fields; Multi-variate; Time-varying
-get_dims_info - Get dimension information,Biology,Atomic operation; Scalar Operations,Scalar Fields; Multi-variate; Time-varying
-get_camera - Get current camera settings,Biology,Atomic operation; View / Rendering Manipulation,Scalar Fields; Multi-variate; Time-varying
-reset_camera - Reset camera to default view,Biology,Atomic operation; View / Rendering Manipulation,Scalar Fields; Multi-variate; Time-varying
-set_camera - Adjust camera settings,Biology,Atomic operation; View / Rendering Manipulation,Scalar Fields; Multi-variate; Time-varying
-set_layer_visibility - Toggle layer visibility,Biology,Atomic operation; Spatial/temporal Extraction,Scalar Fields; Multi-variate; Time-varying
-set_layer_visibility - Show layer again,Biology,Atomic operation; Spatial/temporal Extraction,Scalar Fields; Multi-variate; Time-varying
-screenshot - Take a screenshot,Biology,Atomic operation; View / Rendering Manipulation,Scalar Fields; Multi-variate; Time-varying
-add_shapes - Add shape annotations,Biology,Atomic operation; Glyph-Based Representation,Scalar Fields; Multi-variate; Time-varying
-set_scale_bar - Show scale bar,Biology,Atomic operation; Glyph-Based Representation,Scalar Fields; Multi-variate; Time-varying
-screenshot - Save screenshot to file,Biology,Atomic operation; View / Rendering Manipulation,Scalar Fields; Multi-variate; Time-varying
-save_layers - Save layer to file,Biology,Atomic operation; Structural Operations,Scalar Fields; Multi-variate; Time-varying
-remove_layer - Remove a layer,Biology,Atomic operation; Structural Operations,Scalar Fields; Multi-variate; Time-varying
-Error handling - Try to load non-existent file,Biology,Atomic operation; Structural Operations,Scalar Fields; Multi-variate; Time-varying
-Error handling - Try to remove non-existent layer,Biology,Atomic operation; Structural Operations,Scalar Fields; Multi-variate; Time-varying
-3D View and Iso-surface Rendering,Biology,Atomic operation; Value-Based Selection; Volume Representation,Scalar Fields; Multi-variate; Time-varying
-Cleanup - Remove remaining test layers,Biology,Atomic operation; Structural Operations,Scalar Fields; Multi-variate; Time-varying
-Iso surface determination for a target,Biology,Workflow; Value-Based Selection; View / Rendering Manipulation,Scalar Fields; Multi-variate
-Recreate a figure from a dataset,Biology,Workflow; Color Mapping; Smoothing & enhancement,Scalar Fields; Multi-variate
-Cell Counting and Measurement Analysis,Biology,Workflow; Scalar Operations; Glyph-Based Representation; Advanced Computations,Scalar Fields; Multi-variate
-Statistical Analysis and Data Export,Biology,Workflow; Scalar Operations; Structural Operations,Scalar Fields; Multi-variate
-Annotation and Measurement Workflow,Biology,Workflow; Glyph-Based Representation; Advanced Computations,Scalar Fields; Multi-variate
-Time Series Analysis (if applicable),Biology,Workflow; Time-Dependent Processing; Scalar Operations,Scalar Fields; Multi-variate
-Data Cropping and Region of Interest Analysis,Biology,Workflow; Spatial/temporal Extraction; Scalar Operations,Scalar Fields; Multi-variate
-Cleanup - Reset for next test run,Biology,Workflow; Structural Operations,Scalar Fields; Multi-variate
-Multi-channel Overlay with Colormaps with channels,Biology,Workflow; Color Mapping; Structural Operations,Scalar Fields; Multi-variate
-Hide All Channels Except for the Channel with the Cells,Biology,Workflow; Spatial/temporal Extraction,Scalar Fields; Multi-variate
-Contrast and Gamma Adjustment to Display Nucleus,Biology,Workflow; Color Mapping; Smoothing & enhancement,Scalar Fields; Multi-variate
-Advanced 3D Camera Control and Navigation,Biology,Workflow; View / Rendering Manipulation,Scalar Fields; Multi-variate
-Iso-surface Threshold Adjustment,Biology,Workflow; Value-Based Selection; Volume Representation,Scalar Fields; Multi-variate
-Cleanup - Reset for next test run,Biology,Workflow; Structural Operations,Scalar Fields; Multi-variate
+open_file - Load a multi-dimensional image file (T; Z; Y; X; C),Biology,Atomic operation; Structural Operations,Scalar Fields; Multivariate
+delete layers - Delete all loaded layers from the viewer,Biology,Atomic operation; Structural Operations,Scalar Fields; Multivariate; Time-varying
+open_file - Load a single image file,Biology,Atomic operation; Structural Operations,Scalar Fields; Multivariate; Time-varying
+list_layers - Get information about loaded layers,Biology,Atomic operation; Scalar Operations,Scalar Fields; Multivariate; Time-varying
+Z-stack Navigation - Scroll through different depths,Biology,Atomic operation; Spatial/temporal Extraction,Scalar Fields; Multivariate; Time-varying
+Time Series Navigation - Navigate through time points,Biology,Atomic operation; Time-Dependent Processing,Scalar Fields; Multivariate; Time-varying
+set_colormap - Change layer colormap,Biology,Atomic operation; Color Mapping,Scalar Fields; Multivariate; Time-varying
+set_opacity - Adjust layer transparency,Biology,Atomic operation; Color Mapping,Scalar Fields; Multivariate; Time-varying
+set_blending - Change layer blending mode,Biology,Atomic operation; Color Mapping,Scalar Fields; Multivariate; Time-varying
+auto_contrast - Auto-adjust contrast,Biology,Atomic operation; Smoothing & enhancement,Scalar Fields; Multivariate; Time-varying
+set_contrast_limits - Set specific contrast limits,Biology,Atomic operation; Color Mapping,Scalar Fields; Multivariate; Time-varying
+set_gamma - Adjust gamma correction,Biology,Atomic operation; Color Mapping,Scalar Fields; Multivariate; Time-varying
+set_interpolation - Change interpolation mode,Biology,Atomic operation; Smoothing & enhancement,Scalar Fields; Multivariate; Time-varying
+toggle_view - Switch between 2D and 3D view,Biology,Atomic operation; View / Rendering Manipulation,Scalar Fields; Multivariate; Time-varying
+get_dims_info - Get dimension information,Biology,Atomic operation; Scalar Operations,Scalar Fields; Multivariate; Time-varying
+get_camera - Get current camera settings,Biology,Atomic operation; View / Rendering Manipulation,Scalar Fields; Multivariate; Time-varying
+reset_camera - Reset camera to default view,Biology,Atomic operation; View / Rendering Manipulation,Scalar Fields; Multivariate; Time-varying
+set_camera - Adjust camera settings,Biology,Atomic operation; View / Rendering Manipulation,Scalar Fields; Multivariate; Time-varying
+set_layer_visibility - Toggle layer visibility,Biology,Atomic operation; Spatial/temporal Extraction,Scalar Fields; Multivariate; Time-varying
+set_layer_visibility - Show layer again,Biology,Atomic operation; Spatial/temporal Extraction,Scalar Fields; Multivariate; Time-varying
+screenshot - Take a screenshot,Biology,Atomic operation; View / Rendering Manipulation,Scalar Fields; Multivariate; Time-varying
+add_shapes - Add shape annotations,Biology,Atomic operation; Glyph-Based Representation,Scalar Fields; Multivariate; Time-varying
+set_scale_bar - Show scale bar,Biology,Atomic operation; Glyph-Based Representation,Scalar Fields; Multivariate; Time-varying
+screenshot - Save screenshot to file,Biology,Atomic operation; View / Rendering Manipulation,Scalar Fields; Multivariate; Time-varying
+save_layers - Save layer to file,Biology,Atomic operation; Structural Operations,Scalar Fields; Multivariate; Time-varying
+remove_layer - Remove a layer,Biology,Atomic operation; Structural Operations,Scalar Fields; Multivariate; Time-varying
+Error handling - Try to load non-existent file,Biology,Atomic operation; Structural Operations,Scalar Fields; Multivariate; Time-varying
+Error handling - Try to remove non-existent layer,Biology,Atomic operation; Structural Operations,Scalar Fields; Multivariate; Time-varying
+3D View and Iso-surface Rendering,Biology,Atomic operation; Value-Based Selection; Volume Representation,Scalar Fields; Multivariate; Time-varying
+Cleanup - Remove remaining test layers,Biology,Atomic operation; Structural Operations,Scalar Fields; Multivariate; Time-varying
+Iso surface determination for a target,Biology,Workflow; Value-Based Selection; View / Rendering Manipulation,Scalar Fields; Multivariate
+Recreate a figure from a dataset,Biology,Workflow; Color Mapping; Smoothing & enhancement,Scalar Fields; Multivariate
+Cell Counting and Measurement Analysis,Biology,Workflow; Scalar Operations; Glyph-Based Representation; Advanced Computations,Scalar Fields; Multivariate
+Statistical Analysis and Data Export,Biology,Workflow; Scalar Operations; Structural Operations,Scalar Fields; Multivariate
+Annotation and Measurement Workflow,Biology,Workflow; Glyph-Based Representation; Advanced Computations,Scalar Fields; Multivariate
+Time Series Analysis (if applicable),Biology,Workflow; Time-Dependent Processing; Scalar Operations,Scalar Fields; Multivariate
+Data Cropping and Region of Interest Analysis,Biology,Workflow; Spatial/temporal Extraction; Scalar Operations,Scalar Fields; Multivariate
+Cleanup - Reset for next test run,Biology,Workflow; Structural Operations,Scalar Fields; Multivariate
+Multi-channel Overlay with Colormaps with channels,Biology,Workflow; Color Mapping; Structural Operations,Scalar Fields; Multivariate
+Hide All Channels Except for the Channel with the Cells,Biology,Workflow; Spatial/temporal Extraction,Scalar Fields; Multivariate
+Contrast and Gamma Adjustment to Display Nucleus,Biology,Workflow; Color Mapping; Smoothing & enhancement,Scalar Fields; Multivariate
+Advanced 3D Camera Control and Navigation,Biology,Workflow; View / Rendering Manipulation,Scalar Fields; Multivariate
+Iso-surface Threshold Adjustment,Biology,Workflow; Value-Based Selection; Volume Representation,Scalar Fields; Multivariate
+Cleanup - Reset for next test run,Biology,Workflow; Structural Operations,Scalar Fields; Multivariate
 ,,,
 molecular_vis,,,
 Case Name,Application,Task,Data
-Loading a CIF file,Chemistry,Atomic operation; Structural Operations,Multi-variate
-Basic visualization - Van der Waals representation,Chemistry,Atomic operation; Glyph-Based Representation,Multi-variate
-Licorice representation,Chemistry,Atomic operation; Geometric Primitives,Multi-variate
-Coloring by element,Chemistry,Atomic operation; Color Mapping,Multi-variate
-Coloring by chain,Chemistry,Atomic operation; Color Mapping,Multi-variate
-Coloring by residue type,Chemistry,Atomic operation; Color Mapping,Multi-variate
-Selecting and coloring specific residues,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multi-variate
-Selecting specific atoms,Chemistry,Atomic operation; Spatial/temporal Extraction,Multi-variate
-Multiple representations,Chemistry,Atomic operation; Geometric Primitives; Glyph-Based Representation,Multi-variate
-Material properties - Opaque,Chemistry,Atomic operation; View / Rendering Manipulation,Multi-variate
-Changing representation radius,Chemistry,Atomic operation; Geometric Primitives,Multi-variate
-Coloring by B-factor (temperature factor),Chemistry,Atomic operation; Color Mapping,Multi-variate
-Selecting water molecules,Chemistry,Atomic operation; Spatial/temporal Extraction,Multi-variate
-Coloring by charge,Chemistry,Atomic operation; Color Mapping,Multi-variate
-Coloring by hydrophobicity,Chemistry,Atomic operation; Color Mapping,Multi-variate
-Selecting and highlighting active site,Chemistry,Atomic operation; Spatial/temporal Extraction; Advanced Computations; Color Mapping,Multi-variate
-Selecting protein vs non-protein,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multi-variate
-Changing background color,Chemistry,Atomic operation; View / Rendering Manipulation,Multi-variate
-Selecting specific atom types in a range,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multi-variate
-Selecting atoms within distance,Chemistry,Atomic operation; Spatial/temporal Extraction; Advanced Computations; Color Mapping,Multi-variate
-Selecting and hiding specific residues,Chemistry,Atomic operation; Spatial/temporal Extraction,Multi-variate
-Selecting and showing only specific atoms,Chemistry,Atomic operation; Spatial/temporal Extraction,Multi-variate
-Selecting and showing only backbone,Chemistry,Atomic operation; Spatial/temporal Extraction; Geometric Primitives,Multi-variate
-Selecting and showing only side chains,Chemistry,Atomic operation; Spatial/temporal Extraction; Glyph-Based Representation,Multi-variate
-Selecting aromatic residues,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multi-variate
-Selecting charged residues,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multi-variate
-Multiple selections with different representations,Chemistry,Atomic operation; Spatial/temporal Extraction; Geometric Primitives; Glyph-Based Representation; Color Mapping,Multi-variate
-Selecting and coloring by atom selection - backbone with sidechain by element,Chemistry,Atomic operation; Spatial/temporal Extraction; Geometric Primitives; Glyph-Based Representation; Color Mapping,Multi-variate
-Selecting and coloring by distance from specific atom,Chemistry,Atomic operation; Spatial/temporal Extraction; Advanced Computations; Color Mapping,Multi-variate
-Coloring by atom selection with multiple criteria,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multi-variate
-Selecting and coloring by atom property,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multi-variate
-Coloring by residue number,Chemistry,Atomic operation; Color Mapping,Multi-variate
-Selecting and coloring by atom type in specific region,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multi-variate
-Selecting and coloring by atom selection - element and residue combination,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multi-variate
-Selecting and coloring by atom selection - distance-based with element filter,Chemistry,Atomic operation; Spatial/temporal Extraction; Advanced Computations; Color Mapping,Multi-variate
-Selecting and coloring by atom selection - backbone with sidechain by element,Chemistry,Atomic operation; Spatial/temporal Extraction; Geometric Primitives; Color Mapping,Multi-variate
-Selecting and coloring by atom selection - complex distance and element,Chemistry,Atomic operation; Spatial/temporal Extraction; Advanced Computations; Color Mapping,Multi-variate
-Selecting and coloring by atom selection - multiple criteria,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multi-variate
-Selecting and coloring by atom selection - complex multi-criteria,Chemistry,Atomic operation; Spatial/temporal Extraction; Advanced Computations; Color Mapping,Multi-variate
-Selecting and showing only CA atoms,Chemistry,Atomic operation; Spatial/temporal Extraction; Sampling,Multi-variate
-Selecting and showing only heteroatoms,Chemistry,Atomic operation; Spatial/temporal Extraction,Multi-variate
-Selecting and coloring by atom selection - multiple element types,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multi-variate
-curved-membrane,Chemistry; Biology,Workflow; Scientific Insights; Spatial/temporal Extraction; Color Mapping; View / Rendering Manipulation; Glyph-Based Representation,Multi-variate
-ras-raf-membrane,Chemistry; Biology,Workflow; Scientific Insights; Spatial/temporal Extraction; Color Mapping; View / Rendering Manipulation; Glyph-Based Representation; Value-Based Selection,Multi-variate
+Loading a CIF file,Chemistry,Atomic operation; Structural Operations,Multivariate
+Basic visualization - Van der Waals representation,Chemistry,Atomic operation; Glyph-Based Representation,Multivariate
+Licorice representation,Chemistry,Atomic operation; Geometric Primitives,Multivariate
+Coloring by element,Chemistry,Atomic operation; Color Mapping,Multivariate
+Coloring by chain,Chemistry,Atomic operation; Color Mapping,Multivariate
+Coloring by residue type,Chemistry,Atomic operation; Color Mapping,Multivariate
+Selecting and coloring specific residues,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multivariate
+Selecting specific atoms,Chemistry,Atomic operation; Spatial/temporal Extraction,Multivariate
+Multiple representations,Chemistry,Atomic operation; Geometric Primitives; Glyph-Based Representation,Multivariate
+Material properties - Opaque,Chemistry,Atomic operation; View / Rendering Manipulation,Multivariate
+Changing representation radius,Chemistry,Atomic operation; Geometric Primitives,Multivariate
+Coloring by B-factor (temperature factor),Chemistry,Atomic operation; Color Mapping,Multivariate
+Selecting water molecules,Chemistry,Atomic operation; Spatial/temporal Extraction,Multivariate
+Coloring by charge,Chemistry,Atomic operation; Color Mapping,Multivariate
+Coloring by hydrophobicity,Chemistry,Atomic operation; Color Mapping,Multivariate
+Selecting and highlighting active site,Chemistry,Atomic operation; Spatial/temporal Extraction; Advanced Computations; Color Mapping,Multivariate
+Selecting protein vs non-protein,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multivariate
+Changing background color,Chemistry,Atomic operation; View / Rendering Manipulation,Multivariate
+Selecting specific atom types in a range,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multivariate
+Selecting atoms within distance,Chemistry,Atomic operation; Spatial/temporal Extraction; Advanced Computations; Color Mapping,Multivariate
+Selecting and hiding specific residues,Chemistry,Atomic operation; Spatial/temporal Extraction,Multivariate
+Selecting and showing only specific atoms,Chemistry,Atomic operation; Spatial/temporal Extraction,Multivariate
+Selecting and showing only backbone,Chemistry,Atomic operation; Spatial/temporal Extraction; Geometric Primitives,Multivariate
+Selecting and showing only side chains,Chemistry,Atomic operation; Spatial/temporal Extraction; Glyph-Based Representation,Multivariate
+Selecting aromatic residues,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multivariate
+Selecting charged residues,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multivariate
+Multiple selections with different representations,Chemistry,Atomic operation; Spatial/temporal Extraction; Geometric Primitives; Glyph-Based Representation; Color Mapping,Multivariate
+Selecting and coloring by atom selection - backbone with sidechain by element,Chemistry,Atomic operation; Spatial/temporal Extraction; Geometric Primitives; Glyph-Based Representation; Color Mapping,Multivariate
+Selecting and coloring by distance from specific atom,Chemistry,Atomic operation; Spatial/temporal Extraction; Advanced Computations; Color Mapping,Multivariate
+Coloring by atom selection with multiple criteria,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multivariate
+Selecting and coloring by atom property,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multivariate
+Coloring by residue number,Chemistry,Atomic operation; Color Mapping,Multivariate
+Selecting and coloring by atom type in specific region,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multivariate
+Selecting and coloring by atom selection - element and residue combination,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multivariate
+Selecting and coloring by atom selection - distance-based with element filter,Chemistry,Atomic operation; Spatial/temporal Extraction; Advanced Computations; Color Mapping,Multivariate
+Selecting and coloring by atom selection - backbone with sidechain by element,Chemistry,Atomic operation; Spatial/temporal Extraction; Geometric Primitives; Color Mapping,Multivariate
+Selecting and coloring by atom selection - complex distance and element,Chemistry,Atomic operation; Spatial/temporal Extraction; Advanced Computations; Color Mapping,Multivariate
+Selecting and coloring by atom selection - multiple criteria,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multivariate
+Selecting and coloring by atom selection - complex multi-criteria,Chemistry,Atomic operation; Spatial/temporal Extraction; Advanced Computations; Color Mapping,Multivariate
+Selecting and showing only CA atoms,Chemistry,Atomic operation; Spatial/temporal Extraction; Sampling,Multivariate
+Selecting and showing only heteroatoms,Chemistry,Atomic operation; Spatial/temporal Extraction,Multivariate
+Selecting and coloring by atom selection - multiple element types,Chemistry,Atomic operation; Spatial/temporal Extraction; Color Mapping,Multivariate
+curved-membrane,Chemistry; Biology,Workflow; Scientific Insights; Spatial/temporal Extraction; Color Mapping; View / Rendering Manipulation; Glyph-Based Representation,Multivariate
+ras-raf-membrane,Chemistry; Biology,Workflow; Scientific Insights; Spatial/temporal Extraction; Color Mapping; View / Rendering Manipulation; Glyph-Based Representation; Value-Based Selection,Multivariate

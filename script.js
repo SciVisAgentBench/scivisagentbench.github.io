@@ -300,7 +300,7 @@ function updateCategoryStats() {
         'scalar-fields': 'Scalar Fields',
         'vector-fields': 'Vector Fields',
         'tensor-fields': 'Tensor Fields',
-        'multivariate': 'Multi-variate/Multi-field',
+        'multivariate': 'Multivariate/Multi-field',
         'other': 'Other'
     };
 
@@ -695,7 +695,7 @@ function extractDataTypes(dataString) {
     const types = [];
     if (dataString.includes('Scalar Fields')) types.push('Scalar Fields');
     if (dataString.includes('Vector Fields')) types.push('Vector Fields');
-    if (dataString.includes('Multi-variate')) types.push('Multi-variate');
+    if (dataString.includes('Multivariate')) types.push('Multivariate');
     if (dataString.includes('Time-varying')) types.push('Time-varying');
     if (dataString.includes('Tensor Fields')) types.push('Tensor Fields');
     return types;
