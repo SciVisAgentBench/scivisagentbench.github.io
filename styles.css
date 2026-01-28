@@ -916,6 +916,11 @@ html {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 0.75rem;
+}
+
+.domain-stats-grid.complexity-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
     margin-top: 1rem;
 }
 
