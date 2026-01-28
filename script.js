@@ -1,7 +1,7 @@
 // Application State
 const appState = {
     submissions: [],
-    currentPage: 'dashboard',
+    currentPage: 'statistics',
     testCases: [],
     filteredTestCases: [],
     stats: {
@@ -160,8 +160,8 @@ async function handleFormSubmission(form) {
         await loadSubmissions();
         updateDashboard();
 
-        // Navigate to dashboard
-        navigateToPage('dashboard');
+        // Navigate to statistics
+        navigateToPage('statistics');
 
     } catch (error) {
         console.error('Submission error:', error);
@@ -581,7 +581,7 @@ async function loadTestCases() {
         console.error('Error loading test cases:', error);
         document.getElementById('test-cases-tbody').innerHTML = `
             <tr class="loading-state">
-                <td colspan="6">Error loading test cases. Please check the CSV file path.</td>
+                <td colspan="5">Error loading test cases. Please check the CSV file path.</td>
             </tr>
         `;
     }
@@ -707,24 +707,13 @@ function renderTestCases(testCases) {
     if (!testCases || testCases.length === 0) {
         tbody.innerHTML = `
             <tr class="loading-state">
-                <td colspan="6">No test cases found.</td>
+                <td colspan="5">No test cases found.</td>
             </tr>
         `;
         return;
     }
 
     const rows = testCases.map(testCase => {
-        // Format category name
-        const categoryNames = {
-            'main': 'Main',
-            'chatvis_bench': 'ChatVis Bench',
-            'sci_volume_data': 'Sci Volume Data',
-            'topology': 'Topology',
-            'bioimage_data': 'Bioimage Data',
-            'molecular_vis': 'Molecular Vis'
-        };
-        const categoryTag = `<span class="tag tag-category">${categoryNames[testCase.category] || testCase.category}</span>`;
-
         const applicationTags = testCase.application && testCase.application.length > 0
             ? testCase.application.map(app => `<span class="tag">${escapeHtml(app)}</span>`).join('')
             : '-';
@@ -744,7 +733,6 @@ function renderTestCases(testCases) {
         return `
             <tr>
                 <td><span class="case-name">${escapeHtml(testCase.caseName)}</span></td>
-                <td>${categoryTag}</td>
                 <td>${applicationTags}</td>
                 <td>${taskDifficultyTags || '-'}</td>
                 <td>${visualizationOpsTags || '-'}</td>
@@ -772,26 +760,17 @@ function initializeFilters() {
 
 function applyFilters() {
     // Get selected checkboxes from each filter group
-    const categoryCheckboxes = document.querySelectorAll('#filter-category-options input[type="checkbox"]:checked');
     const domainCheckboxes = document.querySelectorAll('#filter-domain-options input[type="checkbox"]:checked');
     const difficultyCheckboxes = document.querySelectorAll('#filter-difficulty-options input[type="checkbox"]:checked');
     const operationCheckboxes = document.querySelectorAll('#filter-operation-options input[type="checkbox"]:checked');
     const dataTypeCheckboxes = document.querySelectorAll('#filter-datatype-options input[type="checkbox"]:checked');
 
-    const categoryFilter = Array.from(categoryCheckboxes).map(cb => cb.value);
     const domainFilter = Array.from(domainCheckboxes).map(cb => cb.value);
     const difficultyFilter = Array.from(difficultyCheckboxes).map(cb => cb.value);
     const operationFilter = Array.from(operationCheckboxes).map(cb => cb.value);
     const dataTypeFilter = Array.from(dataTypeCheckboxes).map(cb => cb.value);
 
     let filtered = appState.testCases;
-
-    // Apply category filter - case must match at least one selected category
-    if (categoryFilter.length > 0) {
-        filtered = filtered.filter(tc =>
-            categoryFilter.includes(tc.category)
-        );
-    }
 
     // Apply domain filter - case must have ALL selected domains
     // Application domain can be single or multiple values (array)

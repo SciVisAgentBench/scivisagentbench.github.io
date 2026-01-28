@@ -1,7 +1,7 @@
 # SciVisAgentBench Data Collection Website
 
 A comprehensive web platform for collecting datasets for the SciVisAgentBench - an evaluation framework for scientific visualization agents. We welcome those who are willing to contribute to the SciVisAgentBench to submit their datasets and cases.
-Please visit: [https://kuangshiai.github.io/SciVisAgentBench-data-collection/](https://kuangshiai.github.io/SciVisAgentBench-data-collection/)
+Please visit: [https://scivisagentbench.github.io/](https://scivisagentbench.github.io/)
 
 ## Overview
 

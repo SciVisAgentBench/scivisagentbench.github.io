@@ -15,7 +15,7 @@
                 <p class="tagline">A Comprehensive Evaluation Framework for Scientific Visualization Agents</p>
             </div>
             <ul class="nav-links">
-                <li><a href="#" data-page="dashboard" class="active">Dashboard</a></li>
+                <li><a href="#" data-page="statistics" class="active">Statistics</a></li>
                 <li><a href="#" data-page="contributions">Contributions</a></li>
                 <li><a href="#" data-page="submit">Submit Dataset</a></li>
                 <li><a href="#" data-page="about">About</a></li>
@@ -26,8 +26,8 @@
     </nav>
 
     <main>
-        <!-- Dashboard Page -->
-        <div id="page-dashboard" class="page active">
+        <!-- Statistics Page -->
+        <div id="page-statistics" class="page active">
             <!-- Benchmark Coverage Section -->
             <section class="benchmark-section">
                 <div class="container">
@@ -136,7 +136,7 @@
                                         <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" fill="currentColor"/>
                                         <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" fill="currentColor"/>
                                     </svg>
-                                    Task Difficulty Distribution
+                                    Complexity Level Distribution
                                 </h4>
                                 <div class="domain-stats-grid">
                                     <div class="stat-item-small"><span class="stat-label">Atomic Operation</span> <span class="stat-count">111 (67.3%)</span></div>
@@ -172,19 +172,6 @@
 
                         <div class="filters-container">
                             <div class="filters-grid">
-                                <!-- Category Filter -->
-                                <div class="filter-panel">
-                                    <h4 class="filter-title">Category</h4>
-                                    <div class="filter-options" id="filter-category-options">
-                                        <label class="filter-checkbox"><input type="checkbox" value="main"> Main <span class="count">(16)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="chatvis_bench"> ChatVis Bench <span class="count">(20)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="sci_volume_data"> Sci Volume Data <span class="count">(39)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="topology"> Topology <span class="count">(2)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="bioimage_data"> Bioimage Data <span class="count">(44)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="molecular_vis"> Molecular Vis <span class="count">(44)</span></label>
-                                    </div>
-                                </div>
-
                                 <!-- Application Domain Filter -->
                                 <div class="filter-panel">
                                     <h4 class="filter-title">Application Domain</h4>
@@ -200,9 +187,9 @@
                                     </div>
                                 </div>
 
-                                <!-- Task Difficulty Filter -->
+                                <!-- Complexity Level Filter -->
                                 <div class="filter-panel">
-                                    <h4 class="filter-title">Task Difficulty</h4>
+                                    <h4 class="filter-title">Complexity Level</h4>
                                     <div class="filter-options" id="filter-difficulty-options">
                                         <label class="filter-checkbox"><input type="checkbox" value="Atomic operation"> Atomic Operation <span class="count">(111)</span></label>
                                         <label class="filter-checkbox"><input type="checkbox" value="Workflow"> Workflow <span class="count">(54)</span></label>
@@ -258,16 +245,15 @@
                                 <thead>
                                     <tr>
                                         <th>Case Name</th>
-                                        <th>Category</th>
                                         <th>Application Domain</th>
-                                        <th>Task Difficulty</th>
+                                        <th>Complexity Level</th>
                                         <th>Visualization Operations</th>
                                         <th>Data Type</th>
                                     </tr>
                                 </thead>
                                 <tbody id="test-cases-tbody">
                                     <tr class="loading-state">
-                                        <td colspan="6">Loading test cases...</td>
+                                        <td colspan="5">Loading test cases...</td>
                                     </tr>
                                 </tbody>
                             </table>

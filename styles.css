@@ -981,7 +981,7 @@ html {
 
 .filters-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     margin-bottom: 1.5rem;
 }
@@ -1085,6 +1085,12 @@ html {
     z-index: 10;
 }
 
+.test-cases-table th:nth-child(1) { width: 20%; }
+.test-cases-table th:nth-child(2) { width: 13.33%; }
+.test-cases-table th:nth-child(3) { width: 13.33%; }
+.test-cases-table th:nth-child(4) { width: 40%; }
+.test-cases-table th:nth-child(5) { width: 13.33%; }
+
 .test-cases-table th {
     padding: 1rem;
     text-align: left;
@@ -1120,12 +1126,6 @@ html {
     margin-right: 0.25rem;
     margin-bottom: 0.25rem;
     color: var(--text-secondary);
-}
-
-.test-cases-table .tag-category {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    font-weight: 500;
 }
 
 .loading-state td {
