@@ -1,0 +1,58 @@
+Case Name,Application,Data,Task Level 1: Complexity Level,Task Level 2: Visualization Operations,Operation Count
+Loading a CIF file,Chemistry,Multi-variate,Operation,Dataset Restructuring,N/A
+Basic visualization - Van der Waals representation,Chemistry,Multi-variate,Operation,Glyph & Marker Placement,N/A
+Licorice representation,Chemistry,Multi-variate,Operation,Surface & Contour Extraction,N/A
+Coloring by element,Chemistry,Multi-variate,Operation,Color & Opacity Mapping,N/A
+Coloring by chain,Chemistry,Multi-variate,Operation,Color & Opacity Mapping,N/A
+Coloring by residue type,Chemistry,Multi-variate,Operation,Color & Opacity Mapping,N/A
+Selecting and coloring specific residues,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Color & Opacity Mapping,N/A
+Selecting specific atoms,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction,N/A
+Multiple representations,Chemistry,Multi-variate,Operation,Surface & Contour Extraction; Glyph & Marker Placement,N/A
+Material properties - Opaque,Chemistry,Multi-variate,Operation,Color & Opacity Mapping,N/A
+Changing representation radius,Chemistry,Multi-variate,Operation,Geometric & Topological Transformation,N/A
+Coloring by B-factor (temperature factor),Chemistry,Multi-variate,Operation,Color & Opacity Mapping,N/A
+Selecting water molecules,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction,N/A
+Coloring by charge,Chemistry,Multi-variate,Operation,Color & Opacity Mapping,N/A
+Coloring by hydrophobicity,Chemistry,Multi-variate,Operation,Color & Opacity Mapping,N/A
+Selecting and highlighting active site,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Field Computation; Color & Opacity Mapping,N/A
+Selecting protein vs non-protein,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Color & Opacity Mapping,N/A
+Changing background color,Chemistry,Multi-variate,Operation,View & Camera Control,N/A
+Selecting specific atom types in a range,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Color & Opacity Mapping,N/A
+Selecting atoms within distance,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Field Computation; Color & Opacity Mapping,N/A
+Selecting and hiding specific residues,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction,N/A
+Selecting and showing only specific atoms,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction,N/A
+Selecting and showing only backbone,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Surface & Contour Extraction,N/A
+Selecting and showing only side chains,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Glyph & Marker Placement,N/A
+Selecting aromatic residues,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Color & Opacity Mapping,N/A
+Selecting charged residues,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Color & Opacity Mapping,N/A
+Multiple selections with different representations,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping,N/A
+Selecting and coloring by atom selection - backbone with sidechain by element,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping,N/A
+Selecting and coloring by distance from specific atom,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Field Computation; Color & Opacity Mapping,N/A
+Coloring by atom selection with multiple criteria,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Color & Opacity Mapping,N/A
+Selecting and coloring by atom property,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Color & Opacity Mapping,N/A
+Coloring by residue number,Chemistry,Multi-variate,Operation,Color & Opacity Mapping,N/A
+Selecting and coloring by atom type in specific region,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Color & Opacity Mapping,N/A
+Selecting and coloring by atom selection - element and residue combination,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Color & Opacity Mapping,N/A
+Selecting and coloring by atom selection - distance-based with element filter,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Field Computation; Color & Opacity Mapping,N/A
+Selecting and coloring by atom selection - backbone with sidechain by element,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Surface & Contour Extraction; Color & Opacity Mapping,N/A
+Selecting and coloring by atom selection - complex distance and element,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Field Computation; Color & Opacity Mapping,N/A
+Selecting and coloring by atom selection - multiple criteria,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Color & Opacity Mapping,N/A
+Selecting and coloring by atom selection - complex multi-criteria,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Field Computation; Color & Opacity Mapping,N/A
+Selecting and showing only CA atoms,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Data Sampling & Resolution Control,N/A
+Selecting and showing only heteroatoms,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction,N/A
+Selecting and coloring by atom selection - multiple element types,Chemistry,Multi-variate,Operation,Data Subsetting & Extraction; Color & Opacity Mapping,N/A
+1CRN - Load & Basic Representations,Chemistry,Multi-variate,Task,Dataset Restructuring; Glyph & Marker Placement; Surface & Contour Extraction,3
+1CRN - Color by Properties,Chemistry,Multi-variate,Task,Color & Opacity Mapping,3
+1CRN - Region Selection,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Color & Opacity Mapping,2
+1CRN - Multi-Representation,Chemistry,Multi-variate,Task,Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping,3
+1CRN - Advanced Coloring,Chemistry,Multi-variate,Task,Color & Opacity Mapping; Data Subsetting & Extraction,4
+1CRN - Active Site Selection,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Field Computation; Color & Opacity Mapping; View & Camera Control,3
+1CRN - Spatial Queries,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Field Computation; Color & Opacity Mapping,2
+1CRN - Visibility Control,Chemistry,Multi-variate,Task,Data Subsetting & Extraction,4
+1CRN - Residue Selection,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Color & Opacity Mapping,2
+1CRN - Combined Representations,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping,2
+1CRN - Distance-based Selection,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Field Computation; Color & Opacity Mapping,3
+1CRN - Gradient Coloring,Chemistry,Multi-variate,Task,Color & Opacity Mapping; Data Subsetting & Extraction,4
+1CRN - Multi-Criteria Selection,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Surface & Contour Extraction; Field Computation; Color & Opacity Mapping; Data Sampling & Resolution Control,7
+curved-membrane,Chemistry; Biology,Multi-variate,Workflow,Scientific Insight Derivation; Data Subsetting & Extraction; Color & Opacity Mapping; View & Camera Control; Glyph & Marker Placement,5
+ras-raf-membrane,Chemistry; Biology,Multi-variate,Workflow,Scientific Insight Derivation; Data Subsetting & Extraction; Color & Opacity Mapping; View & Camera Control; Glyph & Marker Placement,7

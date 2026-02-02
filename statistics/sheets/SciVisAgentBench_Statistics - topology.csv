@@ -1,0 +1,7 @@
+Case Name,Application,Data,Task Level 1: Complexity Level,Task Level 2: Visualization Operations,Operation Count
+dragon,Mathematics,Scalar Fields,Workflow,Scientific Insight Derivation; Field Computation; Feature Identification & Segmentation,5
+QMCPack,Mathematics; Physics,Scalar Fields,Workflow,Scientific Insight Derivation; Field Computation; Feature Identification & Segmentation,5
+brain,Medical Science; Mathematics,Tensor Fields,Workflow,Field Computation; Feature Identification & Segmentation,4
+cylinder,Physics; Mathematics,Scalar Fields,Workflow,Field Computation; Feature Identification & Segmentation; Data Smoothing & Filtering,4
+isabel,Earth System Science; Mathematics,Scalar Fields,Workflow,Field Computation; Feature Identification & Segmentation; Data Smoothing & Filtering,7
+ocean,Earth System Science; Mathematics,Tensor Fields,Workflow,Field Computation; Feature Identification & Segmentation,9

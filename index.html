@@ -37,16 +37,20 @@
                             <h3 class="overview-title">Current Benchmark Coverage</h3>
                             <div class="overview-stats-highlight">
                                 <div class="highlight-item">
-                                    <span class="highlight-number">165</span>
+                                    <span class="highlight-number" id="total-test-cases">137</span>
                                     <span class="highlight-label">Test Cases</span>
-                                </div>
-                                <div class="highlight-item">
-                                    <span class="highlight-number">6</span>
-                                    <span class="highlight-label">Categories</span>
                                 </div>
                                 <div class="highlight-item">
                                     <span class="highlight-number">8</span>
                                     <span class="highlight-label">Application Domains</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <span class="highlight-number">5</span>
+                                    <span class="highlight-label">Data Types</span>
+                                </div>
+                                <div class="highlight-item">
+                                    <span class="highlight-number">15</span>
+                                    <span class="highlight-label">Visualization Operations</span>
                                 </div>
                             </div>
                         </div>
@@ -59,37 +63,21 @@
                                     </svg>
                                     Application Domain Distribution
                                 </h4>
-                                <div class="category-grid-overview">
+                                <div class="category-grid-overview" id="application-domain-distribution">
                                     <div class="category-item">
                                         <div class="category-icon">🧬</div>
                                         <div class="category-content">
                                             <div class="category-name">Biology</div>
-                                            <div class="category-count">57 cases</div>
-                                            <div class="category-desc">(34.5%)</div>
-                                        </div>
-                                    </div>
-                                    <div class="category-item">
-                                        <div class="category-icon">🧪</div>
-                                        <div class="category-content">
-                                            <div class="category-name">Chemistry</div>
-                                            <div class="category-count">45 cases</div>
-                                            <div class="category-desc">(27.3%)</div>
+                                            <div class="category-count">38 cases</div>
+                                            <div class="category-desc">(27.7%)</div>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="category-icon">⚡</div>
                                         <div class="category-content">
                                             <div class="category-name">Physics</div>
-                                            <div class="category-count">23 cases</div>
-                                            <div class="category-desc">(13.9%)</div>
-                                        </div>
-                                    </div>
-                                    <div class="category-item">
-                                        <div class="category-icon">🏥</div>
-                                        <div class="category-content">
-                                            <div class="category-name">Medical Science</div>
-                                            <div class="category-count">13 cases</div>
-                                            <div class="category-desc">(7.9%)</div>
+                                            <div class="category-count">38 cases</div>
+                                            <div class="category-desc">(27.7%)</div>
                                         </div>
                                     </div>
                                     <div class="category-item">
@@ -97,31 +85,47 @@
                                         <div class="category-content">
                                             <div class="category-name">Others</div>
                                             <div class="category-count">17 cases</div>
-                                            <div class="category-desc">(10.3%)</div>
+                                            <div class="category-desc">(12.4%)</div>
+                                        </div>
+                                    </div>
+                                    <div class="category-item">
+                                        <div class="category-icon">🧪</div>
+                                        <div class="category-content">
+                                            <div class="category-name">Chemistry</div>
+                                            <div class="category-count">16 cases</div>
+                                            <div class="category-desc">(11.7%)</div>
+                                        </div>
+                                    </div>
+                                    <div class="category-item">
+                                        <div class="category-icon">🏥</div>
+                                        <div class="category-content">
+                                            <div class="category-name">Medical Science</div>
+                                            <div class="category-count">14 cases</div>
+                                            <div class="category-desc">(10.2%)</div>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="category-icon">📐</div>
                                         <div class="category-content">
                                             <div class="category-name">Mathematics</div>
-                                            <div class="category-count">9 cases</div>
-                                            <div class="category-desc">(5.5%)</div>
+                                            <div class="category-count">13 cases</div>
+                                            <div class="category-desc">(9.5%)</div>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="category-icon">🔭</div>
                                         <div class="category-content">
                                             <div class="category-name">Astronomy</div>
-                                            <div class="category-count">3 cases</div>
-                                            <div class="category-desc">(1.8%)</div>
+                                            <div class="category-count">5 cases</div>
+                                            <div class="category-desc">(3.6%)</div>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="category-icon">🌏</div>
                                         <div class="category-content">
                                             <div class="category-name">Earth System Science</div>
-                                            <div class="category-count">1 case</div>
-                                            <div class="category-desc">(0.6%)</div>
+                                            <div class="category-count">3 cases</div>
+                                            <div class="category-desc">(2.2%)</div>
                                         </div>
                                     </div>
                                 </div>
@@ -136,10 +140,11 @@
                                     Complexity Level Distribution
                                 </h4>
                                 <div class="domain-stats-grid complexity-grid">
-                                    <div class="stat-item-small"><span class="stat-label">Atomic Operation</span> <span class="stat-count">111 (67.3%)</span></div>
-                                    <div class="stat-item-small"><span class="stat-label">Workflow</span> <span class="stat-count">54 (32.7%)</span></div>
-                                    <div class="stat-item-small"><span class="stat-label">Scientific Insights</span> <span class="stat-count">7 (4.2%)</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Task</span> <span class="stat-count">100 (73.0%)</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Workflow</span> <span class="stat-count">37 (27.0%)</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Total Operations</span> <span class="stat-count">632</span></div>
                                 </div>
+                                <p class="note-text">Note: Operation count represents the sum of all visualization operations across all test cases</p>
                             </div>
 
                             <div class="overview-section">
@@ -150,12 +155,100 @@
                                     Data Type Distribution
                                 </h4>
                                 <div class="domain-stats-grid">
-                                    <div class="stat-item-small"><span class="stat-label">Scalar Fields</span> <span class="stat-count">114</span></div>
-                                    <div class="stat-item-small"><span class="stat-label">Multivariate</span> <span class="stat-count">90</span></div>
-                                    <div class="stat-item-small"><span class="stat-label">Time-varying</span> <span class="stat-count">31</span></div>
-                                    <div class="stat-item-small"><span class="stat-label">Vector Fields</span> <span class="stat-count">5</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Scalar Fields</span> <span class="stat-count">97</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Multi-variate</span> <span class="stat-count">42</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Vector Fields</span> <span class="stat-count">21</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Time-varying</span> <span class="stat-count">13</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Tensor Fields</span> <span class="stat-count">2</span></div>
                                 </div>
                                 <p class="note-text">Note: Cases can have multiple data type tags</p>
+                            </div>
+
+                            <div class="overview-section">
+                                <h4 class="section-header">
+                                    <svg class="section-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h5a1 1 0 000-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM13 16a1 1 0 102 0v-5.586l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 101.414 1.414L13 10.414V16z" fill="currentColor"/>
+                                    </svg>
+                                    Visualization Operations Distribution
+                                </h4>
+                                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Color & Opacity Mapping</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Assign colors, opacity, or textures to data elements</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">95</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Surface & Contour Extraction</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Generate isosurfaces, contour lines, ribbons, or tubes</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">66</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Volume Rendering</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Render volumetric data directly using ray casting or splatting</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">55</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">View & Camera Control</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Adjust camera position, orientation, zoom, or lighting</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">41</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Field Computation</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Derive new scalar, vector, or tensor fields from existing data</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">29</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Data Subsetting & Extraction</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Isolate spatial regions or value-based subsets from a dataset</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">23</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Scientific Insight Derivation</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Interpret results to answer domain-specific questions</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">19</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Glyph & Marker Placement</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Place oriented, scaled, or typed glyphs at data points</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">17</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Dataset Restructuring</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Combine, partition, or reorganize multiple datasets</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">15</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Temporal Processing</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Perform computations involving the time dimension of data</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">12</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Feature Identification & Segmentation</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Detect, extract, or label discrete structures or regions</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">7</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Data Smoothing & Filtering</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Reduce noise, enhance features, or apply statistical filters</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">5</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Plot & Chart Generation</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Produce 2D statistical plots, histograms, or line charts</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">3</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Data Sampling & Resolution Control</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Modify data density or sampling resolution for efficiency</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">2</span>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
+                                        <span class="stat-label" style="font-weight: 500;">Geometric & Topological Transformation</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Modify the geometry or connectivity structure of a dataset</span>
+                                        <span class="stat-count" style="font-weight: 600; text-align: right;">2</span>
+                                    </div>
+                                </div>
+                                <p class="note-text">Note: Cases can have multiple operation tags</p>
                             </div>
                         </div>
                     </div>
@@ -164,7 +257,7 @@
                     <div class="test-cases-browser">
                         <div class="browser-header">
                             <h3 class="browser-title">Browse Test Cases</h3>
-                            <p class="browser-description">Filter and explore all 165 test cases in the benchmark</p>
+                            <p class="browser-description">Filter and explore all <span id="browse-total-cases">137</span> test cases in the benchmark</p>
                         </div>
 
                         <div class="filters-container">
@@ -173,14 +266,14 @@
                                 <div class="filter-panel">
                                     <h4 class="filter-title">Application Domain</h4>
                                     <div class="filter-options" id="filter-domain-options">
-                                        <label class="filter-checkbox"><input type="checkbox" value="Biology"> Biology <span class="count">(57)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Chemistry"> Chemistry <span class="count">(45)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Physics"> Physics <span class="count">(23)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Medical Science"> Medical Science <span class="count">(13)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Biology"> Biology <span class="count">(38)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Physics"> Physics <span class="count">(38)</span></label>
                                         <label class="filter-checkbox"><input type="checkbox" value="Others"> Others <span class="count">(17)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Mathematics"> Mathematics <span class="count">(9)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Astronomy"> Astronomy <span class="count">(3)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Earth System Science"> Earth System Science <span class="count">(1)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Chemistry"> Chemistry <span class="count">(16)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Medical Science"> Medical Science <span class="count">(14)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Mathematics"> Mathematics <span class="count">(13)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Astronomy"> Astronomy <span class="count">(5)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Earth System Science"> Earth System Science <span class="count">(3)</span></label>
                                     </div>
                                 </div>
 
@@ -188,9 +281,8 @@
                                 <div class="filter-panel">
                                     <h4 class="filter-title">Complexity Level</h4>
                                     <div class="filter-options" id="filter-difficulty-options">
-                                        <label class="filter-checkbox"><input type="checkbox" value="Atomic operation"> Atomic Operation <span class="count">(111)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Workflow"> Workflow <span class="count">(54)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Scientific Insights"> Scientific Insights <span class="count">(7)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Task"> Task <span class="count">(100)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Workflow"> Workflow <span class="count">(37)</span></label>
                                     </div>
                                 </div>
 
@@ -198,10 +290,11 @@
                                 <div class="filter-panel">
                                     <h4 class="filter-title">Data Type</h4>
                                     <div class="filter-options" id="filter-datatype-options">
-                                        <label class="filter-checkbox"><input type="checkbox" value="Scalar Fields"> Scalar Fields <span class="count">(114)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Multivariate"> Multivariate <span class="count">(90)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Time-varying"> Time-varying <span class="count">(31)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Vector Fields"> Vector Fields <span class="count">(5)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Scalar Fields"> Scalar Fields <span class="count">(97)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Multi-variate"> Multi-variate <span class="count">(42)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Vector Fields"> Vector Fields <span class="count">(21)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Time-varying"> Time-varying <span class="count">(13)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Tensor Fields"> Tensor Fields <span class="count">(2)</span></label>
                                     </div>
                                 </div>
 
@@ -209,31 +302,28 @@
                                 <div class="filter-panel filter-panel-wide">
                                     <h4 class="filter-title">Visualization Operations</h4>
                                     <div class="filter-options filter-options-grid" id="filter-operation-options">
-                                        <label class="filter-checkbox"><input type="checkbox" value="Color Mapping"> Color Mapping <span class="count">(96)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Volume Representation"> Volume Representation <span class="count">(51)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Object identification"> Object Identification <span class="count">(39)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Spatial/temporal Extraction"> Spatial/Temporal Extraction <span class="count">(39)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="View / Rendering Manipulation"> View/Rendering Manipulation <span class="count">(19)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Structural Operations"> Structural Operations <span class="count">(18)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Glyph-Based Representation"> Glyph-Based Representation <span class="count">(15)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Geometric Primitives"> Geometric Primitives <span class="count">(13)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Scalar Operations"> Scalar Operations <span class="count">(12)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Value-Based Selection"> Value-Based Selection <span class="count">(10)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Advanced Computations"> Advanced Computations <span class="count">(8)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Time-Dependent Processing"> Time-Dependent Processing <span class="count">(8)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Smoothing & enhancement"> Smoothing & Enhancement <span class="count">(4)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Field Derivatives"> Field Derivatives <span class="count">(3)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Plot Drawing"> Plot Drawing <span class="count">(3)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Topological Changes"> Topological Changes <span class="count">(2)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Sampling"> Sampling <span class="count">(2)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Geometric Modification"> Geometric Modification <span class="count">(1)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Color & Opacity Mapping"> Color & Opacity Mapping <span class="count">(95)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Surface & Contour Extraction"> Surface & Contour Extraction <span class="count">(66)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Volume Rendering"> Volume Rendering <span class="count">(55)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="View & Camera Control"> View & Camera Control <span class="count">(41)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Field Computation"> Field Computation <span class="count">(29)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Data Subsetting & Extraction"> Data Subsetting & Extraction <span class="count">(23)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Scientific Insight Derivation"> Scientific Insight Derivation <span class="count">(19)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Glyph & Marker Placement"> Glyph & Marker Placement <span class="count">(17)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Dataset Restructuring"> Dataset Restructuring <span class="count">(15)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Temporal Processing"> Temporal Processing <span class="count">(12)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Feature Identification & Segmentation"> Feature Identification & Segmentation <span class="count">(7)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Data Smoothing & Filtering"> Data Smoothing & Filtering <span class="count">(5)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Plot & Chart Generation"> Plot & Chart Generation <span class="count">(3)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Data Sampling & Resolution Control"> Data Sampling & Resolution Control <span class="count">(2)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Geometric & Topological Transformation"> Geometric & Topological Transformation <span class="count">(2)</span></label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="filter-actions">
                                 <button id="clear-filters" class="btn btn-secondary">Clear All Filters</button>
-                                <span id="filter-count" class="filter-count">Showing 165 of 165 cases</span>
+                                <span id="filter-count" class="filter-count">Showing 137 of 137 cases</span>
                             </div>
                         </div>
 
@@ -246,11 +336,12 @@
                                         <th>Complexity Level</th>
                                         <th>Visualization Operations</th>
                                         <th>Data Type</th>
+                                        <th>Operation Count</th>
                                     </tr>
                                 </thead>
                                 <tbody id="test-cases-tbody">
                                     <tr class="loading-state">
-                                        <td colspan="5">Loading test cases...</td>
+                                        <td colspan="6">Loading test cases...</td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -1,0 +1,21 @@
+Case Name,Application,Data,Task Level 1: Complexity Level,Task Level 2: Visualization Operations,Operation Count
+chart-opacity,Mathematics,Scalar Fields,Task,Plot & Chart Generation; Color & Opacity Mapping,4
+export-gltf,Others,Scalar Fields,Workflow,Scientific Insight Derivation; Dataset Restructuring; Color & Opacity Mapping,8
+ml-dvr,Others,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,4
+shrink-sphere,Mathematics,Scalar Fields,Task,Geometric & Topological Transformation; Dataset Restructuring,7
+write-ply,Others,Scalar Fields,Task,Dataset Restructuring,4
+climate,Earth System Science,Vector Fields,Workflow,Scientific Insight Derivation; Field Computation; Glyph & Marker Placement; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,8
+import-gltf,Others,Scalar Fields,Task,Dataset Restructuring; View & Camera Control,6
+ml-iso,Others,Scalar Fields,Task,Surface & Contour Extraction; View & Camera Control,4
+render-histogram,Mathematics,Scalar Fields,Task,Plot & Chart Generation; Field Computation,6
+stream-glyph,Physics,Vector Fields,Task,Temporal Processing; Glyph & Marker Placement; Surface & Contour Extraction; Color & Opacity Mapping,7
+color-blocks,Others,Multi-variate,Workflow,Scientific Insight Derivation; Color & Opacity Mapping; Dataset Restructuring,9
+line-plot,Physics,Multi-variate,Task,Plot & Chart Generation; Data Sampling & Resolution Control; Field Computation,6
+ml-slice-iso,Others,Scalar Fields,Task,Data Subsetting & Extraction; Surface & Contour Extraction,6
+reset-camera-direction,Mathematics,Scalar Fields,Task,View & Camera Control,4
+subseries-of-time-series,Physics,Scalar Fields; Time-varying,Task,Data Subsetting & Extraction; Temporal Processing; Dataset Restructuring,7
+color-data,Mathematics,Scalar Fields,Task,Field Computation; Color & Opacity Mapping,6
+materials,Physics,Scalar Fields,Workflow,Scientific Insight Derivation; Data Subsetting & Extraction; Surface & Contour Extraction; Color & Opacity Mapping,10
+points-surf-clip,Mathematics,Scalar Fields,Task,Geometric & Topological Transformation; Data Subsetting & Extraction,5
+save-transparent,Others,Scalar Fields,Task,View & Camera Control; Color & Opacity Mapping,4
+time-varying,Physics,Scalar Fields; Time-varying,Workflow,Scientific Insight Derivation; Temporal Processing; Color & Opacity Mapping; Field Computation,12

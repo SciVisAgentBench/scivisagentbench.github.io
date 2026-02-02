@@ -570,69 +570,108 @@ function loadSampleData() {
 
 async function loadTestCases() {
     try {
-        const response = await fetch('statistics/final_correct.csv');
-        const csvText = await response.text();
-        const testCases = parseCSV(csvText);
-        appState.testCases = testCases;
-        appState.filteredTestCases = testCases;
-        renderTestCases(testCases);
+        // Load all CSV files from the sheets directory
+        const csvFiles = [
+            'statistics/sheets/SciVisAgentBench_Statistics - main.csv',
+            'statistics/sheets/SciVisAgentBench_Statistics - chatvis_bench.csv',
+            'statistics/sheets/SciVisAgentBench_Statistics - sci_volume_data.csv',
+            'statistics/sheets/SciVisAgentBench_Statistics - topology.csv',
+            'statistics/sheets/SciVisAgentBench_Statistics - bioimage_data.csv',
+            'statistics/sheets/SciVisAgentBench_Statistics - molecular_vis.csv'
+        ];
+
+        let allTestCases = [];
+
+        for (const file of csvFiles) {
+            try {
+                const response = await fetch(file);
+                const csvText = await response.text();
+                const cases = parseCSV(csvText, file);
+                allTestCases = allTestCases.concat(cases);
+            } catch (err) {
+                console.warn(`Failed to load ${file}:`, err);
+            }
+        }
+
+        // Filter to only include Task and Workflow entries (exclude Operation)
+        const filteredCases = allTestCases.filter(tc =>
+            tc.taskDifficulty.includes('Task') || tc.taskDifficulty.includes('Workflow')
+        );
+
+        appState.testCases = filteredCases;
+        appState.filteredTestCases = filteredCases;
+        renderTestCases(filteredCases);
         updateFilterCount();
+        updateTotalCasesCount(filteredCases.length);
     } catch (error) {
         console.error('Error loading test cases:', error);
         document.getElementById('test-cases-tbody').innerHTML = `
             <tr class="loading-state">
-                <td colspan="5">Error loading test cases. Please check the CSV file path.</td>
+                <td colspan="6">Error loading test cases. Please check the CSV file paths.</td>
             </tr>
         `;
     }
 }
 
-function parseCSV(csvText) {
+function updateTotalCasesCount(count) {
+    const totalCasesEl = document.getElementById('total-test-cases');
+    if (totalCasesEl) {
+        totalCasesEl.textContent = count;
+    }
+    const browseTotalEl = document.getElementById('browse-total-cases');
+    if (browseTotalEl) {
+        browseTotalEl.textContent = count;
+    }
+}
+
+function parseCSV(csvText, filename) {
     const lines = csvText.split('\n');
     const testCases = [];
-    let currentCategory = '';
 
-    for (let i = 0; i < lines.length; i++) {
+    // Skip the header line
+    for (let i = 1; i < lines.length; i++) {
         const line = lines[i].trim();
 
         // Skip empty lines
         if (!line) continue;
 
-        // Check if this is a category header
-        if (line.startsWith('main,') || line.startsWith('chatvis_bench,') ||
-            line.startsWith('sci_volume_data,') || line.startsWith('topology,') ||
-            line.startsWith('bioimage_data,') || line.startsWith('molecular_vis,')) {
-            currentCategory = line.split(',')[0];
-            // Skip the next line which is the column headers
-            i++;
-            continue;
-        }
-
         // Parse case data
         const parts = parseCSVLine(line);
-        if (parts.length >= 4 && parts[0] && currentCategory) {
+        if (parts.length >= 6 && parts[0]) {
             const caseName = parts[0];
             const application = parts[1];
-            const task = parts[2];
-            const data = parts[3];
+            const data = parts[2];
+            const complexityLevel = parts[3];
+            const operations = parts[4];
+            const operationCount = parts[5];
 
             // Skip if case name is empty or is header
             if (!caseName || caseName === 'Case Name') continue;
 
             testCases.push({
-                category: currentCategory,
+                category: extractCategoryFromFilename(filename),
                 caseName: caseName,
                 application: extractApplicationDomains(application),
-                task: task,
                 data: data,
-                taskDifficulty: extractTaskDifficulty(task),
-                visualizationOps: extractVisualizationOps(task),
-                dataTypes: extractDataTypes(data)
+                taskDifficulty: extractTaskDifficultyNew(complexityLevel),
+                visualizationOps: extractVisualizationOpsNew(operations),
+                dataTypes: extractDataTypes(data),
+                operationCount: operationCount || '0'
             });
         }
     }
 
     return testCases;
+}
+
+function extractCategoryFromFilename(filename) {
+    if (filename.includes('main.csv')) return 'main';
+    if (filename.includes('chatvis_bench.csv')) return 'chatvis_bench';
+    if (filename.includes('sci_volume_data.csv')) return 'sci_volume_data';
+    if (filename.includes('topology.csv')) return 'topology';
+    if (filename.includes('bioimage_data.csv')) return 'bioimage_data';
+    if (filename.includes('molecular_vis.csv')) return 'molecular_vis';
+    return 'unknown';
 }
 
 function parseCSVLine(line) {
@@ -670,6 +709,15 @@ function extractTaskDifficulty(taskString) {
     return difficulties;
 }
 
+function extractTaskDifficultyNew(complexityLevel) {
+    // The new format has complexity level in a single column
+    const difficulties = [];
+    if (complexityLevel.includes('Operation')) difficulties.push('Operation');
+    if (complexityLevel.includes('Task')) difficulties.push('Task');
+    if (complexityLevel.includes('Workflow')) difficulties.push('Workflow');
+    return difficulties;
+}
+
 function extractVisualizationOps(taskString) {
     const operations = [];
     const operationTypes = [
@@ -691,11 +739,24 @@ function extractVisualizationOps(taskString) {
     return operations;
 }
 
+function extractVisualizationOpsNew(operationsString) {
+    // The new format has operations separated by semicolons
+    return operationsString.split(';').map(op => op.trim()).filter(op => op);
+}
+
 function extractDataTypes(dataString) {
+    // Handle both old and new formats
+    // New format uses semicolons to separate types
+    if (dataString.includes(';')) {
+        return dataString.split(';').map(type => type.trim()).filter(type => type);
+    }
+
+    // Old format - check for specific strings
     const types = [];
     if (dataString.includes('Scalar Fields')) types.push('Scalar Fields');
     if (dataString.includes('Vector Fields')) types.push('Vector Fields');
-    if (dataString.includes('Multivariate')) types.push('Multivariate');
+    if (dataString.includes('Multi-variate')) types.push('Multi-variate');
+    if (dataString.includes('Multivariate')) types.push('Multi-variate');
     if (dataString.includes('Time-varying')) types.push('Time-varying');
     if (dataString.includes('Tensor Fields')) types.push('Tensor Fields');
     return types;
@@ -707,11 +768,30 @@ function renderTestCases(testCases) {
     if (!testCases || testCases.length === 0) {
         tbody.innerHTML = `
             <tr class="loading-state">
-                <td colspan="5">No test cases found.</td>
+                <td colspan="6">No test cases found.</td>
             </tr>
         `;
         return;
     }
+
+    // Operation descriptions mapping
+    const operationDescriptions = {
+        'Color & Opacity Mapping': 'Assign colors, opacity, or textures to data elements',
+        'Surface & Contour Extraction': 'Generate isosurfaces, contour lines, ribbons, or tubes',
+        'Volume Rendering': 'Render volumetric data directly using ray casting or splatting',
+        'View & Camera Control': 'Adjust camera position, orientation, zoom, or lighting',
+        'Field Computation': 'Derive new scalar, vector, or tensor fields from existing data',
+        'Data Subsetting & Extraction': 'Isolate spatial regions or value-based subsets from a dataset',
+        'Scientific Insight Derivation': 'Interpret results to answer domain-specific questions',
+        'Glyph & Marker Placement': 'Place oriented, scaled, or typed glyphs at data points',
+        'Dataset Restructuring': 'Combine, partition, or reorganize multiple datasets',
+        'Temporal Processing': 'Perform computations involving the time dimension of data',
+        'Feature Identification & Segmentation': 'Detect, extract, or label discrete structures or regions',
+        'Data Smoothing & Filtering': 'Reduce noise, enhance features, or apply statistical filters',
+        'Plot & Chart Generation': 'Produce 2D statistical plots, histograms, or line charts',
+        'Data Sampling & Resolution Control': 'Modify data density or sampling resolution for efficiency',
+        'Geometric & Topological Transformation': 'Modify the geometry or connectivity structure of a dataset'
+    };
 
     const rows = testCases.map(testCase => {
         const applicationTags = testCase.application && testCase.application.length > 0
@@ -722,9 +802,9 @@ function renderTestCases(testCases) {
             `<span class="tag">${d}</span>`
         ).join('');
 
-        const visualizationOpsTags = testCase.visualizationOps.map(op =>
-            `<span class="tag">${op}</span>`
-        ).join('');
+        const visualizationOpsTags = testCase.visualizationOps.map(op => {
+            return `<span class="tag">${escapeHtml(op)}</span>`;
+        }).join('');
 
         const dataTypesTags = testCase.dataTypes.map(dt =>
             `<span class="tag">${dt}</span>`
@@ -737,6 +817,7 @@ function renderTestCases(testCases) {
                 <td>${taskDifficultyTags || '-'}</td>
                 <td>${visualizationOpsTags || '-'}</td>
                 <td>${dataTypesTags || '-'}</td>
+                <td style="text-align: center;">${escapeHtml(testCase.operationCount)}</td>
             </tr>
         `;
     }).join('');

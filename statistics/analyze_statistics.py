@@ -1,350 +1,312 @@
 #!/usr/bin/env python3
 """
-SciVisAgentBench Statistics Analysis Script
-This script analyzes the final_correct.csv file and generates statistics for the benchmark.
+Comprehensive Statistics Analysis for SciVisAgentBench
+Analyzes all CSV files and generates a detailed statistics report
 """
 
-import csv
-from collections import defaultdict
+import pandas as pd
+from collections import defaultdict, Counter
+import os
 
-# Define the exact taxonomy categories as specified
-APPLICATIONS = ['Astronomy', 'Medical Science', 'Biology', 'Physics', 'Earth System Science', 'Mathematics', 'Chemistry', 'Others']
-
-TASK1_CATEGORIES = ['Atomic Operation', 'Workflow', 'Scientific Insights']
-
-TASK2_CATEGORIES = [
-    'Geometric Primitives',
-    'Volume Representation',
-    'Plot Drawing',
-    'Spatial/temporal Extraction',
-    'Value-Based Selection',
-    'Sampling',
-    'Geometric Modification',
-    'Topological Changes',
-    'Structural Operations',
-    'Field Derivatives',
-    'Scalar Operations',
-    'Advanced Computations',
-    'Time-Dependent Processing',
-    'Glyph-Based Representation',
-    'Color Mapping',
-    'Smoothing & enhancement',
-    'View / Rendering Manipulation',
-    'Object identification'
+# File paths
+sheets_dir = "/Users/kuangshiai/Documents/ND-VIS/Code/SciVisAgentBench-tasks/statistics/sheets"
+csv_files = [
+    "SciVisAgentBench_Statistics - molecular_vis.csv",
+    "SciVisAgentBench_Statistics - bioimage_data.csv",
+    "SciVisAgentBench_Statistics - sci_volume_data.csv",
+    "SciVisAgentBench_Statistics - chatvis_bench.csv",
+    "SciVisAgentBench_Statistics - main.csv",
+    "SciVisAgentBench_Statistics - topology.csv"
 ]
 
-DATA_TYPES = ['Scalar Fields', 'Vector Fields', 'Tensor Fields', 'Multivariate', 'Time-varying']
+def parse_multi_tags(text):
+    """Parse semicolon-separated tags and return list"""
+    if pd.isna(text) or text.strip() == '':
+        return []
+    return [tag.strip() for tag in text.split(';') if tag.strip()]
 
-def normalize_tag(tag):
-    """Normalize tag capitalization and spacing."""
-    tag = tag.strip()
-
-    # Create a mapping for known variations
-    normalizations = {
-        'atomic operation': 'Atomic Operation',
-        'workflow': 'Workflow',
-        'scientific insights': 'Scientific Insights',
-        'object identification': 'Object identification',
-        'geometric primitives': 'Geometric Primitives',
-        'volume representation': 'Volume Representation',
-        'plot drawing': 'Plot Drawing',
-        'spatial/temporal extraction': 'Spatial/temporal Extraction',
-        'value-based selection': 'Value-Based Selection',
-        'sampling': 'Sampling',
-        'geometric modification': 'Geometric Modification',
-        'topological changes': 'Topological Changes',
-        'structural operations': 'Structural Operations',
-        'field derivatives': 'Field Derivatives',
-        'scalar operations': 'Scalar Operations',
-        'advanced computations': 'Advanced Computations',
-        'time-dependent processing': 'Time-Dependent Processing',
-        'glyph-based representation': 'Glyph-Based Representation',
-        'color mapping': 'Color Mapping',
-        'smoothing & enhancement': 'Smoothing & enhancement',
-        'view / rendering manipulation': 'View / Rendering Manipulation',
-        'scalar fields': 'Scalar Fields',
-        'vector fields': 'Vector Fields',
-        'tensor fields': 'Tensor Fields',
-        'Multivariate': 'Multivariate',
-        'time-varying': 'Time-varying'
+def count_complexity_levels(df):
+    """Count operations, tasks, and workflows with operation count sums"""
+    counts = {
+        'Operation': 0,
+        'Task': 0,
+        'Workflow': 0
     }
 
-    tag_lower = tag.lower()
-    return normalizations.get(tag_lower, tag)
+    operation_sums = {
+        'Operation': 0,
+        'Task': 0,
+        'Workflow': 0
+    }
 
-def read_csv_data(filename):
-    """Read and parse the CSV file into categories."""
-    data = []
-    with open(filename, 'r') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            data.append(row)
+    for _, row in df.iterrows():
+        level = row['Task Level 1: Complexity Level']
+        if pd.notna(level):
+            level = level.strip()
+            if level in counts:
+                counts[level] += 1
 
-    # Find category boundaries
-    categories = {}
-    current_category = None
-    for i, row in enumerate(data):
-        # Category header: first column has value, rest are empty
-        if len(row) >= 1 and row[0] and all(not cell for cell in row[1:]):
-            current_category = row[0]
-            categories[current_category] = []
-        # Data row: has Case Name, Application, Task, Data
-        elif len(row) >= 4 and row[0] and row[1] and current_category:
-            if row[0] != "Case Name":  # Skip header rows
-                categories[current_category].append(row)
+                # Sum operation counts (skip "N/A")
+                if 'Operation Count' in row:
+                    op_count = row['Operation Count']
+                    if pd.notna(op_count) and str(op_count).strip() != 'N/A':
+                        try:
+                            operation_sums[level] += int(op_count)
+                        except (ValueError, TypeError):
+                            pass
 
-    return categories
+    return counts, operation_sums
 
-def count_tags(categories):
-    """Count all tags across categories."""
-    app_counts = defaultdict(int)
-    task1_counts = defaultdict(int)
-    task2_counts = defaultdict(int)
-    data_counts = defaultdict(int)
+def main():
+    # Initialize global counters
+    all_data = []
+    file_stats = {}
 
-    total_cases = 0
-    category_stats = {}
+    # Read all CSV files
+    for csv_file in csv_files:
+        file_path = os.path.join(sheets_dir, csv_file)
+        df = pd.read_csv(file_path)
 
-    for category, cases in categories.items():
-        total_cases += len(cases)
+        # Remove empty rows
+        df = df.dropna(subset=['Case Name'])
+        df = df[df['Case Name'].str.strip() != '']
 
-        cat_app = defaultdict(int)
-        cat_task1 = defaultdict(int)
-        cat_task2 = defaultdict(int)
-        cat_data = defaultdict(int)
+        # Store data
+        df['Source File'] = csv_file
+        all_data.append(df)
 
-        for case in cases:
-            # Application
-            if case[1]:
-                apps = [normalize_tag(a) for a in case[1].split(';')]
-                for app in apps:
-                    if app:
-                        app_counts[app] += 1
-                        cat_app[app] += 1
-
-            # Task (contains both Task1 and Task2 separated by semicolons)
-            if case[2]:
-                tasks = [normalize_tag(t) for t in case[2].split(';')]
-
-                for task in tasks:
-                    if not task:
-                        continue
-
-                    # Determine if it's Task1 or Task2
-                    if task in TASK1_CATEGORIES:
-                        task1_counts[task] += 1
-                        cat_task1[task] += 1
-                    elif task in TASK2_CATEGORIES:
-                        task2_counts[task] += 1
-                        cat_task2[task] += 1
-
-            # Data
-            if case[3]:
-                data_types = [normalize_tag(d) for d in case[3].split(';')]
-                for dtype in data_types:
-                    if dtype:
-                        data_counts[dtype] += 1
-                        cat_data[dtype] += 1
-
-        category_stats[category] = {
-            'count': len(cases),
-            'applications': dict(cat_app),
-            'task1': dict(cat_task1),
-            'task2': dict(cat_task2),
-            'data': dict(cat_data)
+        # Calculate file statistics
+        complexity_counts, operation_sums = count_complexity_levels(df)
+        file_stats[csv_file] = {
+            'total_rows': len(df),
+            'operations': complexity_counts['Operation'],
+            'tasks': complexity_counts['Task'],
+            'workflows': complexity_counts['Workflow'],
+            'cases': complexity_counts['Task'] + complexity_counts['Workflow'],
+            'operation_sums': operation_sums
         }
 
-    return {
-        'total_cases': total_cases,
-        'app_counts': dict(app_counts),
-        'task1_counts': dict(task1_counts),
-        'task2_counts': dict(task2_counts),
-        'data_counts': dict(data_counts),
-        'category_stats': category_stats
+    # Combine all data
+    all_df = pd.concat(all_data, ignore_index=True)
+
+    # Filter to only cases (Tasks + Workflows, excluding Operations)
+    cases_df = all_df[all_df['Task Level 1: Complexity Level'].isin(['Task', 'Workflow'])]
+
+    # 1. TOTAL CASES COUNT
+    total_operations = sum(s['operations'] for s in file_stats.values())
+    total_tasks = sum(s['tasks'] for s in file_stats.values())
+    total_workflows = sum(s['workflows'] for s in file_stats.values())
+    total_cases = total_tasks + total_workflows
+
+    # Calculate total operation counts
+    total_op_sum_operations = sum(s['operation_sums']['Operation'] for s in file_stats.values())
+    total_op_sum_tasks = sum(s['operation_sums']['Task'] for s in file_stats.values())
+    total_op_sum_workflows = sum(s['operation_sums']['Workflow'] for s in file_stats.values())
+
+    # 2. APPLICATION STATISTICS (Cases only: Tasks + Workflows)
+    application_counter = Counter()
+    for _, row in cases_df.iterrows():
+        apps = parse_multi_tags(row['Application'])
+        for app in apps:
+            application_counter[app] += 1
+
+    # Also count combinations
+    application_combinations = Counter()
+    for _, row in cases_df.iterrows():
+        if pd.notna(row['Application']):
+            combo = row['Application'].strip()
+            if combo:
+                application_combinations[combo] += 1
+
+    # 3. DATA TYPE STATISTICS (Cases only: Tasks + Workflows)
+    data_type_counter = Counter()
+    for _, row in cases_df.iterrows():
+        data_types = parse_multi_tags(row['Data'])
+        for dt in data_types:
+            data_type_counter[dt] += 1
+
+    # Also count combinations
+    data_combinations = Counter()
+    for _, row in cases_df.iterrows():
+        if pd.notna(row['Data']):
+            combo = row['Data'].strip()
+            if combo:
+                data_combinations[combo] += 1
+
+    # 4. VISUALIZATION OPERATIONS STATISTICS (Cases only: Tasks + Workflows)
+    vis_ops_counter = Counter()
+    vis_ops_by_level = {
+        'Task': Counter(),
+        'Workflow': Counter()
     }
 
-def print_statistics(stats):
-    """Print statistics to console."""
-    print(f"\n{'='*60}")
-    print(f"OVERALL STATISTICS")
-    print(f"{'='*60}")
-    print(f"Total number of cases: {stats['total_cases']}")
+    for _, row in cases_df.iterrows():
+        ops = parse_multi_tags(row['Task Level 2: Visualization Operations'])
+        level = row['Task Level 1: Complexity Level']
 
-    # Category breakdown
-    print(f"\n{'='*60}")
-    print(f"CASES BY CATEGORY")
-    print(f"{'='*60}")
-    for category, cat_stats in stats['category_stats'].items():
-        print(f"{category}: {cat_stats['count']} cases")
-
-    # Application domains
-    print(f"\n{'='*60}")
-    print(f"APPLICATION DOMAIN COUNTS")
-    print(f"{'='*60}")
-    for app in APPLICATIONS:
-        count = stats['app_counts'].get(app, 0)
-        percentage = (count / stats['total_cases']) * 100 if count > 0 else 0
-        print(f"{app}: {count} ({percentage:.1f}%)")
-
-    # Task 1
-    print(f"\n{'='*60}")
-    print(f"TASK LEVEL 1 COUNTS")
-    print(f"{'='*60}")
-    for task in TASK1_CATEGORIES:
-        count = stats['task1_counts'].get(task, 0)
-        percentage = (count / stats['total_cases']) * 100 if count > 0 else 0
-        print(f"{task}: {count} ({percentage:.1f}%)")
-
-    # Task 2
-    print(f"\n{'='*60}")
-    print(f"TASK LEVEL 2 COUNTS")
-    print(f"{'='*60}")
-    for task in TASK2_CATEGORIES:
-        count = stats['task2_counts'].get(task, 0)
-        print(f"{task}: {count}")
-
-    # Data types
-    print(f"\n{'='*60}")
-    print(f"DATA TYPE COUNTS")
-    print(f"{'='*60}")
-    for dtype in DATA_TYPES:
-        count = stats['data_counts'].get(dtype, 0)
-        print(f"{dtype}: {count}")
-
-def generate_markdown_report(stats, output_file):
-    """Generate a markdown report file."""
-    with open(output_file, 'w') as f:
-        f.write("# SciVisAgentBench Statistics Report\n\n")
-
-        f.write("## Overall Statistics\n\n")
-        f.write(f"**Total Cases: {stats['total_cases']}**\n\n")
-
-        # Cases by category
-        f.write("## Cases by Category\n\n")
-        f.write("| Category | Number of Cases |\n")
-        f.write("|----------|----------------|\n")
-        for category, cat_stats in stats['category_stats'].items():
-            f.write(f"| {category} | {cat_stats['count']} |\n")
-        f.write("\n")
-
-        # Application domains
-        f.write("## Application Domain Distribution\n\n")
-        f.write("| Application Domain | Count | Percentage |\n")
-        f.write("|-------------------|-------|------------|\n")
-        for app in APPLICATIONS:
-            count = stats['app_counts'].get(app, 0)
-            percentage = (count / stats['total_cases']) * 100 if count > 0 else 0
-            f.write(f"| {app} | {count} | {percentage:.1f}% |\n")
-        f.write("\n")
-
-        # Task 1
-        f.write("## Task Level 1 Distribution\n\n")
-        f.write("| Task Type | Count | Percentage |\n")
-        f.write("|-----------|-------|------------|\n")
-        for task in TASK1_CATEGORIES:
-            count = stats['task1_counts'].get(task, 0)
-            percentage = (count / stats['total_cases']) * 100 if count > 0 else 0
-            f.write(f"| {task} | {count} | {percentage:.1f}% |\n")
-        f.write("\n")
-        f.write("*Note: Some cases have multiple Task 1 tags*\n\n")
-
-        # Task 2
-        f.write("## Task Level 2 Distribution (Visualization Operations)\n\n")
-        f.write("| Operation Type | Count |\n")
-        f.write("|----------------|-------|\n")
-        for task in TASK2_CATEGORIES:
-            count = stats['task2_counts'].get(task, 0)
-            f.write(f"| {task} | {count} |\n")
-        f.write("\n")
-
-        # Data types
-        f.write("## Data Type Distribution\n\n")
-        f.write("| Data Type | Count |\n")
-        f.write("|-----------|-------|\n")
-        for dtype in DATA_TYPES:
-            count = stats['data_counts'].get(dtype, 0)
-            f.write(f"| {dtype} | {count} |\n")
-        f.write("\n")
-        f.write("*Note: Cases can have multiple data type tags*\n\n")
-
-        # Detailed category breakdown
-        f.write("## Detailed Category Breakdown\n\n")
-        for category, cat_stats in stats['category_stats'].items():
-            f.write(f"### {category}\n\n")
-            f.write(f"**Total Cases:** {cat_stats['count']}\n\n")
-
-            if cat_stats['applications']:
-                f.write("**Applications:**\n")
-                for app in APPLICATIONS:
-                    count = cat_stats['applications'].get(app, 0)
-                    if count > 0:
-                        f.write(f"- {app}: {count}\n")
-                f.write("\n")
-
-            if cat_stats['task1']:
-                f.write("**Task Level 1:**\n")
-                for task in TASK1_CATEGORIES:
-                    count = cat_stats['task1'].get(task, 0)
-                    if count > 0:
-                        f.write(f"- {task}: {count}\n")
-                f.write("\n")
-
-            if cat_stats['task2']:
-                f.write("**Task Level 2:**\n")
-                for task in TASK2_CATEGORIES:
-                    count = cat_stats['task2'].get(task, 0)
-                    if count > 0:
-                        f.write(f"- {task}: {count}\n")
-                f.write("\n")
-
-            if cat_stats['data']:
-                f.write("**Data Types:**\n")
-                for dtype in DATA_TYPES:
-                    count = cat_stats['data'].get(dtype, 0)
-                    if count > 0:
-                        f.write(f"- {dtype}: {count}\n")
-                f.write("\n")
-
-        # Key insights
-        f.write("## Key Insights\n\n")
-
-        # Top application
-        top_app = max(((app, stats['app_counts'].get(app, 0)) for app in APPLICATIONS), key=lambda x: x[1])
-        if top_app[1] > 0:
-            f.write(f"1. **Most Common Application Domain**: {top_app[0]} ({top_app[1]} cases, {top_app[1]/stats['total_cases']*100:.1f}%)\\n\n")
-
-        # Top task1
-        top_task1 = max(((task, stats['task1_counts'].get(task, 0)) for task in TASK1_CATEGORIES), key=lambda x: x[1])
-        if top_task1[1] > 0:
-            f.write(f"2. **Most Common Task Level 1**: {top_task1[0]} ({top_task1[1]} cases, {top_task1[1]/stats['total_cases']*100:.1f}%)\\n\n")
-
-        # Top task2
-        top_task2 = max(((task, stats['task2_counts'].get(task, 0)) for task in TASK2_CATEGORIES), key=lambda x: x[1])
-        if top_task2[1] > 0:
-            f.write(f"3. **Most Common Task Level 2 Operation**: {top_task2[0]} ({top_task2[1]} occurrences)\\n\n")
-
-        # Top data type
-        top_data = max(((dtype, stats['data_counts'].get(dtype, 0)) for dtype in DATA_TYPES), key=lambda x: x[1])
-        if top_data[1] > 0:
-            f.write(f"4. **Most Common Data Type**: {top_data[0]} ({top_data[1]} occurrences)\\n\n")
-
-        # Coverage
-        bio_chem = stats['app_counts'].get('Biology', 0) + stats['app_counts'].get('Chemistry', 0)
-        f.write(f"5. **Biology and Chemistry Coverage**: {bio_chem} cases ({bio_chem/stats['total_cases']*100:.1f}% of total)\\n\\n")
-
-if __name__ == "__main__":
-    # Read data
-    print("Reading final_correct.csv...")
-    categories = read_csv_data('final_correct.csv')
-
-    # Calculate statistics
-    print("Calculating statistics...")
-    stats = count_tags(categories)
-
-    # Print to console
-    print_statistics(stats)
+        for op in ops:
+            vis_ops_counter[op] += 1
+            if level in vis_ops_by_level:
+                vis_ops_by_level[level][op] += 1
 
     # Generate markdown report
-    print("\nGenerating markdown report...")
-    generate_markdown_report(stats, 'statistics_report.md')
-    print("Report saved to statistics_report.md")
+    report = []
+    report.append("# SciVisAgentBench - Comprehensive Statistics Report\n")
+    report.append("*Generated from 6 CSV files in the benchmark*\n")
+    report.append("---\n")
+
+    # 1. Total Cases Count
+    report.append("## 1. Total Cases Count\n")
+    report.append("**Important**: Cases = Tasks + Workflows only (Operation-level entries are NOT counted as cases)\n")
+
+    report.append("\n### Overall Summary\n")
+    report.append(f"- **Total Operation-level entries**: {total_operations} (NOT counted as cases)\n")
+    report.append(f"- **Total Tasks**: {total_tasks}\n")
+    report.append(f"- **Total Workflows**: {total_workflows}\n")
+    report.append(f"- **Total Cases**: **{total_cases}** (Tasks + Workflows)\n")
+    report.append(f"- **Total Operations**: **{total_op_sum_tasks + total_op_sum_workflows}** (sum of Operation Count column)\n")
+
+    report.append("\n### Breakdown by File\n")
+    report.append("| File | Operation Entries | Tasks | Workflows | Cases (Task+Workflow) |\n")
+    report.append("|------|-------------------|-------|-----------|----------------------|\n")
+
+    for csv_file, stats in file_stats.items():
+        short_name = csv_file.replace("SciVisAgentBench_Statistics - ", "").replace(".csv", "")
+        report.append(f"| {short_name} | {stats['operations']} | {stats['tasks']} | {stats['workflows']} | **{stats['cases']}** |\n")
+
+    report.append(f"| **TOTAL** | **{total_operations}** | **{total_tasks}** | **{total_workflows}** | **{total_cases}** |\n")
+
+    # 2. Application Statistics
+    report.append("\n## 2. Application Domain Statistics\n")
+    report.append("**Note**: These statistics include ONLY cases (Tasks + Workflows). Operation-level entries are excluded.\n\n")
+    report.append("\n### Individual Application Counts\n")
+    report.append("*(Counts individual tags, so multi-tagged entries contribute to multiple categories)*\n\n")
+    report.append("| Application | Count |\n")
+    report.append("|-------------|-------|\n")
+
+    for app, count in sorted(application_counter.items(), key=lambda x: (-x[1], x[0])):
+        report.append(f"| {app} | {count} |\n")
+
+    report.append(f"\n**Total individual application tags**: {sum(application_counter.values())}\n")
+
+    report.append("\n### Application Combinations\n")
+    report.append("*(Shows exact combinations as they appear in the data)*\n\n")
+    report.append("| Application Combination | Count |\n")
+    report.append("|------------------------|-------|\n")
+
+    for combo, count in sorted(application_combinations.items(), key=lambda x: (-x[1], x[0])):
+        report.append(f"| {combo} | {count} |\n")
+
+    # 3. Data Type Statistics
+    report.append("\n## 3. Data Type Statistics\n")
+    report.append("**Note**: These statistics include ONLY cases (Tasks + Workflows). Operation-level entries are excluded.\n\n")
+    report.append("\n### Individual Data Type Counts\n")
+    report.append("*(Counts individual tags, so multi-tagged entries contribute to multiple categories)*\n\n")
+    report.append("| Data Type | Count |\n")
+    report.append("|-----------|-------|\n")
+
+    for dt, count in sorted(data_type_counter.items(), key=lambda x: (-x[1], x[0])):
+        report.append(f"| {dt} | {count} |\n")
+
+    report.append(f"\n**Total individual data type tags**: {sum(data_type_counter.values())}\n")
+
+    report.append("\n### Data Type Combinations\n")
+    report.append("*(Shows exact combinations as they appear in the data)*\n\n")
+    report.append("| Data Type Combination | Count |\n")
+    report.append("|-----------------------|-------|\n")
+
+    for combo, count in sorted(data_combinations.items(), key=lambda x: (-x[1], x[0])):
+        report.append(f"| {combo} | {count} |\n")
+
+    # 4. Complexity Level Statistics
+    report.append("\n## 4. Task Level 1: Complexity Level Statistics\n")
+    report.append("\n### Overall Distribution\n")
+    report.append("| Complexity Level | Entry Count | Operation Count | Counted as Case? |\n")
+    report.append("|------------------|-------------|-----------------|------------------|\n")
+    report.append(f"| Operation | {total_operations} | N/A | ❌ NO |\n")
+    report.append(f"| Task | {total_tasks} | {total_op_sum_tasks} | ✅ YES |\n")
+    report.append(f"| Workflow | {total_workflows} | {total_op_sum_workflows} | ✅ YES |\n")
+    report.append(f"| **Total Cases** | **{total_cases}** | **{total_op_sum_tasks + total_op_sum_workflows}** | **(Tasks + Workflows)** |\n")
+
+    # 5. Visualization Operations Statistics
+    report.append("\n## 5. Task Level 2: Visualization Operations Statistics\n")
+    report.append("**Note**: These statistics include ONLY cases (Tasks + Workflows). Operation-level entries are excluded.\n\n")
+    report.append("\n### All Visualization Operations (Sorted by Frequency)\n")
+    report.append("| Rank | Visualization Operation | Total Count |\n")
+    report.append("|------|------------------------|-------------|\n")
+
+    for i, (op, count) in enumerate(sorted(vis_ops_counter.items(), key=lambda x: (-x[1], x[0])), 1):
+        report.append(f"| {i} | {op} | {count} |\n")
+
+    report.append(f"\n**Total visualization operation tags**: {sum(vis_ops_counter.values())}\n")
+
+    # Top operations
+    report.append("\n### Top 10 Most Common Visualization Operations\n")
+    report.append("| Rank | Operation | Count |\n")
+    report.append("|------|-----------|-------|\n")
+
+    top_10 = sorted(vis_ops_counter.items(), key=lambda x: (-x[1], x[0]))[:10]
+    for i, (op, count) in enumerate(top_10, 1):
+        report.append(f"| {i} | {op} | {count} |\n")
+
+    # Operations by complexity level (Cases only)
+    report.append("\n### Visualization Operations by Complexity Level (Cases Only)\n")
+
+    for level in ['Task', 'Workflow']:
+        report.append(f"\n#### {level} Level (Top 10)\n")
+        report.append("| Rank | Operation | Count |\n")
+        report.append("|------|-----------|-------|\n")
+
+        top_ops = sorted(vis_ops_by_level[level].items(), key=lambda x: (-x[1], x[0]))[:10]
+        for i, (op, count) in enumerate(top_ops, 1):
+            report.append(f"| {i} | {op} | {count} |\n")
+
+    # Complete taxonomy list
+    report.append("\n### Complete Taxonomy of 15 Operation Categories\n")
+    report.append("\nAll visualization operations found in the benchmark:\n\n")
+
+    all_ops_sorted = sorted(vis_ops_counter.keys())
+    for i, op in enumerate(all_ops_sorted, 1):
+        count = vis_ops_counter[op]
+        report.append(f"{i}. **{op}** ({count} occurrences)\n")
+
+    # Summary statistics
+    report.append("\n## 6. Summary Statistics\n")
+    report.append(f"- **Total number of CSV files analyzed**: {len(csv_files)}\n")
+    report.append(f"- **Total rows in all files**: {len(all_df)}\n")
+    report.append(f"- **Total Cases (Tasks + Workflows)**: **{total_cases}**\n")
+    report.append(f"- **Unique application domains**: {len(application_counter)}\n")
+    report.append(f"- **Unique data types**: {len(data_type_counter)}\n")
+    report.append(f"- **Unique visualization operations**: {len(vis_ops_counter)}\n")
+
+    # File breakdown
+    report.append("\n### File Contributions\n")
+    report.append("| File | Cases Contributed | Percentage |\n")
+    report.append("|------|-------------------|------------|\n")
+
+    for csv_file, stats in sorted(file_stats.items(), key=lambda x: -x[1]['cases']):
+        short_name = csv_file.replace("SciVisAgentBench_Statistics - ", "").replace(".csv", "")
+        percentage = (stats['cases'] / total_cases * 100) if total_cases > 0 else 0
+        report.append(f"| {short_name} | {stats['cases']} | {percentage:.1f}% |\n")
+
+    # Write report
+    report_content = ''.join(report)
+    output_path = "/Users/kuangshiai/Documents/ND-VIS/Code/SciVisAgentBench-tasks/statistics/statistics_report.md"
+
+    with open(output_path, 'w') as f:
+        f.write(report_content)
+
+    print(f"Statistics report generated successfully!")
+    print(f"Output: {output_path}")
+    print(f"\nKey Statistics:")
+    print(f"  - Total Cases: {total_cases}")
+    print(f"  - Total Tasks: {total_tasks}")
+    print(f"  - Total Workflows: {total_workflows}")
+    print(f"  - Total Operations: {total_op_sum_tasks + total_op_sum_workflows}")
+    print(f"  - Operation-level entries (not counted as cases): {total_operations}")
+    print(f"  - Unique Applications: {len(application_counter)}")
+    print(f"  - Unique Data Types: {len(data_type_counter)}")
+    print(f"  - Unique Visualization Operations: {len(vis_ops_counter)}")
+
+if __name__ == "__main__":
+    main()

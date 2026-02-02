@@ -1,0 +1,40 @@
+Case Name,Application,Data,Task Level 1: Complexity Level,Task Level 2: Visualization Operations,Operation Count
+aneurism,Medical Science,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+christmas_tree,Others,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+hydrogen_atom,Physics,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+neghip,Chemistry,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+silicium,Physics,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+tornado,Physics,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+backpack,Others,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+csafe_heptane,Physics,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+lobster,Biology,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+neocortical_layer_1_axons,Biology,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+skull,Medical Science,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+vertebra,Medical Science,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+blunt_fin,Physics,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+duct,Physics,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+marmoset_neurons,Biology,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+nucleon,Physics,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+statue_leg,Others,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+vis_male,Medical Science,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+bonsai,Biology,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+engine,Others,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+marschner_lobb,Mathematics,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+pancreas,Medical Science,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+stent,Medical Science,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+zeiss,Others,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+boston_teapot,Others,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+foot,Medical Science,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+mri_ventricles,Medical Science,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+present,Others,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+supernova,Astronomy,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+bunny,Others,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+frog,Biology,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+mri_woman,Medical Science,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+prone,Medical Science,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+tacc_turbulence,Physics,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+carp,Biology,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+fuel,Physics,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+mrt_angio,Medical Science,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+shockwave,Physics,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
+tooth,Medical Science,Scalar Fields,Task,Surface & Contour Extraction; Volume Rendering; Color & Opacity Mapping,3
