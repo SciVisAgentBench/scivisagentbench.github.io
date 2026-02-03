@@ -656,7 +656,7 @@ function parseCSV(csvText, filename) {
                 taskDifficulty: extractTaskDifficultyNew(complexityLevel),
                 visualizationOps: extractVisualizationOpsNew(operations),
                 dataTypes: extractDataTypes(data),
-                operationCount: operationCount || '0'
+                operationCount: (operationCount && operationCount !== 'N/A') ? operationCount : '-'
             });
         }
     }
@@ -817,7 +817,7 @@ function renderTestCases(testCases) {
                 <td>${taskDifficultyTags || '-'}</td>
                 <td>${visualizationOpsTags || '-'}</td>
                 <td>${dataTypesTags || '-'}</td>
-                <td style="text-align: center;">${escapeHtml(testCase.operationCount)}</td>
+                <td style="text-align: center;">${testCase.operationCount || '0'}</td>
             </tr>
         `;
     }).join('');
