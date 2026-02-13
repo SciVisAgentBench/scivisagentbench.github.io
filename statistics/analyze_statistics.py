@@ -26,7 +26,7 @@ def parse_multi_tags(text):
     return [tag.strip() for tag in text.split(';') if tag.strip()]
 
 def count_complexity_levels(df):
-    """Count operations, tasks, and workflows with operation count sums"""
+    """Count operations, tasks, and workflows with Action Count sums"""
     counts = {
         'Operation': 0,
         'Task': 0,
@@ -46,9 +46,9 @@ def count_complexity_levels(df):
             if level in counts:
                 counts[level] += 1
 
-                # Sum operation counts (skip "N/A")
-                if 'Operation Count' in row:
-                    op_count = row['Operation Count']
+                # Sum Action Counts (skip "N/A")
+                if 'Action Count' in row:
+                    op_count = row['Action Count']
                     if pd.notna(op_count) and str(op_count).strip() != 'N/A':
                         try:
                             operation_sums[level] += int(op_count)
@@ -98,7 +98,7 @@ def main():
     total_workflows = sum(s['workflows'] for s in file_stats.values())
     total_cases = total_tasks + total_workflows
 
-    # Calculate total operation counts
+    # Calculate total Action Counts
     total_op_sum_operations = sum(s['operation_sums']['Operation'] for s in file_stats.values())
     total_op_sum_tasks = sum(s['operation_sums']['Task'] for s in file_stats.values())
     total_op_sum_workflows = sum(s['operation_sums']['Workflow'] for s in file_stats.values())
@@ -164,7 +164,7 @@ def main():
     report.append(f"- **Total Tasks**: {total_tasks}\n")
     report.append(f"- **Total Workflows**: {total_workflows}\n")
     report.append(f"- **Total Cases**: **{total_cases}** (Tasks + Workflows)\n")
-    report.append(f"- **Total Operations**: **{total_op_sum_tasks + total_op_sum_workflows}** (sum of Operation Count column)\n")
+    report.append(f"- **Total Actions**: **{total_op_sum_tasks + total_op_sum_workflows}** (sum of Action Count column)\n")
 
     report.append("\n### Breakdown by File\n")
     report.append("| File | Operation Entries | Tasks | Workflows | Cases (Task+Workflow) |\n")
@@ -221,7 +221,7 @@ def main():
     # 4. Complexity Level Statistics
     report.append("\n## 4. Task Level 1: Complexity Level Statistics\n")
     report.append("\n### Overall Distribution\n")
-    report.append("| Complexity Level | Entry Count | Operation Count | Counted as Case? |\n")
+    report.append("| Complexity Level | Entry Count | Action Count | Counted as Case? |\n")
     report.append("|------------------|-------------|-----------------|------------------|\n")
     report.append(f"| Operation | {total_operations} | N/A | ❌ NO |\n")
     report.append(f"| Task | {total_tasks} | {total_op_sum_tasks} | ✅ YES |\n")
@@ -302,7 +302,7 @@ def main():
     print(f"  - Total Cases: {total_cases}")
     print(f"  - Total Tasks: {total_tasks}")
     print(f"  - Total Workflows: {total_workflows}")
-    print(f"  - Total Operations: {total_op_sum_tasks + total_op_sum_workflows}")
+    print(f"  - Total Actions: {total_op_sum_tasks + total_op_sum_workflows}")
     print(f"  - Operation-level entries (not counted as cases): {total_operations}")
     print(f"  - Unique Applications: {len(application_counter)}")
     print(f"  - Unique Data Types: {len(data_type_counter)}")

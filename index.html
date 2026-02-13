@@ -17,7 +17,7 @@
             <ul class="nav-links">
                 <li><a href="#" data-page="statistics" class="active">Statistics</a></li>
                 <li><a href="#" data-page="contributions">Contributions</a></li>
-                <li><a href="#" data-page="submit">Submit Dataset</a></li>
+                <li><a href="#" data-page="submit">Submit Tasks</a></li>
                 <li><a href="#" data-page="about">About</a></li>
                 <li><a href="https://github.com/KuangshiAi/SciVisAgentBench" target="_blank">GitHub</a></li>
                 <li><a href="https://huggingface.co/datasets/SciVisAgentBench/SciVisAgentBench-tasks" target="_blank">Hugging Face</a></li>
@@ -142,9 +142,9 @@
                                 <div class="domain-stats-grid complexity-grid">
                                     <div class="stat-item-small"><span class="stat-label">Task</span> <span class="stat-count">100 (73.0%)</span></div>
                                     <div class="stat-item-small"><span class="stat-label">Workflow</span> <span class="stat-count">37 (27.0%)</span></div>
-                                    <div class="stat-item-small"><span class="stat-label">Total Operations</span> <span class="stat-count">632</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Total Actions</span> <span class="stat-count">632</span></div>
                                 </div>
-                                <p class="note-text">Note: Operation count represents the sum of all visualization operations across all test cases</p>
+                                <p class="note-text">Note: Action count represents the sum of all visualization operations across all test cases</p>
                             </div>
 
                             <div class="overview-section">
@@ -155,13 +155,13 @@
                                     Data Type Distribution
                                 </h4>
                                 <div class="domain-stats-grid">
-                                    <div class="stat-item-small"><span class="stat-label">Scalar Fields</span> <span class="stat-count">97</span></div>
-                                    <div class="stat-item-small"><span class="stat-label">Multi-variate</span> <span class="stat-count">42</span></div>
-                                    <div class="stat-item-small"><span class="stat-label">Vector Fields</span> <span class="stat-count">21</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Scalar Field</span> <span class="stat-count">97</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Multivariate</span> <span class="stat-count">42</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Vector Field</span> <span class="stat-count">21</span></div>
                                     <div class="stat-item-small"><span class="stat-label">Time-varying</span> <span class="stat-count">13</span></div>
-                                    <div class="stat-item-small"><span class="stat-label">Tensor Fields</span> <span class="stat-count">2</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Tensor Field</span> <span class="stat-count">2</span></div>
                                 </div>
-                                <p class="note-text">Note: Cases can have multiple data type tags</p>
+                                <p class="note-text">Note: A case can have multiple data type tags</p>
                             </div>
 
                             <div class="overview-section">
@@ -169,7 +169,7 @@
                                     <svg class="section-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                         <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h5a1 1 0 000-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM13 16a1 1 0 102 0v-5.586l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 101.414 1.414L13 10.414V16z" fill="currentColor"/>
                                     </svg>
-                                    Visualization Operations Distribution
+                                    Visualization Operation Distribution
                                 </h4>
                                 <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                                     <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
@@ -194,7 +194,7 @@
                                     </div>
                                     <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
                                         <span class="stat-label" style="font-weight: 500;">Field Computation</span>
-                                        <span style="font-size: 0.875rem; color: #6b7280;">Derive new scalar, vector, or tensor fields from existing data</span>
+                                        <span style="font-size: 0.875rem; color: #6b7280;">Derive new scalar, vector, or Tensor Field from existing data</span>
                                         <span class="stat-count" style="font-weight: 600; text-align: right;">29</span>
                                     </div>
                                     <div style="display: grid; grid-template-columns: minmax(200px, auto) 1fr auto; gap: 1rem; align-items: start; padding: 0.75rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.5rem;">
@@ -248,7 +248,7 @@
                                         <span class="stat-count" style="font-weight: 600; text-align: right;">2</span>
                                     </div>
                                 </div>
-                                <p class="note-text">Note: Cases can have multiple operation tags</p>
+                                <p class="note-text">Note: A case can have multiple operation tags</p>
                             </div>
                         </div>
                     </div>
@@ -290,11 +290,11 @@
                                 <div class="filter-panel">
                                     <h4 class="filter-title">Data Type</h4>
                                     <div class="filter-options" id="filter-datatype-options">
-                                        <label class="filter-checkbox"><input type="checkbox" value="Scalar Fields"> Scalar Fields <span class="count">(97)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Multi-variate"> Multi-variate <span class="count">(42)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Vector Fields"> Vector Fields <span class="count">(21)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Scalar Field"> Scalar Field <span class="count">(97)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Multivariate"> Multivariate <span class="count">(42)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Vector Field"> Vector Field <span class="count">(21)</span></label>
                                         <label class="filter-checkbox"><input type="checkbox" value="Time-varying"> Time-varying <span class="count">(13)</span></label>
-                                        <label class="filter-checkbox"><input type="checkbox" value="Tensor Fields"> Tensor Fields <span class="count">(2)</span></label>
+                                        <label class="filter-checkbox"><input type="checkbox" value="Tensor Field"> Tensor Field <span class="count">(2)</span></label>
                                     </div>
                                 </div>
 
@@ -336,7 +336,7 @@
                                         <th>Complexity Level</th>
                                         <th>Visualization Operations</th>
                                         <th>Data Type</th>
-                                        <th>Operation Count</th>
+                                        <th>Action Count</th>
                                     </tr>
                                 </thead>
                                 <tbody id="test-cases-tbody">
@@ -357,10 +357,10 @@
             <section class="hero">
                 <div class="container">
                     <div class="hero-content">
-                        <h2>Pending Contributions</h2>
+                        <h2>Collaborative Contributions</h2>
                         <p class="hero-description">
-                            Track new submissions awaiting review and incorporation into the benchmark.
-                            These statistics reflect contributions not yet included in the official benchmark above.
+                            Explore contributions from our collaborators and community members.
+                            These statistics showcase the diverse perspectives enriching the benchmark.
                         </p>
                         <div class="hero-stats">
                             <div class="stat">
@@ -387,7 +387,7 @@
             <!-- Dashboard Section -->
             <section class="dashboard-section">
                 <div class="container">
-                    <h2 class="section-title">Pending Contributions Breakdown</h2>
+                    <h2 class="section-title">Contributions Breakdown</h2>
 
                     <!-- Category Breakdown -->
                     <div class="category-grid">
@@ -435,7 +435,7 @@
         <div id="page-submit" class="page">
             <section class="submit-section">
                 <div class="container">
-                    <h2 class="section-title">Submit Dataset</h2>
+                    <h2 class="section-title">Submit Tasks</h2>
                     <p class="section-description">
                         Help build a comprehensive benchmark for scientific visualization agents.
                         Submit your dataset along with task descriptions and evaluation criteria.
@@ -536,19 +536,19 @@
                                 <div class="checkbox-group">
                                     <label class="checkbox-label">
                                         <input type="checkbox" name="attributeType" value="scalar-fields">
-                                        <span>Scalar Fields (temperature, pressure, density)</span>
+                                        <span>Scalar Field (temperature, pressure, density)</span>
                                     </label>
                                     <label class="checkbox-label">
                                         <input type="checkbox" name="attributeType" value="vector-fields">
-                                        <span>Vector Fields (velocity, force, displacement)</span>
+                                        <span>Vector Field (velocity, force, displacement)</span>
                                     </label>
                                     <label class="checkbox-label">
                                         <input type="checkbox" name="attributeType" value="tensor-fields">
-                                        <span>Tensor Fields (stress, strain, diffusion tensors)</span>
+                                        <span>Tensor Field (stress, strain, diffusion tensors)</span>
                                     </label>
                                     <label class="checkbox-label">
                                         <input type="checkbox" name="attributeType" value="multivariate">
-                                        <span>Multivariate/Multi-field (multiple scalar/vector fields)</span>
+                                        <span>Multivariate/Multi-field (multiple scalar/Vector Field)</span>
                                     </label>
                                     <label class="checkbox-label">
                                         <input type="checkbox" name="attributeType" value="other">

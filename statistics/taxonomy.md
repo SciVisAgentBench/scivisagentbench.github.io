@@ -14,9 +14,9 @@
 
 # Data Type Taxonomy
 
-- Scalar Fields
-- Vector Fields
-- Tensor Fields
+- Scalar Field
+- Vector Field
+- Tensor Field
 - Multivariate
 - Time-varying
 
@@ -101,7 +101,7 @@ Generate isosurfaces, contour lines, ribbons, or tubes from volumetric data.
 
 ## 9. Field Computation
 
-**Brief:** Derive new scalar, vector, or tensor fields from existing data attributes.
+**Brief:** Derive new scalar, vector, or Tensor Field from existing data attributes.
 
 **Detailed:** This operation covers all calculations that produce new attribute arrays from existing ones. It includes gradient, divergence, curl, and vorticity computation; curvature calculation and normal generation; arithmetic operations on fields such as addition, subtraction, and multiplication; vector magnitude computation and component extraction; field aggregation and statistical summaries (min, max, mean, standard deviation); tensor operations such as eigenvalue and eigenvector decomposition; interpolation between fields; and distance computations. Critical point detection also falls here, as it derives point locations and classifications from scalar field topology.
 
@@ -127,7 +127,7 @@ Generate isosurfaces, contour lines, ribbons, or tubes from volumetric data.
 
 **Brief:** Reduce noise, enhance features, or apply statistical filters to data.
 
-**Detailed:** This operation covers preprocessing steps that modify attribute values to improve quality or visual clarity without changing geometry or topology. It includes surface smoothing algorithms such as Laplacian or Gaussian smoothing, noise reduction on scalar or vector fields, interpolation to fill missing data gaps, edge enhancement or detection, feature sharpening, outlier removal, and statistical filtering. The goal is to condition the data for cleaner analysis or visualization, as distinct from Field Computation which derives fundamentally new quantities.
+**Detailed:** This operation covers preprocessing steps that modify attribute values to improve quality or visual clarity without changing geometry or topology. It includes surface smoothing algorithms such as Laplacian or Gaussian smoothing, noise reduction on scalar or Vector Field, interpolation to fill missing data gaps, edge enhancement or detection, feature sharpening, outlier removal, and statistical filtering. The goal is to condition the data for cleaner analysis or visualization, as distinct from Field Computation which derives fundamentally new quantities.
 
 ---
 

@@ -8,7 +8,7 @@
 - **Total Tasks**: 100
 - **Total Workflows**: 37
 - **Total Cases**: **137** (Tasks + Workflows)
-- **Total Operations**: **632** (sum of Operation Count column)
+- **Total Actions**: **632** (sum of Action Count column)
 
 ### Breakdown by File
 | File | Operation Entries | Tasks | Workflows | Cases (Task+Workflow) |
@@ -69,11 +69,11 @@
 
 | Data Type | Count |
 |-----------|-------|
-| Scalar Fields | 97 |
-| Multi-variate | 42 |
-| Vector Fields | 21 |
+| Scalar Field | 97 |
+| Multivariate | 42 |
+| Vector Field | 21 |
 | Time-varying | 13 |
-| Tensor Fields | 2 |
+| Tensor Field | 2 |
 
 **Total individual data type tags**: 175
 
@@ -82,18 +82,18 @@
 
 | Data Type Combination | Count |
 |-----------------------|-------|
-| Scalar Fields | 70 |
-| Vector Fields | 21 |
-| Multi-variate | 17 |
-| Scalar Fields; Multi-variate | 14 |
-| Scalar Fields; Multi-variate; Time-varying | 11 |
-| Scalar Fields; Time-varying | 2 |
-| Tensor Fields | 2 |
+| Scalar Field | 70 |
+| Vector Field | 21 |
+| Multivariate | 17 |
+| Scalar Field; Multivariate | 14 |
+| Scalar Field; Multivariate; Time-varying | 11 |
+| Scalar Field; Time-varying | 2 |
+| Tensor Field | 2 |
 
 ## 4. Task Level 1: Complexity Level Statistics
 
 ### Overall Distribution
-| Complexity Level | Entry Count | Operation Count | Counted as Case? |
+| Complexity Level | Entry Count | Action Count | Counted as Case? |
 |------------------|-------------|-----------------|------------------|
 | Operation | 72 | N/A | ❌ NO |
 | Task | 100 | 413 | ✅ YES |

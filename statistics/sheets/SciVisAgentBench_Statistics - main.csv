@@ -1,33 +1,33 @@
-Case Name,Application,Data,Task Level 1: Complexity Level,Task Level 2: Visualization Operations,Operation Count
-argon-bubble,Physics,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,7
-chameleon_isosurface,Biology,Scalar Fields,Workflow,Scientific Insight Derivation; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,11
-foot,Medical Science,Scalar Fields,Workflow,Scientific Insight Derivation; Volume Rendering; Color & Opacity Mapping,5
-miranda,Physics,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,7
-supernova,Astronomy,Scalar Fields,Task,Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,6
-vortex,Physics,Scalar Fields,Task,Surface & Contour Extraction; View & Camera Control,6
-bonsai,Biology,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,4
-chameleon_volvis,Biology,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,5
-richtmyer,Physics,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,7
-tangaroa,Physics,Vector Fields,Task,Temporal Processing; Surface & Contour Extraction; Glyph & Marker Placement,6
-carp,Biology,Scalar Fields,Workflow,Scientific Insight Derivation; Volume Rendering; Color & Opacity Mapping; View & Camera Control,6
-engine,Others,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,5
-lobster,Biology,Scalar Fields,Workflow,Scientific Insight Derivation; Surface & Contour Extraction; Color & Opacity Mapping,5
-rotstrat,Physics,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,7
-solar-plume,Astronomy,Vector Fields,Task,Temporal Processing; Surface & Contour Extraction; Glyph & Marker Placement,7
-tornado,Physics,Vector Fields,Task,Temporal Processing; Glyph & Marker Placement; Surface & Contour Extraction,7
-mhd-magfield_glyph,Physics,Vector Fields,Task,Glyph & Marker Placement; Color & Opacity Mapping; Data Subsetting & Extraction; View & Camera Control,7
-mhd-magfield_isosurface,Physics,Vector Fields,Task,Surface & Contour Extraction; Color & Opacity Mapping; Field Computation; View & Camera Control,7
-mhd-magfield_volvis,Physics,Vector Fields,Task,Volume Rendering; Color & Opacity Mapping; Field Computation; View & Camera Control,7
-mhd-turbulence_glyph,Physics,Vector Fields,Task,Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control,7
-mhd-turbulence_streamline,Physics,Vector Fields,Workflow,Scientific Insight Derivation; Temporal Processing; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,8
-mhd-turbulence_vorticity,Physics,Vector Fields,Workflow,Scientific Insight Derivation; Field Computation; Volume Rendering; Color & Opacity Mapping; View & Camera Control,9
-rti-velocity_divergence,Physics,Vector Fields,Task,Field Computation; Volume Rendering; Color & Opacity Mapping; View & Camera Control,7
-rti-velocity_glyph,Physics,Vector Fields,Task,Glyph & Marker Placement; Color & Opacity Mapping; Data Subsetting & Extraction; View & Camera Control,7
-rti-velocity_slices,Physics,Vector Fields,Task,Data Subsetting & Extraction; Color & Opacity Mapping; View & Camera Control,7
-rti-velocity_streamline,Physics,Vector Fields,Workflow,Scientific Insight Derivation; Temporal Processing; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,8
-supernova-velocity_isosurface,Astronomy,Vector Fields,Task,Surface & Contour Extraction; Color & Opacity Mapping; Field Computation; View & Camera Control,7
-supernova-velocity_streamline,Astronomy,Vector Fields,Workflow,Scientific Insight Derivation; Temporal Processing; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,8
-tgc-velocity_contour,Physics,Vector Fields,Workflow,Scientific Insight Derivation; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,9
-tgc-velocity_volvis,Physics,Vector Fields,Task,Volume Rendering; Color & Opacity Mapping; Field Computation; View & Camera Control,7
-trl-velocity_isosurface,Physics,Vector Fields,Task,Surface & Contour Extraction; Color & Opacity Mapping; Field Computation; View & Camera Control,7
-trl-velocity_streamline,Physics,Vector Fields,Workflow,Scientific Insight Derivation; Temporal Processing; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,8
+Case Name,Application,Data,Task Level 1: Complexity Level,Task Level 2: Visualization Operations,Action Count
+argon-bubble,Physics,Scalar Field,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,7
+chameleon_isosurface,Biology,Scalar Field,Workflow,Scientific Insight Derivation; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,11
+foot,Medical Science,Scalar Field,Workflow,Scientific Insight Derivation; Volume Rendering; Color & Opacity Mapping,5
+miranda,Physics,Scalar Field,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,7
+supernova,Astronomy,Scalar Field,Task,Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,6
+vortex,Physics,Scalar Field,Task,Surface & Contour Extraction; View & Camera Control,6
+bonsai,Biology,Scalar Field,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,4
+chameleon_volvis,Biology,Scalar Field,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,5
+richtmyer,Physics,Scalar Field,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,7
+tangaroa,Physics,Vector Field,Task,Temporal Processing; Surface & Contour Extraction; Glyph & Marker Placement,6
+carp,Biology,Scalar Field,Workflow,Scientific Insight Derivation; Volume Rendering; Color & Opacity Mapping; View & Camera Control,6
+engine,Others,Scalar Field,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,5
+lobster,Biology,Scalar Field,Workflow,Scientific Insight Derivation; Surface & Contour Extraction; Color & Opacity Mapping,5
+rotstrat,Physics,Scalar Field,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,7
+solar-plume,Astronomy,Vector Field,Task,Temporal Processing; Surface & Contour Extraction; Glyph & Marker Placement,7
+tornado,Physics,Vector Field,Task,Temporal Processing; Glyph & Marker Placement; Surface & Contour Extraction,7
+mhd-magfield_glyph,Physics,Vector Field,Task,Glyph & Marker Placement; Color & Opacity Mapping; Data Subsetting & Extraction; View & Camera Control,7
+mhd-magfield_isosurface,Physics,Vector Field,Task,Surface & Contour Extraction; Color & Opacity Mapping; Field Computation; View & Camera Control,7
+mhd-magfield_volvis,Physics,Vector Field,Task,Volume Rendering; Color & Opacity Mapping; Field Computation; View & Camera Control,7
+mhd-turbulence_glyph,Physics,Vector Field,Task,Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control,7
+mhd-turbulence_streamline,Physics,Vector Field,Workflow,Scientific Insight Derivation; Temporal Processing; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,8
+mhd-turbulence_vorticity,Physics,Vector Field,Workflow,Scientific Insight Derivation; Field Computation; Volume Rendering; Color & Opacity Mapping; View & Camera Control,9
+rti-velocity_divergence,Physics,Vector Field,Task,Field Computation; Volume Rendering; Color & Opacity Mapping; View & Camera Control,7
+rti-velocity_glyph,Physics,Vector Field,Task,Glyph & Marker Placement; Color & Opacity Mapping; Data Subsetting & Extraction; View & Camera Control,7
+rti-velocity_slices,Physics,Vector Field,Task,Data Subsetting & Extraction; Color & Opacity Mapping; View & Camera Control,7
+rti-velocity_streamline,Physics,Vector Field,Workflow,Scientific Insight Derivation; Temporal Processing; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,8
+supernova-velocity_isosurface,Astronomy,Vector Field,Task,Surface & Contour Extraction; Color & Opacity Mapping; Field Computation; View & Camera Control,7
+supernova-velocity_streamline,Astronomy,Vector Field,Workflow,Scientific Insight Derivation; Temporal Processing; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,8
+tgc-velocity_contour,Physics,Vector Field,Workflow,Scientific Insight Derivation; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,9
+tgc-velocity_volvis,Physics,Vector Field,Task,Volume Rendering; Color & Opacity Mapping; Field Computation; View & Camera Control,7
+trl-velocity_isosurface,Physics,Vector Field,Task,Surface & Contour Extraction; Color & Opacity Mapping; Field Computation; View & Camera Control,7
+trl-velocity_streamline,Physics,Vector Field,Workflow,Scientific Insight Derivation; Temporal Processing; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,8

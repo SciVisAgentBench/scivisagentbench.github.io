@@ -297,9 +297,9 @@ function updateCategoryStats() {
     };
 
     const attributeLabels = {
-        'scalar-fields': 'Scalar Fields',
-        'vector-fields': 'Vector Fields',
-        'tensor-fields': 'Tensor Fields',
+        'scalar-fields': 'Scalar Field',
+        'vector-fields': 'Vector Field',
+        'tensor-fields': 'Tensor Field',
         'multivariate': 'Multivariate/Multi-field',
         'other': 'Other'
     };
@@ -548,7 +548,7 @@ function loadSampleData() {
                 contributorEmail: 'maria.garcia@research.org',
                 contributorInstitution: 'Max Planck Institute',
                 datasetName: 'Molecular Stress Tensor Analysis',
-                datasetDescription: 'Molecular dynamics simulation with stress tensor fields',
+                datasetDescription: 'Molecular dynamics simulation with stress Tensor Field',
                 applicationDomain: 'molecular',
                 attributeType: ['tensor-fields'],
                 taskDescription: 'Compute eigenvalues and eigenvectors of the stress tensor field. Visualize using tensor glyphs and track principal stress directions over time.',
@@ -753,12 +753,12 @@ function extractDataTypes(dataString) {
 
     // Old format - check for specific strings
     const types = [];
-    if (dataString.includes('Scalar Fields')) types.push('Scalar Fields');
-    if (dataString.includes('Vector Fields')) types.push('Vector Fields');
-    if (dataString.includes('Multi-variate')) types.push('Multi-variate');
-    if (dataString.includes('Multivariate')) types.push('Multi-variate');
+    if (dataString.includes('Scalar Field')) types.push('Scalar Field');
+    if (dataString.includes('Vector Field')) types.push('Vector Field');
+    if (dataString.includes('Multivariate')) types.push('Multivariate');
+    if (dataString.includes('Multivariate')) types.push('Multivariate');
     if (dataString.includes('Time-varying')) types.push('Time-varying');
-    if (dataString.includes('Tensor Fields')) types.push('Tensor Fields');
+    if (dataString.includes('Tensor Field')) types.push('Tensor Field');
     return types;
 }
 
@@ -780,7 +780,7 @@ function renderTestCases(testCases) {
         'Surface & Contour Extraction': 'Generate isosurfaces, contour lines, ribbons, or tubes',
         'Volume Rendering': 'Render volumetric data directly using ray casting or splatting',
         'View & Camera Control': 'Adjust camera position, orientation, zoom, or lighting',
-        'Field Computation': 'Derive new scalar, vector, or tensor fields from existing data',
+        'Field Computation': 'Derive new scalar, vector, or Tensor Field from existing data',
         'Data Subsetting & Extraction': 'Isolate spatial regions or value-based subsets from a dataset',
         'Scientific Insight Derivation': 'Interpret results to answer domain-specific questions',
         'Glyph & Marker Placement': 'Place oriented, scaled, or typed glyphs at data points',

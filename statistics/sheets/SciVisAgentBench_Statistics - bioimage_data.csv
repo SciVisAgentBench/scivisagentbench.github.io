@@ -1,56 +1,56 @@
-Case Name,Application,Data,Task Level 1: Complexity Level,Task Level 2: Visualization Operations,Operation Count
-open_file - Load a multi-dimensional image file (T; Z; Y; X; C),Biology,Scalar Fields; Multi-variate,Operation,Dataset Restructuring,N/A
-delete layers - Delete all loaded layers from the viewer,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Dataset Restructuring,N/A
-open_file - Load a single image file,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Dataset Restructuring,N/A
-list_layers - Get information about loaded layers,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Field Computation,N/A
-Z-stack Navigation - Scroll through different depths,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Data Subsetting & Extraction,N/A
-Time Series Navigation - Navigate through time points,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Temporal Processing,N/A
-set_colormap - Change layer colormap,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Color & Opacity Mapping,N/A
-set_opacity - Adjust layer transparency,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Color & Opacity Mapping,N/A
-set_blending - Change layer blending mode,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Color & Opacity Mapping,N/A
-auto_contrast - Auto-adjust contrast,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Data Smoothing & Filtering,N/A
-set_contrast_limits - Set specific contrast limits,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Color & Opacity Mapping,N/A
-set_gamma - Adjust gamma correction,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Color & Opacity Mapping,N/A
-set_interpolation - Change interpolation mode,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Data Smoothing & Filtering,N/A
-toggle_view - Switch between 2D and 3D view,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,View & Camera Control,N/A
-get_dims_info - Get dimension information,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Field Computation,N/A
-get_camera - Get current camera settings,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,View & Camera Control,N/A
-reset_camera - Reset camera to default view,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,View & Camera Control,N/A
-set_camera - Adjust camera settings,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,View & Camera Control,N/A
-set_layer_visibility - Toggle layer visibility,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Data Subsetting & Extraction,N/A
-set_layer_visibility - Show layer again,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Data Subsetting & Extraction,N/A
-screenshot - Take a screenshot,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,View & Camera Control,N/A
-add_shapes - Add shape annotations,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Glyph & Marker Placement,N/A
-set_scale_bar - Show scale bar,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Glyph & Marker Placement,N/A
-screenshot - Save screenshot to file,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,View & Camera Control,N/A
-save_layers - Save layer to file,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Dataset Restructuring,N/A
-remove_layer - Remove a layer,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Dataset Restructuring,N/A
-Error handling - Try to load non-existent file,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Dataset Restructuring,N/A
-Error handling - Try to remove non-existent layer,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Dataset Restructuring,N/A
-3D View and Iso-surface Rendering,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Surface & Contour Extraction; Volume Rendering,N/A
-Cleanup - Remove remaining test layers,Biology,Scalar Fields; Multi-variate; Time-varying,Operation,Dataset Restructuring,N/A
-Napari - Load & Layer Management,Biology,Scalar Fields; Multi-variate; Time-varying,Task,Dataset Restructuring; Field Computation,4
-Napari - 3D/4D Navigation,Biology,Scalar Fields; Multi-variate; Time-varying,Task,Data Subsetting & Extraction; Temporal Processing,2
-Napari - Color & Opacity,Biology,Scalar Fields; Multi-variate; Time-varying,Task,Color & Opacity Mapping,3
-Napari - Contrast Adjustment,Biology,Scalar Fields; Multi-variate; Time-varying,Task,Color & Opacity Mapping; Data Smoothing & Filtering,4
-Napari - Camera Control,Biology,Scalar Fields; Multi-variate; Time-varying,Task,View & Camera Control; Field Computation,5
-Napari - Visibility & Screenshot,Biology,Scalar Fields; Multi-variate; Time-varying,Task,Data Subsetting & Extraction; View & Camera Control,3
-Napari - Annotations,Biology,Scalar Fields; Multi-variate; Time-varying,Task,Glyph & Marker Placement,1
-Napari - Scale Bar & Export,Biology,Scalar Fields; Multi-variate; Time-varying,Task,Glyph & Marker Placement; View & Camera Control,2
-Napari - Export & Cleanup,Biology,Scalar Fields; Multi-variate; Time-varying,Task,Dataset Restructuring,2
-Napari - Error Handling,Biology,Scalar Fields; Multi-variate; Time-varying,Task,Dataset Restructuring,2
-Napari - 3D Rendering,Biology,Scalar Fields; Multi-variate; Time-varying,Task,Surface & Contour Extraction; Volume Rendering; Dataset Restructuring,2
-Iso surface determination for a target,Biology,Scalar Fields; Multi-variate,Workflow,Surface & Contour Extraction; View & Camera Control,5
-Recreate a figure from a dataset,Biology,Scalar Fields; Multi-variate,Workflow,Color & Opacity Mapping; Data Smoothing & Filtering,5
-Cell Counting and Measurement Analysis,Biology,Scalar Fields; Multi-variate,Workflow,Field Computation; Glyph & Marker Placement; Feature Identification & Segmentation,4
-Statistical Analysis and Data Export,Biology,Scalar Fields; Multi-variate,Workflow,Field Computation; Dataset Restructuring,4
-Annotation and Measurement Workflow,Biology,Scalar Fields; Multi-variate,Workflow,Glyph & Marker Placement; Field Computation,4
-Time Series Analysis (if applicable),Biology,Scalar Fields; Multi-variate,Workflow,Temporal Processing; Field Computation,3
-Data Cropping and Region of Interest Analysis,Biology,Scalar Fields; Multi-variate,Workflow,Data Subsetting & Extraction; Field Computation,4
-Cleanup - Reset for next test run,Biology,Scalar Fields; Multi-variate,Workflow,Dataset Restructuring,1
-Multi-channel Overlay with Colormaps with channels,Biology,Scalar Fields; Multi-variate,Workflow,Color & Opacity Mapping; Dataset Restructuring,4
-Hide All Channels Except for the Channel with the Cells,Biology,Scalar Fields; Multi-variate,Workflow,Data Subsetting & Extraction,2
-Contrast and Gamma Adjustment to Display Nucleus,Biology,Scalar Fields; Multi-variate,Workflow,Color & Opacity Mapping; Data Smoothing & Filtering,3
-Advanced 3D Camera Control and Navigation,Biology,Scalar Fields; Multi-variate,Workflow,View & Camera Control,6
-Iso-surface Threshold Adjustment,Biology,Scalar Fields; Multi-variate,Workflow,Surface & Contour Extraction; Volume Rendering,3
-Cleanup - Reset for next test run,Biology,Scalar Fields; Multi-variate,Workflow,Dataset Restructuring,1
+Case Name,Application,Data,Task Level 1: Complexity Level,Task Level 2: Visualization Operations,Action Count
+open_file - Load a multi-dimensional image file (T; Z; Y; X; C),Biology,Scalar Field; Multivariate,Operation,Dataset Restructuring,N/A
+delete layers - Delete all loaded layers from the viewer,Biology,Scalar Field; Multivariate; Time-varying,Operation,Dataset Restructuring,N/A
+open_file - Load a single image file,Biology,Scalar Field; Multivariate; Time-varying,Operation,Dataset Restructuring,N/A
+list_layers - Get information about loaded layers,Biology,Scalar Field; Multivariate; Time-varying,Operation,Field Computation,N/A
+Z-stack Navigation - Scroll through different depths,Biology,Scalar Field; Multivariate; Time-varying,Operation,Data Subsetting & Extraction,N/A
+Time Series Navigation - Navigate through time points,Biology,Scalar Field; Multivariate; Time-varying,Operation,Temporal Processing,N/A
+set_colormap - Change layer colormap,Biology,Scalar Field; Multivariate; Time-varying,Operation,Color & Opacity Mapping,N/A
+set_opacity - Adjust layer transparency,Biology,Scalar Field; Multivariate; Time-varying,Operation,Color & Opacity Mapping,N/A
+set_blending - Change layer blending mode,Biology,Scalar Field; Multivariate; Time-varying,Operation,Color & Opacity Mapping,N/A
+auto_contrast - Auto-adjust contrast,Biology,Scalar Field; Multivariate; Time-varying,Operation,Data Smoothing & Filtering,N/A
+set_contrast_limits - Set specific contrast limits,Biology,Scalar Field; Multivariate; Time-varying,Operation,Color & Opacity Mapping,N/A
+set_gamma - Adjust gamma correction,Biology,Scalar Field; Multivariate; Time-varying,Operation,Color & Opacity Mapping,N/A
+set_interpolation - Change interpolation mode,Biology,Scalar Field; Multivariate; Time-varying,Operation,Data Smoothing & Filtering,N/A
+toggle_view - Switch between 2D and 3D view,Biology,Scalar Field; Multivariate; Time-varying,Operation,View & Camera Control,N/A
+get_dims_info - Get dimension information,Biology,Scalar Field; Multivariate; Time-varying,Operation,Field Computation,N/A
+get_camera - Get current camera settings,Biology,Scalar Field; Multivariate; Time-varying,Operation,View & Camera Control,N/A
+reset_camera - Reset camera to default view,Biology,Scalar Field; Multivariate; Time-varying,Operation,View & Camera Control,N/A
+set_camera - Adjust camera settings,Biology,Scalar Field; Multivariate; Time-varying,Operation,View & Camera Control,N/A
+set_layer_visibility - Toggle layer visibility,Biology,Scalar Field; Multivariate; Time-varying,Operation,Data Subsetting & Extraction,N/A
+set_layer_visibility - Show layer again,Biology,Scalar Field; Multivariate; Time-varying,Operation,Data Subsetting & Extraction,N/A
+screenshot - Take a screenshot,Biology,Scalar Field; Multivariate; Time-varying,Operation,View & Camera Control,N/A
+add_shapes - Add shape annotations,Biology,Scalar Field; Multivariate; Time-varying,Operation,Glyph & Marker Placement,N/A
+set_scale_bar - Show scale bar,Biology,Scalar Field; Multivariate; Time-varying,Operation,Glyph & Marker Placement,N/A
+screenshot - Save screenshot to file,Biology,Scalar Field; Multivariate; Time-varying,Operation,View & Camera Control,N/A
+save_layers - Save layer to file,Biology,Scalar Field; Multivariate; Time-varying,Operation,Dataset Restructuring,N/A
+remove_layer - Remove a layer,Biology,Scalar Field; Multivariate; Time-varying,Operation,Dataset Restructuring,N/A
+Error handling - Try to load non-existent file,Biology,Scalar Field; Multivariate; Time-varying,Operation,Dataset Restructuring,N/A
+Error handling - Try to remove non-existent layer,Biology,Scalar Field; Multivariate; Time-varying,Operation,Dataset Restructuring,N/A
+3D View and Iso-surface Rendering,Biology,Scalar Field; Multivariate; Time-varying,Operation,Surface & Contour Extraction; Volume Rendering,N/A
+Cleanup - Remove remaining test layers,Biology,Scalar Field; Multivariate; Time-varying,Operation,Dataset Restructuring,N/A
+Napari - Load & Layer Management,Biology,Scalar Field; Multivariate; Time-varying,Task,Dataset Restructuring; Field Computation,4
+Napari - 3D/4D Navigation,Biology,Scalar Field; Multivariate; Time-varying,Task,Data Subsetting & Extraction; Temporal Processing,2
+Napari - Color & Opacity,Biology,Scalar Field; Multivariate; Time-varying,Task,Color & Opacity Mapping,3
+Napari - Contrast Adjustment,Biology,Scalar Field; Multivariate; Time-varying,Task,Color & Opacity Mapping; Data Smoothing & Filtering,4
+Napari - Camera Control,Biology,Scalar Field; Multivariate; Time-varying,Task,View & Camera Control; Field Computation,5
+Napari - Visibility & Screenshot,Biology,Scalar Field; Multivariate; Time-varying,Task,Data Subsetting & Extraction; View & Camera Control,3
+Napari - Annotations,Biology,Scalar Field; Multivariate; Time-varying,Task,Glyph & Marker Placement,1
+Napari - Scale Bar & Export,Biology,Scalar Field; Multivariate; Time-varying,Task,Glyph & Marker Placement; View & Camera Control,2
+Napari - Export & Cleanup,Biology,Scalar Field; Multivariate; Time-varying,Task,Dataset Restructuring,2
+Napari - Error Handling,Biology,Scalar Field; Multivariate; Time-varying,Task,Dataset Restructuring,2
+Napari - 3D Rendering,Biology,Scalar Field; Multivariate; Time-varying,Task,Surface & Contour Extraction; Volume Rendering; Dataset Restructuring,2
+Iso surface determination for a target,Biology,Scalar Field; Multivariate,Workflow,Surface & Contour Extraction; View & Camera Control,5
+Recreate a figure from a dataset,Biology,Scalar Field; Multivariate,Workflow,Color & Opacity Mapping; Data Smoothing & Filtering,5
+Cell Counting and Measurement Analysis,Biology,Scalar Field; Multivariate,Workflow,Field Computation; Glyph & Marker Placement; Feature Identification & Segmentation,4
+Statistical Analysis and Data Export,Biology,Scalar Field; Multivariate,Workflow,Field Computation; Dataset Restructuring,4
+Annotation and Measurement Workflow,Biology,Scalar Field; Multivariate,Workflow,Glyph & Marker Placement; Field Computation,4
+Time Series Analysis (if applicable),Biology,Scalar Field; Multivariate,Workflow,Temporal Processing; Field Computation,3
+Data Cropping and Region of Interest Analysis,Biology,Scalar Field; Multivariate,Workflow,Data Subsetting & Extraction; Field Computation,4
+Cleanup - Reset for next test run,Biology,Scalar Field; Multivariate,Workflow,Dataset Restructuring,1
+Multi-channel Overlay with Colormaps with channels,Biology,Scalar Field; Multivariate,Workflow,Color & Opacity Mapping; Dataset Restructuring,4
+Hide All Channels Except for the Channel with the Cells,Biology,Scalar Field; Multivariate,Workflow,Data Subsetting & Extraction,2
+Contrast and Gamma Adjustment to Display Nucleus,Biology,Scalar Field; Multivariate,Workflow,Color & Opacity Mapping; Data Smoothing & Filtering,3
+Advanced 3D Camera Control and Navigation,Biology,Scalar Field; Multivariate,Workflow,View & Camera Control,6
+Iso-surface Threshold Adjustment,Biology,Scalar Field; Multivariate,Workflow,Surface & Contour Extraction; Volume Rendering,3
+Cleanup - Reset for next test run,Biology,Scalar Field; Multivariate,Workflow,Dataset Restructuring,1
