@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SciVisAgentBench - Evaluation Examples</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .examples-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .examples-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .examples-hero p {
+            font-size: 1.125rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .eval-info {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .eval-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .eval-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .eval-info li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .eval-info li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .examples-grid {
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .examples-grid h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .report-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .report-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid var(--border-color);
+        }
+
+        .report-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
+        }
+
+        .report-card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .report-card-header h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .report-card-header p {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .report-card-body {
+            padding: 1.5rem;
+        }
+
+        .report-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .report-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.2s;
+            border: 1px solid var(--border-color);
+        }
+
+        .report-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .report-link span {
+            font-weight: 500;
+        }
+
+        .report-link svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-md);
+        }
+
+        .back-button:hover {
+            transform: translateX(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tech-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>SciVisAgentBench</h1>
+                <p class="tagline">A Comprehensive Evaluation Framework for Scientific Visualization Agents</p>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Statistics</a></li>
+                <li><a href="index.html#contributions">Contributions</a></li>
+                <li><a href="index.html#submit">Submit Tasks</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="examples.html" class="active">Examples</a></li>
+                <li>
+                    <a href="https://github.com/KuangshiAi/SciVisAgentBench" target="_blank" title="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://huggingface.co/datasets/SciVisAgentBench/SciVisAgentBench-tasks" target="_blank" title="Hugging Face" style="font-size: 20px; line-height: 1;">
+                        🤗
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="examples-hero">
+            <div style="margin-bottom: 2rem;">
+                <a href="index.html" class="back-button">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back to Main
+                </a>
+            </div>
+
+            <h1>Evaluation Examples</h1>
+            <p>
+                Explore real-world evaluation reports from our benchmark testing. These examples demonstrate how
+                scientific visualization agents perform across different domains and tasks.
+            </p>
+
+            <div class="eval-info">
+                <h3>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    Evaluation Setup
+                </h3>
+                <ul>
+                    <li><strong>Backbone LLM:</strong> Claude Sonnet 4.5 - Used as the primary agent to execute visualization tasks</li>
+                    <li><strong>Judge LLM:</strong> GPT-5.2 - Employed to evaluate the quality and correctness of agent outputs</li>
+                    <li><strong>Evaluation Approach:</strong> LLM-as-a-Judge combined with quantitative metrics (image similarity, task completion, etc.)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="examples-grid">
+            <h2>Available Evaluation Reports</h2>
+
+            <div class="report-cards">
+                <!-- Main ParaView MCP Report -->
+                <div class="report-card">
+                    <div class="report-card-header">
+                        <h3>ParaView MCP (Main)</h3>
+                        <p>Core benchmark evaluation for ParaView-based scientific visualization tasks</p>
+                        <span class="tech-badge">ParaView</span>
+                        <span class="tech-badge">MCP</span>
+                    </div>
+                    <div class="report-card-body">
+                        <div class="report-links">
+                            <a href="eval_reports/main-paraview_mcp/report.html" class="report-link">
+                                <span>View Full Report</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Anonymized ParaView MCP Report -->
+                <div class="report-card">
+                    <div class="report-card-header">
+                        <h3>ParaView MCP (Object Identification)</h3>
+                        <p>Loading anonymized volume datasets, adjusting transfer functions, and identifying unknown objects</p>
+                        <span class="tech-badge">ParaView</span>
+                        <span class="tech-badge">MCP</span>
+                    </div>
+                    <div class="report-card-body">
+                        <div class="report-links">
+                            <a href="eval_reports/anonymized-paraview_mcp/report.html" class="report-link">
+                                <span>View Full Report</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BioImage Napari MCP Reports -->
+                <div class="report-card">
+                    <div class="report-card-header">
+                        <h3>BioImage Napari MCP</h3>
+                        <p>Biological image analysis and visualization with Napari</p>
+                        <span class="tech-badge">Napari</span>
+                        <span class="tech-badge">Biology</span>
+                        <span class="tech-badge">MCP</span>
+                    </div>
+                    <div class="report-card-body">
+                        <div class="report-links">
+                            <a href="eval_reports/bioimage-napari_mcp/eval_figure_recreation/report.html" class="report-link">
+                                <span>Figure Recreation</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                            <a href="eval_reports/bioimage-napari_mcp/eval_iso_surface_determination/report.html" class="report-link">
+                                <span>Isosurface Determination</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                            <a href="eval_reports/bioimage-napari_mcp/eval_visualization_workflows/report.html" class="report-link">
+                                <span>Visualization Workflows</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ChatVis Benchmark Report -->
+                <div class="report-card">
+                    <div class="report-card-header">
+                        <h3>ChatVis Benchmark</h3>
+                        <p>Generating pvpython code with RAG and iterative error correction for visualization tasks</p>
+                        <span class="tech-badge">ChatVis</span>
+                        <span class="tech-badge">RAG</span>
+                    </div>
+                    <div class="report-card-body">
+                        <div class="report-links">
+                            <a href="eval_reports/chatvis_bench-chatvis/report.html" class="report-link">
+                                <span>View Full Report</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Molecular Visualization Report -->
+                <div class="report-card">
+                    <div class="report-card-header">
+                        <h3>Molecular Visualization</h3>
+                        <p>Molecular dynamics and protein structure visualization with GMX and VMD</p>
+                        <span class="tech-badge">VMD</span>
+                        <span class="tech-badge">GROMACS</span>
+                        <span class="tech-badge">MCP</span>
+                    </div>
+                    <div class="report-card-body">
+                        <div class="report-links">
+                            <a href="eval_reports/molecular_vis-gmx_vmd_mcp/report.html" class="report-link">
+                                <span>View Full Report</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-secondary); padding: 2rem; border-radius: 12px; margin-top: 2rem; border-left: 4px solid var(--primary-color);">
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">About These Reports</h3>
+                <p style="color: var(--text-secondary); line-height: 1.7;">
+                    Each report contains detailed evaluation metrics including task completion rates, visualization quality scores,
+                    error analysis, and performance benchmarks. The reports demonstrate the capabilities and limitations of
+                    current visualization agents across different scientific domains.
+                </p>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-top: 1rem;">
+                    These evaluations help us understand where agents excel and where improvements are needed, driving
+                    the development of more reliable scientific visualization tools.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer" style="margin-top: 3rem;">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>SciVisAgentBench</h4>
+                    <p>Building the future of scientific visualization agents through comprehensive evaluation.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="https://github.com/KuangshiAi/SciVisAgentBench">GitHub Repository</a></li>
+                        <li><a href="https://huggingface.co/datasets/SciVisAgentBench/SciVisAgentBench-tasks">Task Repository</a></li>
+                        <li><a href="https://arxiv.org/abs/2509.15160" target="_blank">Position Paper</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>For questions or collaboration inquiries, please contact us via GitHub, or contact Kuangshi Ai via <strong>kai@nd.edu</strong></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SciVisAgentBench. Released under CC BY 4.0 License.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

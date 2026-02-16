@@ -89,6 +89,15 @@ body {
     color: var(--primary-color);
 }
 
+.nav-links a svg {
+    display: block;
+    transition: transform 0.2s;
+}
+
+.nav-links a:hover svg {
+    transform: scale(1.1);
+}
+
 /* Hero Section */
 .hero {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
