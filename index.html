@@ -153,9 +153,9 @@
                                 <div class="domain-stats-grid complexity-grid">
                                     <div class="stat-item-small"><span class="stat-label">Task</span> <span class="stat-count">100 (73.0%)</span></div>
                                     <div class="stat-item-small"><span class="stat-label">Workflow</span> <span class="stat-count">37 (27.0%)</span></div>
-                                    <div class="stat-item-small"><span class="stat-label">Total Actions</span> <span class="stat-count">632</span></div>
+                                    <div class="stat-item-small"><span class="stat-label">Total Operations</span> <span class="stat-count" id="total-operations-count">0</span></div>
                                 </div>
-                                <p class="note-text">Note: Action count represents the sum of all visualization operations across all test cases</p>
+                                <p class="note-text">Note: Operation count represents the sum of all visualization operations across all test cases</p>
                             </div>
 
                             <div class="overview-section">
@@ -344,15 +344,14 @@
                                     <tr>
                                         <th>Case Name</th>
                                         <th>Application Domain</th>
+                                        <th>Data Type</th>
                                         <th>Complexity Level</th>
                                         <th>Visualization Operations</th>
-                                        <th>Data Type</th>
-                                        <th>Action Count</th>
                                     </tr>
                                 </thead>
                                 <tbody id="test-cases-tbody">
                                     <tr class="loading-state">
-                                        <td colspan="6">Loading test cases...</td>
+                                        <td colspan="5">Loading test cases...</td>
                                     </tr>
                                 </tbody>
                             </table>

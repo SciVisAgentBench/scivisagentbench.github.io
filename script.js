@@ -603,11 +603,12 @@ async function loadTestCases() {
         renderTestCases(filteredCases);
         updateFilterCount();
         updateTotalCasesCount(filteredCases.length);
+        updateTotalOperationsCount(filteredCases);
     } catch (error) {
         console.error('Error loading test cases:', error);
         document.getElementById('test-cases-tbody').innerHTML = `
             <tr class="loading-state">
-                <td colspan="6">Error loading test cases. Please check the CSV file paths.</td>
+                <td colspan="5">Error loading test cases. Please check the CSV file paths.</td>
             </tr>
         `;
     }
@@ -621,6 +622,18 @@ function updateTotalCasesCount(count) {
     const browseTotalEl = document.getElementById('browse-total-cases');
     if (browseTotalEl) {
         browseTotalEl.textContent = count;
+    }
+}
+
+function updateTotalOperationsCount(testCases) {
+    // Calculate the total number of visualization operations across all test cases
+    const totalOperations = testCases.reduce((sum, testCase) => {
+        return sum + (testCase.visualizationOps ? testCase.visualizationOps.length : 0);
+    }, 0);
+
+    const totalOpsEl = document.getElementById('total-operations-count');
+    if (totalOpsEl) {
+        totalOpsEl.textContent = totalOperations;
     }
 }
 
@@ -768,7 +781,7 @@ function renderTestCases(testCases) {
     if (!testCases || testCases.length === 0) {
         tbody.innerHTML = `
             <tr class="loading-state">
-                <td colspan="6">No test cases found.</td>
+                <td colspan="5">No test cases found.</td>
             </tr>
         `;
         return;
@@ -814,10 +827,9 @@ function renderTestCases(testCases) {
             <tr>
                 <td><span class="case-name">${escapeHtml(testCase.caseName)}</span></td>
                 <td>${applicationTags}</td>
+                <td>${dataTypesTags || '-'}</td>
                 <td>${taskDifficultyTags || '-'}</td>
                 <td>${visualizationOpsTags || '-'}</td>
-                <td>${dataTypesTags || '-'}</td>
-                <td style="text-align: center;">${testCase.operationCount || '0'}</td>
             </tr>
         `;
     }).join('');

@@ -1100,10 +1100,10 @@ html {
 }
 
 .test-cases-table th:nth-child(1) { width: 20%; }
-.test-cases-table th:nth-child(2) { width: 13.33%; }
-.test-cases-table th:nth-child(3) { width: 13.33%; }
-.test-cases-table th:nth-child(4) { width: 40%; }
-.test-cases-table th:nth-child(5) { width: 13.33%; }
+.test-cases-table th:nth-child(2) { width: 15%; }
+.test-cases-table th:nth-child(3) { width: 15%; }
+.test-cases-table th:nth-child(4) { width: 12%; }
+.test-cases-table th:nth-child(5) { width: 38%; }
 
 .test-cases-table th {
     padding: 1rem;
