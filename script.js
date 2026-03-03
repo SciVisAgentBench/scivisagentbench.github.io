@@ -311,9 +311,9 @@ function updateCategoryStats() {
     };
 
     const attributeLabels = {
-        'scalar-fields': 'Scalar Fields',
-        'vector-fields': 'Vector Fields',
-        'tensor-fields': 'Tensor Fields',
+        'scalar-fields': 'Scalar Field',
+        'vector-fields': 'Vector Field',
+        'tensor-fields': 'Tensor Field',
         'multivariate': 'Multivariate',
         'time-varying': 'Time-varying'
     };
