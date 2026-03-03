@@ -23,7 +23,7 @@ const appState = {
             'vector-fields': 0,
             'tensor-fields': 0,
             'multivariate': 0,
-            'other': 0
+            'time-varying': 0
         }
     }
 };
@@ -100,24 +100,13 @@ function navigateToPage(pageName) {
 function initializeForm() {
     const form = document.getElementById('submission-form');
     const applicationDomainRadios = document.querySelectorAll('input[name="applicationDomain"]');
-    const attributeTypeCheckboxes = document.querySelectorAll('input[name="attributeType"]');
 
     // Show/hide "other" field for application domain
     applicationDomainRadios.forEach(radio => {
         radio.addEventListener('change', function() {
             const otherField = document.getElementById('application-domain-other');
-            otherField.style.display = this.value === 'other' ? 'block' : 'none';
+            otherField.style.display = this.value === 'others' ? 'block' : 'none';
         });
-    });
-
-    // Show/hide "other" field for attribute type
-    attributeTypeCheckboxes.forEach(checkbox => {
-        if (checkbox.value === 'other') {
-            checkbox.addEventListener('change', function() {
-                const otherField = document.getElementById('attribute-type-other');
-                otherField.style.display = this.checked ? 'block' : 'none';
-            });
-        }
     });
 
     // Show/hide camera position field when image metrics checkbox is checked
@@ -263,21 +252,21 @@ function calculateStats() {
         totalContributors: new Set(submissions.map(s => s.contributorEmail)).size,
         totalTasks: submissions.length,
         applicationDomains: {
-            'simulation': 0,
-            'medical': 0,
-            'molecular': 0,
-            'climate': 0,
-            'materials': 0,
             'astronomy': 0,
-            'geoscience': 0,
-            'other': 0
+            'biology': 0,
+            'chemistry': 0,
+            'earth-system-science': 0,
+            'mathematics': 0,
+            'medical-science': 0,
+            'physics': 0,
+            'others': 0
         },
         attributeTypes: {
             'scalar-fields': 0,
             'vector-fields': 0,
             'tensor-fields': 0,
             'multivariate': 0,
-            'other': 0
+            'time-varying': 0
         }
     };
 
@@ -311,22 +300,22 @@ function updateStatsDisplay() {
 
 function updateCategoryStats() {
     const domainLabels = {
-        'simulation': 'Simulation',
-        'medical': 'Medical',
-        'molecular': 'Molecular',
-        'climate': 'Climate',
-        'materials': 'Materials Science',
         'astronomy': 'Astronomy',
-        'geoscience': 'Geoscience',
-        'other': 'Other'
+        'biology': 'Biology',
+        'chemistry': 'Chemistry',
+        'earth-system-science': 'Earth System Science',
+        'mathematics': 'Mathematics',
+        'medical-science': 'Medical Science',
+        'physics': 'Physics',
+        'others': 'Others'
     };
 
     const attributeLabels = {
-        'scalar-fields': 'Scalar Field',
-        'vector-fields': 'Vector Field',
-        'tensor-fields': 'Tensor Field',
-        'multivariate': 'Multivariate/Multi-field',
-        'other': 'Other'
+        'scalar-fields': 'Scalar Fields',
+        'vector-fields': 'Vector Fields',
+        'tensor-fields': 'Tensor Fields',
+        'multivariate': 'Multivariate',
+        'time-varying': 'Time-varying'
     };
 
     // Application Domains - only show items with count > 0
@@ -391,13 +380,14 @@ function updateContributorsTable() {
         // Add subjects (application domains)
         if (submission.applicationDomain) {
             const domainLabel = {
-                'climate': 'Climate',
-                'sem': 'SEM',
-                'ct-objects': 'CT Objects',
-                'medical': 'Medical',
-                'simulation': 'Simulation',
-                'molecular': 'Molecular',
-                'other': 'Other'
+                'astronomy': 'Astronomy',
+                'biology': 'Biology',
+                'chemistry': 'Chemistry',
+                'earth-system-science': 'Earth System Science',
+                'mathematics': 'Mathematics',
+                'medical-science': 'Medical Science',
+                'physics': 'Physics',
+                'others': 'Others'
             }[submission.applicationDomain] || submission.applicationDomain;
             contributor.subjects.add(domainLabel);
         }
@@ -416,13 +406,14 @@ function updateContributorsTable() {
             const subjectCounts = {};
             contributor.contributions.forEach(submission => {
                 const domainLabel = {
-                    'climate': 'Climate',
-                    'sem': 'SEM',
-                    'ct-objects': 'CT Objects',
-                    'medical': 'Medical',
-                    'simulation': 'Simulation',
-                    'molecular': 'Molecular',
-                    'other': 'Other'
+                    'astronomy': 'Astronomy',
+                    'biology': 'Biology',
+                    'chemistry': 'Chemistry',
+                    'earth-system-science': 'Earth System Science',
+                    'mathematics': 'Mathematics',
+                    'medical-science': 'Medical Science',
+                    'physics': 'Physics',
+                    'others': 'Others'
                 }[submission.applicationDomain] || submission.applicationDomain;
 
                 subjectCounts[domainLabel] = (subjectCounts[domainLabel] || 0) + 1;

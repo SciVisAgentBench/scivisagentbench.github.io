@@ -425,66 +425,69 @@
                             <div class="form-group">
                                 <div class="checkbox-group">
                                     <label class="checkbox-label">
-                                        <input type="radio" name="applicationDomain" value="climate">
-                                        <span>Climate Data</span>
+                                        <input type="radio" name="applicationDomain" value="astronomy">
+                                        <span>Astronomy</span>
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="radio" name="applicationDomain" value="sem">
-                                        <span>SEM Image Data</span>
+                                        <input type="radio" name="applicationDomain" value="biology">
+                                        <span>Biology</span>
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="radio" name="applicationDomain" value="ct-objects">
-                                        <span>CT Scan for Objects</span>
+                                        <input type="radio" name="applicationDomain" value="chemistry">
+                                        <span>Chemistry</span>
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="radio" name="applicationDomain" value="medical">
-                                        <span>Medical/CT/MRI Scan</span>
+                                        <input type="radio" name="applicationDomain" value="earth-system-science">
+                                        <span>Earth System Science</span>
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="radio" name="applicationDomain" value="simulation">
-                                        <span>Simulation Data</span>
+                                        <input type="radio" name="applicationDomain" value="mathematics">
+                                        <span>Mathematics</span>
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="radio" name="applicationDomain" value="molecular">
-                                        <span>Molecular Data</span>
+                                        <input type="radio" name="applicationDomain" value="medical-science">
+                                        <span>Medical Science</span>
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="radio" name="applicationDomain" value="other">
-                                        <span>Other (please specify)</span>
+                                        <input type="radio" name="applicationDomain" value="physics">
+                                        <span>Physics</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="radio" name="applicationDomain" value="others">
+                                        <span>Others (please specify)</span>
                                     </label>
                                 </div>
                                 <input type="text" id="application-domain-other" name="applicationDomainOther" placeholder="Specify other application domain" style="display:none; margin-top: 10px;">
                             </div>
                         </div>
 
-                        <!-- Attribute Types -->
+                        <!-- Data Type -->
                         <div class="form-section">
-                            <h3>Attribute Types *</h3>
+                            <h3>Data Type *</h3>
                             <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">What information does the data represent?</p>
                             <div class="form-group">
                                 <div class="checkbox-group">
                                     <label class="checkbox-label">
                                         <input type="checkbox" name="attributeType" value="scalar-fields">
-                                        <span>Scalar Field (temperature, pressure, density)</span>
+                                        <span>Scalar Fields</span>
                                     </label>
                                     <label class="checkbox-label">
                                         <input type="checkbox" name="attributeType" value="vector-fields">
-                                        <span>Vector Field (velocity, force, displacement)</span>
+                                        <span>Vector Fields</span>
                                     </label>
                                     <label class="checkbox-label">
                                         <input type="checkbox" name="attributeType" value="tensor-fields">
-                                        <span>Tensor Field (stress, strain, diffusion tensors)</span>
+                                        <span>Tensor Fields</span>
                                     </label>
                                     <label class="checkbox-label">
                                         <input type="checkbox" name="attributeType" value="multivariate">
-                                        <span>Multivariate/Multi-field (multiple scalar/Vector Field)</span>
+                                        <span>Multivariate (multiple scalar/vector fields)</span>
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="checkbox" name="attributeType" value="other">
-                                        <span>Other (please specify)</span>
+                                        <input type="checkbox" name="attributeType" value="time-varying">
+                                        <span>Time-varying</span>
                                     </label>
                                 </div>
-                                <input type="text" id="attribute-type-other" name="attributeTypeOther" placeholder="Specify other attribute type" style="display:none; margin-top: 10px;">
                             </div>
                         </div>
 
@@ -492,29 +495,29 @@
                         <div class="form-section">
                             <h3>Task Description for LLM Agent *</h3>
                             <div class="form-group full-width">
-                                <label for="task-description">Provide a detailed natural language description of the visualization task. If the agent must answer any questions, ensure they are formatted as either multiple-choice or yes/no questions *</label>
+                                <label for="task-description">Provide a detailed natural language description of the visualization task. If the agent must answer any questions, ensure they are formatted as either multiple-choice or yes/no questions. *</label>
                                 <textarea id="task-description" name="taskDescription" rows="8" placeholder="Example: 'Load the dataset and create a volume rendering. Adjust the transfer function to show a potted tree with a brown pot, silver branches, and golden leaves.'&#10;&#10;'How many cylinders are present in this engine dataset? (A) 2 (B) 4 (C) 6 (D) 8.'&#10;&#10;'Is there a visible vortex core near the center of the flow field? (Yes/No)'" required></textarea>
                             </div>
                         </div>
 
-                        <!-- File Uploads -->
+                        <!-- File Upload -->
                         <div class="form-section">
-                            <h3>File Uploads *</h3>
+                            <h3>File Upload *</h3>
                             <div class="form-grid">
                                 <div class="form-group full-width">
                                     <label for="source-data">Source Data File *</label>
                                     <input type="file" id="source-data" multiple required>
-                                    <small>Any format accepted: VTK, NIfTI, RAW, NRRD, HDF5, etc. Multiple files allowed (Max size: 5GB recommended per file)</small>
+                                    <small>Any format accepted: VTK, NIfTI, RAW, NRRD, HDF5, etc. Multiple files allowed (Max size: 5GB recommended per file).</small>
                                 </div>
                                 <div class="form-group full-width">
                                     <label for="viz-engine-state">Visualization Engine State (ParaView state file, etc.)</label>
                                     <input type="file" id="viz-engine-state" multiple>
-                                    <small>Optional: Any format accepted (e.g., ParaView state file, or state files of other visualization engines). Multiple files allowed</small>
+                                    <small>Optional: Any format accepted (e.g., ParaView state file, or state files of other visualization engines). Multiple files allowed.</small>
                                 </div>
                                 <div class="form-group full-width">
                                     <label for="metadata-file">Additional Metadata</label>
                                     <input type="file" id="metadata-file" multiple>
-                                    <small>Optional: Any format (JSON, YAML, TXT, etc.). Multiple files allowed</small>
+                                    <small>Optional: Any format (JSON, YAML, TXT, etc.). Multiple files allowed.</small>
                                 </div>
                             </div>
                         </div>
@@ -530,7 +533,7 @@
                                 <div class="form-group full-width">
                                     <label for="ground-truth-images">Ground Truth Images (multi-view) *</label>
                                     <input type="file" id="ground-truth-images" multiple required>
-                                    <small>Any format accepted: PNG, JPG, TIFF, etc. Upload multiple views of the expected visualization</small>
+                                    <small>Any format accepted: PNG, JPG, TIFF, etc. Upload multiple views of the expected visualization.</small>
                                 </div>
                                 <div class="form-group full-width">
                                     <label class="checkbox-label">
@@ -542,12 +545,12 @@
                                 <div class="form-group full-width">
                                     <label for="ground-truth-code">Ground Truth Visualization Code Script (If any)</label>
                                     <input type="file" id="ground-truth-code" multiple>
-                                    <small>Optional: Any format accepted (e.g., Python, ParaView, Jupyter Notebook, MATLAB, R, or other visualization code). Multiple files allowed</small>
+                                    <small>Optional: Any format accepted (e.g., Python, ParaView, Jupyter Notebook, MATLAB, R, or other visualization code). Multiple files allowed.</small>
                                 </div>
                                 <div class="form-group full-width">
                                     <label for="ground-truth-answers">Ground Truth Answers for Questions (multi-choice or yes/no)</label>
                                     <textarea id="ground-truth-answers" name="groundTruthAnswers" rows="4" placeholder="Optional: Provide the correct answers to any questions in the task description. &#10;&#10; Example: Question 1: (A) 2; Question 2: No"></textarea>
-                                    <small>Optional: Enter the correct answers to any questions in the task description</small>
+                                    <small>Optional: Enter the correct answers to any questions in the task description.</small>
                                 </div>
                             </div>
                         </div>
@@ -557,12 +560,12 @@
                             <h3>Additional Information</h3>
                             <div class="form-group full-width">
                                 <label for="additional-notes">Additional Notes or Comments</label>
-                                <textarea id="additional-notes" name="additionalNotes" rows="4" placeholder="Any additional information you'd like to provide..."></textarea>
+                                <textarea id="additional-notes" name="additionalNotes" rows="4" placeholder="Any additional information you would like to provide ..."></textarea>
                             </div>
                             <div class="form-group">
                                 <label class="checkbox-label">
                                     <input type="checkbox" name="agreeToTerms" required>
-                                    <span>I agree to release this dataset under an open license (CC BY 4.0) *</span>
+                                    <span>I agree to release this dataset under an open license (CC BY 4.0). *</span>
                                 </label>
                             </div>
                         </div>
@@ -625,7 +628,7 @@
 
                             <h3>Contributors</h3>
                             <p>
-                                We are grateful to all contributors who have helped build this benchmark through their task submissions and expertise.
+                                We are grateful to all contributors who have helped build this benchmark.
                             </p>
 
                             <!-- Contributors Table -->
