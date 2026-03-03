@@ -1,0 +1,211 @@
+﻿Data Taxonomy (several cross-cutting categories):
+* Application Domains (this shouldn’t necessarily be a category rather a way to indicate the source of the data)
+   * Climate data
+   * SEM image data
+   * CT scan for objects
+   * Medical/CT/MRI scan
+   * Simulation data
+   * Molecular data
+   * ….
+
+
+* Data Type
+   * Structured Data
+      * Image data (uniform rectilinear grids)
+      * Rectilinear grids
+      * Structured grids (curvilinear)
+      * AMR (Adaptive Mesh Refinement)?
+   * Unstructured Data
+      * Unstructured grids (arbitrary cell types)
+      * Polygonal data (surfaces, meshes)
+      * Point clouds
+   * Specialized Types
+      * Hyper-tree grids
+      * Composite/multi-block datasets
+      * Graph/network data
+
+
+* Temporal Dimension
+   * Static/Single-Timestep
+      * Analysis of a single snapshot
+      * Spatial patterns only
+   * Time-Series
+      * Multiple discrete steps
+      * Temporal sequences
+
+
+* Attribute Types (how the data is represented, what information it has) 
+   * Scalar Fields (single value per point/cell)
+      * Temperature, pressure, density
+      * Scalars driving isosurfaces, color mapping
+   * Vector Fields (3-component direction/magnitude)
+      * Velocity, force, displacement
+      * Visualized via streamlines, glyphs, and LIC
+   * Tensor Fields (matrix at each point)
+      * Stress, strain, diffusion tensors
+      * Visualized via tensor glyphs, eigenvalue analysis
+   * Multi-variate/Multi-field/Multi-modal
+      * Multiple scalar/vector fields
+      * High-dimensional data visualization by analyzing multiple dimensions all at once
+* Data Ensemble
+   * Multiple runs, parameter sweeps, etc.
+
+
+
+
+
+
+Tasks Taxonomy: 
+Top level: 1) Atomic Operation, 2) Workflow, 3) Scientific Insights
+
+
+1) Atomic Operation (individual well-defined operations):
+* Extraction & Subsetting (Isolate regions of interest from larger datasets)
+   * Spatial/temporal Extraction
+      * Clipping (by plane, box, sphere, implicit function)
+      * Region selection (by point/cell IDs, bounding box)
+      * VOI extraction (volume of interest from structured data)
+   * Value-Based Selection
+      * Thresholding (scalar range filtering)
+      * Isocontouring/isosurfacing (constant value extraction)
+      * Connectivity filtering (connected region extraction)
+   * Sampling
+      * Subsampling/decimation (reduce resolution)
+      * Probing (sampling at specific points)
+      * Masking (regular/irregular point selection)
+* Geometry & Topology Transformation (Change the structure or shape of data without necessarily changing attribute values)
+   * Geometric Modification
+      * Translation, rotation, scaling
+      * Deformation, warping
+      * Point/vertex manipulation
+   * Topological Changes
+      * Triangulation (convert polygons to triangles), Tessellation/subdivision
+      * Mesh refinement/coarsening
+      * Cell type conversion
+      * Boundary extraction (surface from volume)
+   * Structural Operations
+      * Merging datasets
+      * Appending data
+      * Splitting/partitioning
+* Attribute Computation & Derivation (Calculate new data attributes from existing ones)
+   * Field Derivatives
+      * Gradient computation
+      * Divergence, curl, vorticity
+      * Curvature calculation
+      * Normal generation
+   * Scalar Operations
+      * Arithmetic operations on fields
+      * Vector magnitude computation
+      * Component extraction
+      * Field aggregation/statistics
+   * Advanced Computations[a]
+      * Tensor operations (eigenvalues, eigenvectors)
+      * Interpolation between fields
+      * Distance computations
+   * Time-Dependent Processing
+      * Temporal interpolation
+      * Particle tracing through time
+      * Flow integration [b](streamlines, pathlines, streaklines, timelines)
+      * Temporal statistics/aggregation
+      * Flow map computation
+* Representation & Mapping (Transform data into visual representations)
+   * Glyph-Based Representation
+      * Oriented glyphs (arrows, cones)
+      * Scaled glyphs (size-mapped symbols)
+      * Tensor glyphs (ellipsoids, superquadrics)
+      * Volume markers
+   * Geometric Primitives
+      * Isosurfaces
+      * Contour lines/surfaces
+      * Cut planes/slices
+      * Ribbons, tubes, streamlines
+   * Color & Texture Mapping
+      * Scalar to color mapping
+      * Texture coordinate generation
+      * Opacity mapping
+   * Volume Representations
+      * Ray casting
+      * Splatting
+* Smoothing & enhancement (Improve data quality or visual appearance)
+   * Smoothing Operations
+      * Surface smoothing (Laplacian, Gaussian)
+      * Data noise reduction
+      * Interpolation for filling gaps
+   * Enhancement
+      * Edge enhancement/detection
+      * Feature extraction
+      * Sharpening
+   * Filtering 
+      * Outlier removal
+      * Statistical filtering
+* View / Rendering Manipulation
+   * View Changes
+      * Rotation, zoom, move
+   * Render Options (should be belong to transformation)
+      * Light position
+      * Lighting mode
+
+
+2) Workflow (sequence of operations with a clear visualization/analysis goal)
+* Data Understanding & Exploration
+   * Data Characterization (statistics, distributions, quality check)
+   * Spatial Exploration (slicing, probing, overview generation)
+   * Feature Discovery (identifying interesting structures/patterns)
+* Analysis & Quantification
+   * Statistical Analysis (descriptive statistics, distributions, correlations)
+   * Region-Based Measurement (volumes, areas, integrated quantities)
+   * Profile & Cross-Section Analysis (1D/2D extraction from 3D)
+   * Derived Quantity Computation (gradients, vorticity, custom fields)
+* Feature Extraction & Tracking
+   * Structure Identification (vortices, shocks, boundaries, topology)
+   * Feature Characterization (properties, classification, quantification)
+   * Temporal Tracking (feature evolution, lifecycle, trajectories)
+* Comparative & Temporal Analysis
+   * Multi-Variable Comparison (correlation, coordinated views)
+   * Temporal Evolution / Comparison (time-series comparison)
+   * Simulation Comparison (parameter studies, model validation)
+   * Difference Analysis (error fields, change detection)
+* Flow & Transport Analysis[c]
+   * Trajectory Computation (streamlines, pathlines, streaklines)
+   * Lagrangian Analysis (particle tracking, residence time, FTLE)
+   * Transport Quantification (flux, mixing, coherent structures)
+* Verification & Validation
+   * Data Quality Assessment (outliers, artifacts, boundary conditions)
+   * Code Verification (convergence, analytical comparison, consistency)
+   * Physical Validation (experimental comparison, uncertainty quantification)
+* Data Processing & Optimization
+   * Data Conditioning (cleaning, smoothing, noise reduction)
+   * Data Reduction (decimation, sampling, compression)
+   * Format Conversion & Restructuring (mesh generation, type conversion)
+   * Parallel & Distributed Processing (HPC workflows, decomposition)[d]
+* Uncertainty Quantification & Visualization[e]
+   * Sensitivity analysis, uncertainty characterization (estimate uncertainty)
+   * Aggregation and summarization (visualize quantile and interval)
+* Communication & Dissemination
+   * Static Visualization (publication figures, high-resolution images)
+   * Animation Generation (temporal, spatial, parameter animations)
+   * Interactive Applications (web/desktop viewers, dashboards)
+   * Report Generation (automated analysis reports, summaries)
+
+
+3) Scientific Insights (analysis or visualization that leads to domain-relevant insights)
+* Application-specific questions and insights that can be derived from analysis or visualization
+* The result could be: binary decisions, multiple choices, 
+* Potentially involves different workflow steps
+
+
+
+
+
+
+
+
+What not to include 
+* Excessively large dataset (multiple GB to TB level)
+* Interaction that ties to a specific tool/interface
+* Questions do not have unique and clear answers/ground truth
+[a]probably need better title
+[b]Move flow integration into its own category of Vector Operations, analogous to Scalar Operations? Streamlines are not time-dependent. Also could include LIC, and maybe FTLE.
+[c]There is overlap between this category and previous atomic operations on flow integration (see my earlier comment).
+[d]Consider large scale HPC to be out of scope, in order to make the benchmark more broadly accessible?
+[e]Group together with V&V?

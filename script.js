@@ -572,12 +572,11 @@ async function loadTestCases() {
     try {
         // Load all CSV files from the sheets directory
         const csvFiles = [
-            'statistics/sheets/SciVisAgentBench_Statistics - main.csv',
-            'statistics/sheets/SciVisAgentBench_Statistics - chatvis_bench.csv',
             'statistics/sheets/SciVisAgentBench_Statistics - sci_volume_data.csv',
             'statistics/sheets/SciVisAgentBench_Statistics - topology.csv',
             'statistics/sheets/SciVisAgentBench_Statistics - bioimage_data.csv',
-            'statistics/sheets/SciVisAgentBench_Statistics - molecular_vis.csv'
+            'statistics/sheets/SciVisAgentBench_Statistics - molecular_vis.csv',
+            'statistics/sheets/SciVisAgentBench_Statistics - paraview.csv'
         ];
 
         let allTestCases = [];
@@ -678,12 +677,11 @@ function parseCSV(csvText, filename) {
 }
 
 function extractCategoryFromFilename(filename) {
-    if (filename.includes('main.csv')) return 'main';
-    if (filename.includes('chatvis_bench.csv')) return 'chatvis_bench';
     if (filename.includes('sci_volume_data.csv')) return 'sci_volume_data';
     if (filename.includes('topology.csv')) return 'topology';
     if (filename.includes('bioimage_data.csv')) return 'bioimage_data';
     if (filename.includes('molecular_vis.csv')) return 'molecular_vis';
+    if (filename.includes('paraview.csv')) return 'paraview';
     return 'unknown';
 }
 
