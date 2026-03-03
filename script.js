@@ -35,7 +35,28 @@ document.addEventListener('DOMContentLoaded', function() {
     loadSubmissions(); // Will call updateDashboard() after loading
     loadTestCases(); // Load test cases from CSV
     initializeFilters(); // Initialize filter functionality
+
+    // Handle hash-based navigation from external pages (e.g., examples.html)
+    handleHashNavigation();
 });
+
+// Handle hash-based navigation
+function handleHashNavigation() {
+    const hash = window.location.hash.substring(1); // Remove the # symbol
+    if (hash) {
+        // Map hash values to page names
+        const pageMapping = {
+            'submit': 'submit',
+            'about': 'about',
+            'statistics': 'statistics'
+        };
+
+        const pageName = pageMapping[hash];
+        if (pageName) {
+            navigateToPage(pageName);
+        }
+    }
+}
 
 // Navigation
 function initializeNavigation() {
@@ -279,9 +300,13 @@ function calculateStats() {
 }
 
 function updateStatsDisplay() {
-    document.getElementById('total-datasets').textContent = appState.stats.totalDatasets;
-    document.getElementById('total-contributors').textContent = appState.stats.totalContributors;
-    document.getElementById('total-tasks').textContent = appState.stats.totalTasks;
+    const totalDatasetsEl = document.getElementById('total-datasets');
+    const totalContributorsEl = document.getElementById('total-contributors');
+    const totalTasksEl = document.getElementById('total-tasks');
+
+    if (totalDatasetsEl) totalDatasetsEl.textContent = appState.stats.totalDatasets;
+    if (totalContributorsEl) totalContributorsEl.textContent = appState.stats.totalContributors;
+    if (totalTasksEl) totalTasksEl.textContent = appState.stats.totalTasks;
 }
 
 function updateCategoryStats() {

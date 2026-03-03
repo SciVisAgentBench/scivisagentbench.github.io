@@ -16,8 +16,7 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#" data-page="statistics" class="active">Statistics</a></li>
-                <li><a href="#" data-page="submit">Submit Tasks</a></li>
-                <li><a href="#" data-page="contributions">Contributors</a></li>
+                <li><a href="#" data-page="submit">Contribution</a></li>
                 <li><a href="#" data-page="about">About</a></li>
                 <li><a href="examples.html">Examples</a></li>
                 <li>
@@ -365,7 +364,7 @@
         <div id="page-submit" class="page">
             <section class="submit-section">
                 <div class="container">
-                    <h2 class="section-title">Submit Tasks</h2>
+                    <h2 class="section-title">Contribute Test Case</h2>
                     <p class="section-description">
                         Help build a comprehensive benchmark for scientific visualization agents.
                         Submit your dataset along with task descriptions and evaluation criteria.
@@ -577,86 +576,6 @@
             </section>
         </div>
 
-        <!-- Contributors Page -->
-        <div id="page-contributions" class="page">
-            <!-- Hero Section -->
-            <section class="hero">
-                <div class="container">
-                    <div class="hero-content">
-                        <h2>Collaborative Contributions</h2>
-                        <p class="hero-description">
-                            Explore contributions from our collaborators and community members.
-                            These statistics showcase the diverse perspectives enriching the benchmark.
-                        </p>
-                        <div class="hero-stats">
-                            <div class="stat">
-                                <span class="stat-number" id="total-datasets">0</span>
-                                <span class="stat-label">Datasets</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-number" id="total-contributors">0</span>
-                                <span class="stat-label">Contributors</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-number" id="total-tasks">0</span>
-                                <span class="stat-label">Test Cases</span>
-                            </div>
-                        </div>
-                        <div class="cta-buttons">
-                            <a href="#" data-page="submit" class="btn btn-primary">Contribute Dataset</a>
-                            <a href="#" data-page="about" class="btn btn-secondary">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Dashboard Section -->
-            <section class="dashboard-section">
-                <div class="container">
-                    <h2 class="section-title">Contributions Breakdown</h2>
-
-                    <!-- Category Breakdown -->
-                    <div class="category-grid">
-                        <div class="category-card">
-                            <h3>Application Domains</h3>
-                            <div class="category-stats" id="application-domain-stats">
-                                <!-- Dynamically populated -->
-                            </div>
-                        </div>
-
-                        <div class="category-card">
-                            <h3>Attribute Types</h3>
-                            <div class="category-stats" id="attribute-types-stats">
-                                <!-- Dynamically populated -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Contributors Table -->
-                    <div class="contributors-section">
-                        <h3>Contributors</h3>
-                        <div class="table-container">
-                            <table class="contributors-table">
-                                <thead>
-                                    <tr>
-                                        <th>Contributor</th>
-                                        <th>Institution</th>
-                                        <th># of Questions</th>
-                                        <th>Subjects</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="contributors-tbody">
-                                    <tr class="empty-state">
-                                        <td colspan="4">No contributions yet. Be the first to contribute!</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
         <!-- About Page -->
         <div id="page-about" class="page">
             <section class="about-section">
@@ -699,9 +618,36 @@
                             <p>
                                 The core team for this project comprises the University of Notre Dame and Lawrence Livermore National Laboratory.
                                 Main contributors include <strong>Kuangshi Ai</strong> (kai@nd.edu),
-                                <strong>Shusen Liu</strong> (liu42@llnl.gov), and
+                                <strong>Shusen Liu</strong> (liu42@llnl.gov),
+                                <strong>Kaiyuan Tang</strong> (ktang2@nd.edu), and
                                 <strong>Haichao Miao</strong> (miao1@llnl.gov).
                             </p>
+
+                            <h3>Contributors</h3>
+                            <p>
+                                We are grateful to all contributors who have helped build this benchmark through their task submissions and expertise.
+                            </p>
+
+                            <!-- Contributors Table -->
+                            <div class="contributors-section" style="margin-top: 1.5rem;">
+                                <div class="table-container">
+                                    <table class="contributors-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Contributor</th>
+                                                <th>Institution</th>
+                                                <th># of Questions</th>
+                                                <th>Subjects</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="contributors-tbody">
+                                            <tr class="empty-state">
+                                                <td colspan="4">No contributions yet. Be the first to contribute!</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
                             <div class="paper-links" style="margin-top: 2rem;">
                             <a href="https://github.com/KuangshiAi/SciVisAgentBench" class="btn btn-primary" target="_blank">
