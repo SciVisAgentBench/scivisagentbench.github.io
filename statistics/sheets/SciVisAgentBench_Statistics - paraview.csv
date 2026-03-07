@@ -1,49 +1,49 @@
 Case Name,Application,Data,Task Level 1: Complexity Level,Task Level 2: Visualization Operations,Operation Count
-ABC,Physics,Scalar Fields; Vector Fields,Workflow,Temporal Processing; Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control; Field Computation,6
-argon-bubble,Chemistry,Scalar Fields,Workflow,Volume Rendering; Color & Opacity Mapping; View & Camera Control,3
-Bernard,Physics,Vector Fields,Workflow,Temporal Processing; Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control,5
-bonsai,Biology,Scalar Fields,Workflow,Volume Rendering; Color & Opacity Mapping; View & Camera Control,3
-carp,Biology,Scalar Fields,Workflow,Volume Rendering; Color & Opacity Mapping; View & Camera Control,3
-chameleon_isosurface,Biology,Scalar Fields,Workflow,Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,3
-crayfish_streamline,Biology,Vector Fields,Workflow,Temporal Processing; Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control,5
-engine,Physics,Scalar Fields,Workflow,Volume Rendering; Color & Opacity Mapping; View & Camera Control,3
-foot,Medical Science,Scalar Fields,Workflow,Volume Rendering; Color & Opacity Mapping; View & Camera Control,3
-lobster,Biology,Scalar Fields,Workflow,Volume Rendering; Color & Opacity Mapping; View & Camera Control,3
-mhd-magfield_streamribbon,Physics,Vector Fields,Workflow,Temporal Processing; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,4
-mhd-turbulence_pathline,Physics,Vector Fields; Time-varying,Workflow,Temporal Processing; Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control,5
-mhd-turbulence_pathribbon,Physics,Vector Fields; Time-varying,Workflow,Temporal Processing; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,4
-mhd-turbulence_streamline,Physics,Vector Fields,Workflow,Temporal Processing; Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control; Field Computation,6
-miranda,Physics,Scalar Fields,Workflow,Volume Rendering; Color & Opacity Mapping; View & Camera Control,3
-richtmyer,Physics,Scalar Fields,Workflow,Volume Rendering; Color & Opacity Mapping; View & Camera Control,3
-rotstrat,Physics,Scalar Fields,Workflow,Volume Rendering; Color & Opacity Mapping; View & Camera Control,3
-rti-velocity_glyph,Physics,Vector Fields,Workflow,Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control; Data Sampling & Resolution Control,4
-rti-velocity_slices,Physics,Vector Fields,Workflow,Data Subsetting & Extraction; Color & Opacity Mapping; View & Camera Control,3
-rti-velocity_streakline,Physics,Vector Fields; Time-varying,Workflow,Temporal Processing; Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control,5
-solar-plume,Astronomy,Scalar Fields,Workflow,Volume Rendering; Color & Opacity Mapping; View & Camera Control,3
-supernova_isosurface,Astronomy,Scalar Fields,Workflow,Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control; Data Subsetting & Extraction,4
-supernova_streamline,Astronomy,Vector Fields,Workflow,Temporal Processing; Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control,5
-tangaroa_streamribbon,Physics,Vector Fields,Workflow,Temporal Processing; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,4
-tgc-velocity_contour,Physics,Vector Fields,Workflow,Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control; Field Computation,4
-tornado,Earth System Science,Vector Fields,Workflow,Temporal Processing; Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control,5
-twoswirls_streamribbon,Physics,Vector Fields,Workflow,Temporal Processing; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,4
-vortex,Physics,Scalar Fields,Workflow,Volume Rendering; Color & Opacity Mapping; View & Camera Control,3
-line-plot,Others,Scalar Fields,Task,Plot & Chart Generation; View & Camera Control,2
-ml-dvr,Others,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping; View & Camera Control,3
-ml-iso,Others,Scalar Fields,Task,Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,3
-ml-slice-iso,Others,Scalar Fields,Task,Data Subsetting & Extraction; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,4
-points-surf-clip,Others,Scalar Fields,Task,Data Subsetting & Extraction; Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control,5
-shrink-sphere,Others,Scalar Fields,Task,Geometric & Topological Transformation; Color & Opacity Mapping; View & Camera Control,3
-stream-glyph,Others,Vector Fields,Task,Temporal Processing; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control,4
-time-varying,Others,Scalar Fields; Time-varying,Task,Temporal Processing; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,4
-chart-opacity,Others,Scalar Fields,Workflow,Volume Rendering; Color & Opacity Mapping; View & Camera Control; Plot & Chart Generation,4
-color-blocks,Others,Scalar Fields,Workflow,Color & Opacity Mapping; View & Camera Control,2
-color-data,Others,Scalar Fields,Workflow,Color & Opacity Mapping; View & Camera Control,2
-export-gltf,Others,Scalar Fields,Workflow,Surface & Contour Extraction; Dataset Restructuring; View & Camera Control,3
-import-gltf,Others,Scalar Fields,Workflow,Dataset Restructuring; Color & Opacity Mapping; View & Camera Control,3
-render-histogram,Others,Scalar Fields,Workflow,Plot & Chart Generation; Color & Opacity Mapping; View & Camera Control,3
-reset-camera-direction,Others,Scalar Fields,Task,View & Camera Control; Surface & Contour Extraction,2
-Unknown,Others,Scalar Fields,Task,View & Camera Control,1
-subseries-of-time-series,Others,Scalar Fields; Time-varying,Workflow,Temporal Processing; Volume Rendering; Color & Opacity Mapping; View & Camera Control,4
-write-ply,Others,Scalar Fields,Workflow,Surface & Contour Extraction; Dataset Restructuring; View & Camera Control,3
-climate,Earth System Science,Scalar Fields,Workflow,Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control,3
-materials,Others,Scalar Fields,Workflow,Color & Opacity Mapping; View & Camera Control,2
+ABC,Physics,Vector Fields,Workflow,"Field Computation; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+argon-bubble,Chemistry,Scalar Fields,Task,"Volume Rendering; Color & Opacity Mapping; View & Camera Control",3
+Bernard,Physics,Vector Fields,Workflow,"Field Computation; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+bonsai,Biology,Scalar Fields,Task,"Volume Rendering; Color & Opacity Mapping; View & Camera Control",3
+carp,Biology,Scalar Fields,Workflow,"Volume Rendering; Color & Opacity Mapping; View & Camera Control; Scientific Insight Derivation",4
+chameleon_isosurface,Biology,Scalar Fields,Task,"Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control",3
+crayfish_streamline,Physics,Vector Fields,Workflow,"Field Computation; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+engine,Others,Scalar Fields,Task,"Volume Rendering; Color & Opacity Mapping; View & Camera Control",3
+foot,Medical Science,Scalar Fields,Workflow,"Volume Rendering; Color & Opacity Mapping; View & Camera Control; Scientific Insight Derivation",4
+lobster,Biology,Scalar Fields,Workflow,"Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control; Scientific Insight Derivation",4
+mhd-magfield_streamribbon,Physics,Vector Fields,Workflow,"Field Computation; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+mhd-turbulence_pathline,Physics,Time-varying; Vector Fields,Workflow,"Temporal Processing; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+mhd-turbulence_pathribbon,Physics,Time-varying; Vector Fields,Workflow,"Temporal Processing; Glyph & Marker Placement; Data Smoothing & Filtering; Geometric & Topological Transformation; Color & Opacity Mapping; View & Camera Control",6
+mhd-turbulence_streamline,Physics,Vector Fields,Workflow,"Field Computation; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+miranda,Physics,Scalar Fields,Task,"Volume Rendering; Color & Opacity Mapping; View & Camera Control",3
+richtmyer,Physics,Scalar Fields,Task,"Volume Rendering; Color & Opacity Mapping; View & Camera Control",3
+rotstrat,Physics,Scalar Fields,Task,"Volume Rendering; Color & Opacity Mapping; View & Camera Control",3
+rti-velocity_glyph,Physics,Vector Fields,Workflow,"Data Subsetting & Extraction; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+rti-velocity_slices,Physics,Vector Fields,Workflow,"Data Subsetting & Extraction; Color & Opacity Mapping; View & Camera Control",3
+rti-velocity_streakline,Physics,Time-varying; Vector Fields,Workflow,"Temporal Processing; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+solar-plume,Astronomy,Scalar Fields,Workflow,"Volume Rendering; Color & Opacity Mapping; View & Camera Control",3
+supernova_isosurface,Astronomy,Scalar Fields,Workflow,"Surface & Contour Extraction; Data Subsetting & Extraction; Color & Opacity Mapping; View & Camera Control",4
+supernova_streamline,Astronomy,Vector Fields,Workflow,"Field Computation; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+tangaroa_streamribbon,Physics,Vector Fields,Workflow,"Field Computation; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+tgc-velocity_contour,Physics,Vector Fields,Workflow,"Surface & Contour Extraction; Field Computation; Color & Opacity Mapping; View & Camera Control",4
+tornado,Earth System Science,Vector Fields,Workflow,"Field Computation; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+twoswirls_streamribbon,Physics,Vector Fields,Workflow,"Field Computation; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+vortex,Physics,Scalar Fields,Task,"Volume Rendering; Color & Opacity Mapping; View & Camera Control",3
+line-plot (disk-out-ref_line-plot),Others,Scalar Fields,Task,"Plot & Chart Generation; Color & Opacity Mapping; View & Camera Control",3
+ml-dvr (ml_dvr),Others,Scalar Fields,Task,"Volume Rendering; Color & Opacity Mapping; View & Camera Control",3
+ml-iso (ml_iso-surface),Others,Scalar Fields,Task,"Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control",3
+ml-slice-iso (ml_slice-contour),Others,Scalar Fields,Task,"Data Subsetting & Extraction; Surface & Contour Extraction; Color & Opacity Mapping; View & Camera Control",4
+points-surf-clip (points_surf-clip),Others,Scalar Fields,Task,"Data Subsetting & Extraction; Glyph & Marker Placement; View & Camera Control",3
+shrink-sphere,Others,Scalar Fields,Task,"Geometric & Topological Transformation; View & Camera Control",2
+stream-glyph,Others,Vector Fields,Task,"Field Computation; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+time-varying (can_temporal-animation),Others,Time-varying,Task,"Temporal Processing; Color & Opacity Mapping; View & Camera Control",3
+chart-opacity (wavelet_chart),Others,Scalar Fields,Task,"Plot & Chart Generation; Volume Rendering; Color & Opacity Mapping; View & Camera Control",4
+color-blocks (can_color-blocks),Others,Scalar Fields,Task,"Color & Opacity Mapping; View & Camera Control",2
+color-data (wavelet_colormap),Others,Scalar Fields,Task,"Color & Opacity Mapping; View & Camera Control",2
+export-gltf (wavelet_export-gltf),Others,Scalar Fields,Task,"Surface & Contour Extraction; Dataset Restructuring; View & Camera Control",3
+import-gltf (rings_import-gltf),Others,Scalar Fields,Task,"Dataset Restructuring; View & Camera Control",2
+render-histogram (wavelet_histogram),Others,Scalar Fields,Task,"Plot & Chart Generation; Color & Opacity Mapping; View & Camera Control",3
+reset-camera-direction (wavelet_camera),Others,Scalar Fields,Task,"View & Camera Control",1
+save-transparent (transparent-bg),Others,Scalar Fields,Task,"View & Camera Control",1
+subseries-of-time-series (can_sub-time-series),Others,Time-varying,Task,"Temporal Processing; Volume Rendering; View & Camera Control",3
+write-ply (wavelet_export-ply),Others,Scalar Fields,Task,"Surface & Contour Extraction; Dataset Restructuring",2
+climate,Earth System Science,Vector Fields,Workflow,"Field Computation; Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control",4
+materials,Others,Scalar Fields,Task,"Data Subsetting & Extraction; View & Camera Control",2

@@ -1,16 +1,12 @@
 Case Name,Application,Data,Task Level 1: Complexity Level,Task Level 2: Visualization Operations,Operation Count
-Napari - Load & Layer Management,Biology,Scalar Field; Multivariate; Time-varying,Task,Dataset Restructuring; Field Computation,2
-Napari - 3D/4D Navigation,Biology,Scalar Field; Multivariate; Time-varying,Task,Data Subsetting & Extraction; Temporal Processing,2
-Napari - Color & Opacity,Biology,Scalar Field; Multivariate; Time-varying,Task,Color & Opacity Mapping,1
-Napari - Contrast Adjustment,Biology,Scalar Field; Multivariate; Time-varying,Task,Color & Opacity Mapping; Data Smoothing & Filtering,2
-Napari - Camera Control,Biology,Scalar Field; Multivariate; Time-varying,Task,View & Camera Control; Field Computation,2
-Napari - Visibility & Screenshot,Biology,Scalar Field; Multivariate; Time-varying,Task,Data Subsetting & Extraction; View & Camera Control,2
-Napari - Annotations,Biology,Scalar Field; Multivariate; Time-varying,Task,Glyph & Marker Placement,1
-Napari - Scale Bar & Export,Biology,Scalar Field; Multivariate; Time-varying,Task,Glyph & Marker Placement; View & Camera Control,2
-Napari - Export & Cleanup,Biology,Scalar Field; Multivariate; Time-varying,Task,Dataset Restructuring,1
-Napari - Error Handling,Biology,Scalar Field; Multivariate; Time-varying,Task,Dataset Restructuring,1
-Napari - 3D Rendering,Biology,Scalar Field; Multivariate; Time-varying,Task,Surface & Contour Extraction; Volume Rendering; Dataset Restructuring,3
-Napari - Analysis Workflows,Biology,Scalar Field; Multivariate,Workflow,Field Computation; Glyph & Marker Placement; Feature Identification & Segmentation; Dataset Restructuring; Temporal Processing; Data Subsetting & Extraction,6
-Napari - Figure Recreation,Biology,Scalar Field; Multivariate,Workflow,Color & Opacity Mapping; Data Smoothing & Filtering; View & Camera Control,3
-Napari - Iso Surface Determination,Biology,Scalar Field; Multivariate,Workflow,Surface & Contour Extraction; Volume Rendering; View & Camera Control; Color & Opacity Mapping,4
-Napari - Visualization Workflows,Biology,Scalar Field; Multivariate,Workflow,Color & Opacity Mapping; Dataset Restructuring; Data Subsetting & Extraction; View & Camera Control; Surface & Contour Extraction; Volume Rendering; Data Smoothing & Filtering,7
+bcell-receptor_multi-channel,Biology,Multivariate; Time-varying,Workflow,Color & Opacity Mapping; Temporal Processing; View & Camera Control; Scientific Insight Derivation,4
+bcell-receptor_ingest-points,Biology,Multivariate,Task,Glyph & Marker Placement; Scientific Insight Derivation,2
+bcell-receptor_ingest-shapes,Biology,Multivariate,Task,Glyph & Marker Placement; Scientific Insight Derivation,2
+bcell-receptor_ingest-labels,Biology,Multivariate,Task,Feature Identification & Segmentation; Scientific Insight Derivation,2
+cortical-neurons_recreation,Biology,Multivariate,Task,Color & Opacity Mapping; View & Camera Control,2
+tooth_iso-surface,Biology,Scalar Fields,Task,Surface & Contour Extraction; View & Camera Control,2
+bcell-receptor_cell-counting,Biology,Scalar Fields,Task,Color & Opacity Mapping; View & Camera Control; Scientific Insight Derivation,3
+cortical-neurons_statistics,Biology,Multivariate,Task,Field Computation; Scientific Insight Derivation,2
+cortical-neurons_annotation,Biology,Multivariate,Task,Glyph & Marker Placement,1
+bcell-receptor_cell-trace,Biology,Scalar Fields,Task,Glyph & Marker Placement; View & Camera Control,2
+bcell-receptor_camera-ops,Biology,Multivariate,Task,Color & Opacity Mapping; View & Camera Control,2

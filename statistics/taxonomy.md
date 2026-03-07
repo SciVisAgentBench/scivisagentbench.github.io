@@ -1,4 +1,4 @@
-# Application Taxonomy
+# Application Domain Taxonomy
 
 - Astronomy
 - Medical Science
@@ -21,14 +21,14 @@
 - Time-varying
 
 
-# Task Level 1: Complexity Level Taxonomy
+# Complexity Level Taxonomy
 
-- **Operation** - Single, focused visualization operation
+- **Operation** - Single, focused visualization operation (not reported, do not assign this tag)
 - **Task** - Small-scale visualization task involving a few operations
 - **Workflow** - Multi-step visualization pipeline or complex process
 
 
-# Task Level 2: Visualization Operations Taxonomy
+# Visualization Operations Taxonomy
 
 Each task in SciVisAgentBench is tagged with one or more of the following operations. These tags describe **what visualization or data processing actions** are performed.
 
@@ -53,9 +53,8 @@ Each task in SciVisAgentBench is tagged with one or more of the following operat
 ## 3. Surface & Contour Extraction
 
 **Brief:** Generate isosurfaces, contour lines, or cut-plane slices from volumetric data.
-Generate isosurfaces, contour lines, ribbons, or tubes from volumetric data.
 
-**Detailed:** This operation covers the extraction of geometric primitives that represent boundaries or cross-sections within a volume. It includes isosurface generation at user-specified scalar thresholds, contour line or contour surface extraction, slicing or cutting along a plane to produce a 2D cross-section, and generation of ribbons, tubes, or streamline geometry from curve data. Unlike Data Subsetting & Extraction (which filters data), this operation creates new geometry that represents a specific feature boundary or spatial cross-section of the original volume.
+**Detailed:** This operation generates geometric primitives representing boundaries or cross-sections within volumetric data. It includes isosurface generation, contour extraction, and planar slicing. The key distinction is that new geometry is produced to represent feature boundaries or cross-sections.
 
 ---
 
@@ -103,7 +102,7 @@ Generate isosurfaces, contour lines, ribbons, or tubes from volumetric data.
 
 **Brief:** Derive new scalar, vector, or tensor fields from existing data attributes.
 
-**Detailed:** This operation covers all calculations that produce new attribute arrays from existing ones. It includes gradient, divergence, curl, and vorticity computation; curvature calculation and normal generation; arithmetic operations on fields such as addition, subtraction, and multiplication; vector magnitude computation and component extraction; field aggregation and statistical summaries (min, max, mean, standard deviation); tensor operations such as eigenvalue and eigenvector decomposition; interpolation between fields; and distance computations. Critical point detection also falls here, as it derives point locations and classifications from scalar field topology.
+**Detailed:** This operation derives new scalar, vector, or tensor fields from existing attributes. It includes gradient, divergence, curl, vorticity, curvature, arithmetic field operations, vector magnitude computation, statistical summaries, tensor eigendecomposition, interpolation, and distance calculations. Particle tracing and critical point detection are also included.
 
 ---
 
@@ -111,7 +110,7 @@ Generate isosurfaces, contour lines, ribbons, or tubes from volumetric data.
 
 **Brief:** Perform computations or navigation that involve the time dimension of data.
 
-**Detailed:** This operation covers all actions that explicitly use or traverse the temporal axis of time-varying data. It includes temporal interpolation between timesteps, particle tracing or trajectory computation through time, flow integration to produce streamlines, pathlines, streaklines, or timelines, temporal statistics or aggregation across multiple timesteps, flow map computation, and navigating or selecting specific timesteps in a time series. The defining feature is that time is an active dimension in the operation, distinguishing it from static spatial analysis.
+**Detailed:** This operation explicitly uses the time dimension in time-varying scalar fields or unsteady vector fields. It includes temporal interpolation, temporal aggregation, pathline/streakline/timeline computation, flow map computation, and timestep navigation.
 
 ---
 

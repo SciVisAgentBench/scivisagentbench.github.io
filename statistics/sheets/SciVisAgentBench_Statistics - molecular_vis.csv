@@ -1,16 +1,14 @@
 Case Name,Application,Data,Task Level 1: Complexity Level,Task Level 2: Visualization Operations,Operation Count
-MD - Load & Basic Representations,Chemistry,Multi-variate,Task,Dataset Restructuring; Glyph & Marker Placement; Surface & Contour Extraction,3
-MD - Color by Properties,Chemistry,Multi-variate,Task,Color & Opacity Mapping,1
-MD - Region Selection,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Color & Opacity Mapping,2
-MD - Multi-Representation,Chemistry,Multi-variate,Task,Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping,3
-MD - Advanced Coloring,Chemistry,Multi-variate,Task,Color & Opacity Mapping; Data Subsetting & Extraction,2
-MD - Active Site Selection,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Field Computation; Color & Opacity Mapping; View & Camera Control,4
-MD - Spatial Queries,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Field Computation; Color & Opacity Mapping,3
-MD - Visibility Control,Chemistry,Multi-variate,Task,Data Subsetting & Extraction,1
-MD - Residue Selection,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Color & Opacity Mapping,2
-MD - Combined Representations,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Surface & Contour Extraction; Glyph & Marker Placement; Color & Opacity Mapping,4
-MD - Distance-based Selection,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Field Computation; Color & Opacity Mapping,3
-MD - Gradient Coloring,Chemistry,Multi-variate,Task,Color & Opacity Mapping; Data Subsetting & Extraction,2
-MD - Multi-Criteria Selection,Chemistry,Multi-variate,Task,Data Subsetting & Extraction; Surface & Contour Extraction; Field Computation; Color & Opacity Mapping; Data Sampling & Resolution Control,5
-MD - curved-membrane,Chemistry; Biology,Multi-variate,Workflow,Scientific Insight Derivation; Data Subsetting & Extraction; Color & Opacity Mapping; View & Camera Control; Glyph & Marker Placement,5
-MD - ras-raf-membrane,Chemistry; Biology,Multi-variate,Workflow,Scientific Insight Derivation; Data Subsetting & Extraction; Color & Opacity Mapping; View & Camera Control; Glyph & Marker Placement,5
+1CRN_licorice,Biology,Scalar Fields,Task,Glyph & Marker Placement; View & Camera Control,2
+1CRN_cpk-coloring,Biology; Chemistry,Scalar Fields,Task,Color & Opacity Mapping; Glyph & Marker Placement; View & Camera Control,3
+1CRN_select-carbon,Biology,Scalar Fields,Task,Color & Opacity Mapping; Glyph & Marker Placement; View & Camera Control,3
+1CRN_color-by-charge,Biology,Scalar Fields,Task,Color & Opacity Mapping; Glyph & Marker Placement; View & Camera Control,3
+1CRN_select-oxygen,Biology,Scalar Fields,Task,Color & Opacity Mapping; Glyph & Marker Placement; View & Camera Control,3
+1CRN_select-aromatic,Biology,Scalar Fields,Task,Color & Opacity Mapping; Glyph & Marker Placement; View & Camera Control,3
+1CRN_rmsd-rmsf,Biology,Scalar Fields,Task,Field Computation,1
+1CRN_radius-gyration,Biology,Scalar Fields,Task,Field Computation,1
+1CRN_distance-angles,Biology,Scalar Fields,Task,Field Computation,1
+1CRN_contacts,Biology,Scalar Fields,Task,Field Computation,1
+ras-raf-membrane,Biology,Scalar Fields,Workflow,Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control; Scientific Insight Derivation,4
+curved-membrane,Biology,Scalar Fields,Workflow,Glyph & Marker Placement; Color & Opacity Mapping; View & Camera Control; Scientific Insight Derivation,4
+trajectory-inspection,Biology,Time-varying,Workflow,Temporal Processing; Plot & Chart Generation; View & Camera Control; Scientific Insight Derivation,4

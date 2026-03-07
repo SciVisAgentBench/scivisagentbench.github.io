@@ -666,7 +666,7 @@ function parseCSV(csvText, filename) {
         // Parse case data
         const parts = parseCSVLine(line);
         if (parts.length >= 6 && parts[0]) {
-            const caseName = parts[0];
+            let caseName = parts[0];
             const application = parts[1];
             const data = parts[2];
             const complexityLevel = parts[3];
@@ -675,6 +675,12 @@ function parseCSV(csvText, filename) {
 
             // Skip if case name is empty or is header
             if (!caseName || caseName === 'Case Name') continue;
+
+            // Extract name from parentheses if present (for ParaView cases)
+            const parenMatch = caseName.match(/\(([^)]+)\)/);
+            if (parenMatch) {
+                caseName = parenMatch[1];
+            }
 
             testCases.push({
                 category: extractCategoryFromFilename(filename),
@@ -775,14 +781,17 @@ function extractDataTypes(dataString) {
     // Handle both old and new formats
     // New format uses semicolons to separate types
     if (dataString.includes(';')) {
-        return dataString.split(';').map(type => type.trim()).filter(type => type);
+        return dataString.split(';').map(type => {
+            const trimmed = type.trim();
+            // Normalize plural forms to singular
+            return trimmed.replace(/Fields$/, 'Field');
+        }).filter(type => type);
     }
 
     // Old format - check for specific strings
     const types = [];
     if (dataString.includes('Scalar Field')) types.push('Scalar Field');
     if (dataString.includes('Vector Field')) types.push('Vector Field');
-    if (dataString.includes('Multivariate')) types.push('Multivariate');
     if (dataString.includes('Multivariate')) types.push('Multivariate');
     if (dataString.includes('Time-varying')) types.push('Time-varying');
     if (dataString.includes('Tensor Field')) types.push('Tensor Field');
