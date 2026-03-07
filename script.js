@@ -829,7 +829,12 @@ function renderTestCases(testCases) {
         'Geometric & Topological Transformation': 'Modify the geometry or connectivity structure of a dataset'
     };
 
-    const rows = testCases.map(testCase => {
+    // Sort test cases alphabetically by case name
+    const sortedTestCases = [...testCases].sort((a, b) => {
+        return a.caseName.localeCompare(b.caseName, undefined, { sensitivity: 'base' });
+    });
+
+    const rows = sortedTestCases.map(testCase => {
         const applicationTags = testCase.application && testCase.application.length > 0
             ? testCase.application.map(app => `<span class="tag">${escapeHtml(app)}</span>`).join('')
             : '-';

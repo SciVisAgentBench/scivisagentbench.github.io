@@ -28,12 +28,12 @@
 | Application | Count |
 |-------------|-------|
 | Biology | 33 |
-| Physics | 25 |
 | Others | 25 |
+| Physics | 24 |
 | Medical Science | 12 |
 | Mathematics | 9 |
+| Earth System Science | 5 |
 | Astronomy | 4 |
-| Earth System Science | 4 |
 | Chemistry | 3 |
 
 **Total individual application tags**: 115
@@ -45,13 +45,13 @@
 |------------------------|-------|
 | Biology | 32 |
 | Others | 25 |
-| Physics | 23 |
+| Physics | 22 |
 | Medical Science | 11 |
 | Astronomy | 4 |
+| Earth System Science | 3 |
 | Mathematics | 3 |
 | Physics; Mathematics | 2 |
 | Earth System Science; Mathematics | 2 |
-| Earth System Science | 2 |
 | Biology; Chemistry | 1 |
 | Medical Science; Mathematics | 1 |
 | Chemistry; Mathematics | 1 |

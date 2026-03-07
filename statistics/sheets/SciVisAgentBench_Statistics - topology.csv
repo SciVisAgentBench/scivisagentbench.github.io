@@ -2,9 +2,9 @@ Case Name,Application,Data,Task Level 1: Complexity Level,Task Level 2: Visualiz
 QMCPACK,Physics; Mathematics,Scalar Fields,Workflow,Field Computation; Feature Identification & Segmentation; Scientific Insight Derivation,3
 brain,Medical Science; Mathematics,Tensor Fields,Workflow,Field Computation; Feature Identification & Segmentation; Scientific Insight Derivation,3
 cylinder,Physics; Mathematics,Scalar Fields,Workflow,Field Computation; Feature Identification & Segmentation; Data Smoothing & Filtering; Scientific Insight Derivation,4
-isabel,Earth System Science; Mathematics,Scalar Fields,Workflow,Field Computation; Feature Identification & Segmentation; Data Smoothing & Filtering; Scientific Insight Derivation,4
+Isabel,Earth System Science; Mathematics,Scalar Fields,Workflow,Field Computation; Feature Identification & Segmentation; Data Smoothing & Filtering; Scientific Insight Derivation,4
 ocean,Earth System Science; Mathematics,Tensor Fields,Workflow,Field Computation; Feature Identification & Segmentation; Scientific Insight Derivation,3
-noisyTerrain,Mathematics,Scalar Fields,Workflow,Field Computation; Feature Identification & Segmentation; Data Smoothing & Filtering,3
+noisy-terrain,Mathematics,Scalar Fields,Workflow,Field Computation; Feature Identification & Segmentation; Data Smoothing & Filtering,3
 molecule,Chemistry; Mathematics,Scalar Fields,Workflow,Field Computation; Feature Identification & Segmentation,2
 moons,Mathematics,Scalar Fields,Workflow,Field Computation; Feature Identification & Segmentation; Data Smoothing & Filtering,3
 dragon,Mathematics,Scalar Fields,Workflow,Field Computation; Feature Identification & Segmentation,2

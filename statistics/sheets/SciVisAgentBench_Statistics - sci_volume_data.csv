@@ -1,28 +1,28 @@
 Case Name,Application,Data,Task Level 1: Complexity Level,Task Level 2: Visualization Operations,Operation Count
-aneurism,Medical Science,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
+aneurysm,Medical Science,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 hydrogen-atom,Physics,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 silicium,Physics,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
-tornado,Physics,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
+tornado_dvr,Earth System Science,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 backpack,Others,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
-lobster,Biology,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
+lobster_dvr,Biology,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 neocortical-layer-1-axons,Biology,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 skull,Medical Science,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 blunt-fin,Physics,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 nucleon,Physics,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 statue-leg,Others,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 vis-male,Medical Science,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
-bonsai,Biology,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
-engine,Others,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
+bonsai_dvr,Biology,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
+engine_dvr,Others,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 pancreas,Medical Science,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 stent,Medical Science,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
-boston-teapot,Others,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
-foot,Medical Science,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
+Boston-teapot,Others,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
+foot_dvr,Medical Science,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 mri-ventricles,Medical Science,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 supernova,Astronomy,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 bunny,Others,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 frog,Biology,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 mri-woman,Medical Science,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
-carp,Biology,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
+carp_dvr,Biology,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 fuel,Physics,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 mrt-angio,Medical Science,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2
 tooth,Medical Science,Scalar Fields,Task,Volume Rendering; Color & Opacity Mapping,2

@@ -3,8 +3,8 @@ bcell-receptor_multi-channel,Biology,Multivariate; Time-varying,Workflow,Color &
 bcell-receptor_ingest-points,Biology,Multivariate,Task,Glyph & Marker Placement; Scientific Insight Derivation,2
 bcell-receptor_ingest-shapes,Biology,Multivariate,Task,Glyph & Marker Placement; Scientific Insight Derivation,2
 bcell-receptor_ingest-labels,Biology,Multivariate,Task,Feature Identification & Segmentation; Scientific Insight Derivation,2
-cortical-neurons_recreation,Biology,Multivariate,Task,Color & Opacity Mapping; View & Camera Control,2
-tooth_iso-surface,Biology,Scalar Fields,Task,Surface & Contour Extraction; View & Camera Control,2
+cortical-neurons_figure-recreation,Biology,Multivariate,Task,Color & Opacity Mapping; View & Camera Control,2
+tooth_isosurface,Biology,Scalar Fields,Task,Surface & Contour Extraction; View & Camera Control,2
 bcell-receptor_cell-counting,Biology,Scalar Fields,Task,Color & Opacity Mapping; View & Camera Control; Scientific Insight Derivation,3
 cortical-neurons_statistics,Biology,Multivariate,Task,Field Computation; Scientific Insight Derivation,2
 cortical-neurons_annotation,Biology,Multivariate,Task,Glyph & Marker Placement,1
