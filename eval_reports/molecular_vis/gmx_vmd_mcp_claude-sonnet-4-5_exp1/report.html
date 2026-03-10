@@ -532,7 +532,7 @@
             <h1>🎯 SciVisAgentBench Evaluation Report</h1>
             <div class="header-meta">
                 <span class="agent-name">gmx_vmd_mcp_agent</span>
-                <span class="timestamp">Generated: 2026-03-07T16:18:54.028193</span>
+                <span class="timestamp">Generated: 2026-03-10T13:46:29.955955</span>
             </div>
         </header>
 
@@ -543,18 +543,18 @@
             <div class="summary-grid">
                 <div class="summary-card">
                     <h3>Overall Score</h3>
-                    <div class="value score-poor">
-                        48.4%
+                    <div class="value score-fair">
+                        63.2%
                     </div>
                     <div class="sub-value">
-                        138/285 Points
+                        256/405 Points
                     </div>
                 </div>
 
                 <div class="summary-card">
                     <h3>Test Cases</h3>
                     <div class="value">
-                        3/3
+                        13/13
                     </div>
                     <div class="sub-value">
                         Completed Successfully
@@ -580,7 +580,7 @@
                         N/A
                     </div>
                     <div class="sub-value">
-                        Peak SNR (0/3 valid)
+                        Peak SNR (0/13 valid)
                     </div>
                 </div>
 
@@ -657,13 +657,1051 @@
         <nav class="case-nav">
             <h3>Jump to Case:</h3>
             <div class="case-links">
-                <a href="#curved-membrane" class="case-link">curved-membrane</a>
+                <a href="#case_1" class="case-link">case_1</a>
+<a href="#case_2" class="case-link">case_2</a>
+<a href="#case_3" class="case-link">case_3</a>
+<a href="#case_4" class="case-link">case_4</a>
+<a href="#case_5" class="case-link">case_5</a>
+<a href="#case_6" class="case-link">case_6</a>
+<a href="#case_7" class="case-link">case_7</a>
+<a href="#case_8" class="case-link">case_8</a>
+<a href="#case_9" class="case-link">case_9</a>
+<a href="#case_10" class="case-link">case_10</a>
+<a href="#curved-membrane" class="case-link">curved-membrane</a>
 <a href="#ras-raf-membrane" class="case-link">ras-raf-membrane</a>
 <a href="#trajectory-inspection" class="case-link">trajectory-inspection</a>
             </div>
         </nav>
 
         
+        <section class="case-section" id="case_1">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_1</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">Your agent_mode is "gmx_vmd_mcp_claude-sonnet-4-5_exp1", use it when saving results. Your working directory is "/Users/kuangshiai/Documents/ND-VIS/Code/SciVisAgentBench/SciVisAgentBench-tasks/molecular_vis", and you should have access to it. In the following prompts, we will use relative path with respect to your working path. But remember, when you load or save any file, always stick to absolute path.
+
+1. I want you to visualize a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Visualize the molecular using a licorice representation. 
+4. Take a screenshot of the visualization.
+ Q1. Does it show a licorice representation of the protein? (yes/no)
+5. Answer Q1 in a plain text file "md_analysis/results/answers_basic_vis.txt".</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Q1. Does it show a licorice representation of the protein? (yes/no)
+Answer: yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1 correct answer: Yes): The provided answer to Q1 is "yes," which exactly matches the evaluation criterion stating the correct answer is Yes. Therefore, it fully meets the criterion.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">180,108</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">2,272</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">182,380</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$0.5744</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_2">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_2</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">Your agent_mode is "gmx_vmd_mcp_claude-sonnet-4-5_exp1", use it when saving results. Your working directory is "/Users/kuangshiai/Documents/ND-VIS/Code/SciVisAgentBench/SciVisAgentBench-tasks/molecular_vis", and you should have access to it. In the following prompts, we will use relative path with respect to your working path. But remember, when you load or save any file, always stick to absolute path.
+
+1. I want you to visualize a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Visualize the molecular using a CPK or similar representation where atoms are colored by their chemical element.
+4. Take a screenshot of the visualization.
+ Q1. Is the molecule colored according to the chemical element of its atoms (e.g., CPK coloring)? (yes/no)
+5. Answer Q1 in a plain text file "md_analysis/results/answers_element_coloring.txt".</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1 correct answer: Yes): The provided task answer is "yes", which matches the expected correct answer "Yes" (case-insensitive match). Therefore, it fully satisfies the evaluation criterion.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">267,399</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">3,376</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">270,775</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$0.8528</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_3">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_3</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">Your agent_mode is "gmx_vmd_mcp_claude-sonnet-4-5_exp1", use it when saving results. Your working directory is "/Users/kuangshiai/Documents/ND-VIS/Code/SciVisAgentBench/SciVisAgentBench-tasks/molecular_vis", and you should have access to it. In the following prompts, we will use relative path with respect to your working path. But remember, when you load or save any file, always stick to absolute path.
+
+1. I want you to visualize a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Select all carbon atoms and color them cyan.
+4. Take a screenshot of the visualization.
+ Q1. Are all carbon atoms colored cyan? (yes/no)
+5. Answer Q1 in a plain text file "md_analysis/results/answers_selection_coloring.txt".</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Q1. Are all carbon atoms colored cyan?
+Answer: yes
+
+Explanation:
+The VMD script successfully loaded the 1CRN.cif file (containing 327 atoms across 46 residues) and applied the following visualization:
+1. Selected all carbon atoms using the selection "element C"
+2. Colored all selected carbon atoms with cyan (ColorID 10)
+3. Other atoms (non-carbon) were displayed with their default colors by element name
+
+Since the selection "element C" captures ALL carbon atoms in the molecular structure, and cyan color was uniformly applied to this complete selection, all carbon atoms in the visualization are indeed colored cyan.</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion: Q1 correct answer is "Yes". The provided answer is exactly "yes," which matches the required correct response. The accompanying explanation is consistent with the criterion: selecting "element C" would include all carbon atoms and applying a single ColorID (cyan) to that selection would color all carbons cyan. No contradictions or omissions relative to the criterion.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">183,509</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">3,092</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">186,601</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$0.5969</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_4">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_4</h2>
+                    
+                </div>
+                <div class="case-score">8/10 (80.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">Your agent_mode is "gmx_vmd_mcp_claude-sonnet-4-5_exp1", use it when saving results. Your working directory is "/Users/kuangshiai/Documents/ND-VIS/Code/SciVisAgentBench/SciVisAgentBench-tasks/molecular_vis", and you should have access to it. In the following prompts, we will use relative path with respect to your working path. But remember, when you load or save any file, always stick to absolute path.
+
+1. I want you to visualize a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Color the molecule according to atomic charge: use one color for positive charges, another for negative charges, and a third for neutral atoms.
+4. Take a screenshot of the visualization.
+ Q1. Is the molecule colored by atomic charge (differentiating positive, negative, and neutral)? (yes/no)
+5. Answer Q1 in a plain text file "md_analysis/results/answers_charge_coloring.txt".</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">8/10 (80.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Q1. Is the molecule colored by atomic charge (differentiating positive, negative, and neutral)? (yes/no)
+
+yes
+
+Explanation:
+The molecule from 1CRN.cif has been visualized with charge-based coloring that differentiates between three categories:
+- RED: Positive charges (19 nitrogen atoms in basic groups like Lys, Arg, and N-terminal)
+- BLUE: Negative charges (64 oxygen atoms which typically carry negative partial charges)
+- WHITE: Neutral atoms (202 carbon atoms, along with sulfur and other nitrogen atoms)
+
+The visualization screenshot is saved as: charge_based_coloring.png
+
+Note: Since the CIF file does not contain explicit partial charge data, the coloring scheme is based on typical charge characteristics of different atom types in protein structures, which is a standard approach for charge-based visualization in structural biology.</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion: Q1 correct answer is "Yes".
+
+The provided answer matches the required correct response ("yes"), so it satisfies the core criterion.
+
+However, the supporting explanation introduces some uncertainty about whether the molecule is truly colored by *atomic charge* versus a heuristic based on element/residue type. It explicitly states that the CIF lacks partial charge data and that the scheme is based on "typical charge characteristics" (e.g., counting oxygens as negative, nitrogens in basic groups as positive). That is not strictly the same as coloring by computed/assigned atomic charges, and it risks being interpreted as element-based coloring rather than charge-based coloring.
+
+If the evaluation is purely about whether the visualization differentiates positive/negative/neutral (as the question states), the answer is essentially correct. The minor deduction is for the methodological mismatch/overclaim: without explicit charges or a clear charge-assignment method, the explanation does not fully substantiate that the coloring is truly charge-based at the atomic level.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">8/10</div>
+                <div class="metric-subvalue">
+                    80.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">219,704</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">5,000</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">224,704</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$0.7341</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_5">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_5</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">Your agent_mode is "gmx_vmd_mcp_claude-sonnet-4-5_exp1", use it when saving results. Your working directory is "/Users/kuangshiai/Documents/ND-VIS/Code/SciVisAgentBench/SciVisAgentBench-tasks/molecular_vis", and you should have access to it. In the following prompts, we will use relative path with respect to your working path. But remember, when you load or save any file, always stick to absolute path.
+
+1. I want you to visualize a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Select all oxygen atoms in residues 1 to 20 and color them red.
+4. Take a screenshot of the visualization.
+ Q1. Are all oxygen atoms in residues 1 to 20 colored red? (yes/no)
+5. Answer Q1 in a plain text file "md_analysis/results/answers_complex_selection.txt".</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Q1. Are all oxygen atoms in residues 1 to 20 colored red?
+yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1 correct answer: Yes): The provided answer is "yes," which matches the expected correct answer "Yes" exactly in meaning (case difference only). Therefore, it fully satisfies the evaluation criterion.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">197,612</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">2,985</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">200,597</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$0.6376</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_6">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_6</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">Your agent_mode is "gmx_vmd_mcp_claude-sonnet-4-5_exp1", use it when saving results. Your working directory is "/Users/kuangshiai/Documents/ND-VIS/Code/SciVisAgentBench/SciVisAgentBench-tasks/molecular_vis", and you should have access to it. In the following prompts, we will use relative path with respect to your working path. But remember, when you load or save any file, always stick to absolute path.
+
+1. I want you to visualize a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Select all aromatic residues (PHE, TYR, TRP) and color them purple.
+4. Take a screenshot of the visualization.
+ Q1. Are all aromatic residues (PHE, TYR, TRP) colored purple? (yes/no)
+5. Answer Q1 in a plain text file "md_analysis/results/answers_aromatic_selection.txt".</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Q1. Are all aromatic residues (PHE, TYR, TRP) colored purple?
+
+Answer: yes
+
+Explanation:
+The 1CRN structure contains aromatic residues PHE (Phenylalanine) and TYR (Tyrosine) at residue IDs 13, 29, and 44. TRP (Tryptophan) is not present in this structure. All aromatic residues that exist in the structure (PHE and TYR) have been successfully colored purple using VMD ColorID 7. The visualization shows these residues highlighted in purple with both NewCartoon and Licorice representations for better visibility.</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 expects the answer to Q1 to be "Yes." The provided answer is exactly "yes," which matches the required correct response. The accompanying explanation is consistent with the criterion: it notes that TRP is absent in 1CRN and that the aromatic residues present (PHE and TYR) are colored purple. Since the evaluation criterion only checks whether the correct answer is Yes, the response fully satisfies it.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">152,520</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">2,636</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">155,156</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$0.4971</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_7">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_7</h2>
+                    
+                </div>
+                <div class="case-score">20/20 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">Your agent_mode is "gmx_vmd_mcp_claude-sonnet-4-5_exp1", use it when saving results. Your working directory is "/Users/kuangshiai/Documents/ND-VIS/Code/SciVisAgentBench/SciVisAgentBench-tasks/molecular_vis", and you should have access to it. In the following prompts, we will use relative path with respect to your working path. But remember, when you load or save any file, always stick to absolute path.
+
+1. I want you to perform a structural analysis on a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Calculate the Root Mean Square Deviation (RMSD) of the structure against itself.
+4. Calculate the Root Mean Square Fluctuation (RMSF) for the structure.
+5. Save the computed RMSD and RMSF values as plain text to "md_analysis/results/answers_rmsd_rmsf.txt".</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">20/20 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Does the output report the calculated RMSD?
+2. Does the output report the calculated RMSF values or state that it requires a trajectory?</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Structural Analysis Results for 1CRN.cif
+==========================================
+
+Analysis Type: Static Structure Analysis
+Structure: Crambin (1CRN) - Plant Seed Protein
+PDB Entry: 1CRN
+Method: X-RAY DIFFRACTION (Resolution: 1.5 Å)
+
+RMSD (Root Mean Square Deviation):
+----------------------------------
+Structure against itself: 0.0000 Angstroms
+
+Note: RMSD of a structure against itself is 0.0000 Angstroms.
+This is because RMSD measures the deviation between two structures,
+and when comparing a structure to itself, all atomic positions
+are identical, resulting in zero deviation.
+
+Formula: RMSD = sqrt(sum((r_i - r_ref)^2) / N)
+Where r_i are atom positions, r_ref are reference positions, N is number of atoms
+For self-comparison: r_i = r_ref, therefore RMSD = 0
+
+RMSF (Root Mean Square Fluctuation):
+------------------------------------
+Per-residue RMSF for C-alpha atoms:
+
+ResID  ResName  RMSF(Angstroms)
+-----------------------------------
+    1      THR    0.0000
+    2      THR    0.0000
+    3      CYS    0.0000
+    4      CYS    0.0000
+    5      PRO    0.0000
+    6      SER    0.0000
+    7      ILE    0.0000
+    8      VAL    0.0000
+    9      ALA    0.0000
+   10      ARG    0.0000
+   11      SER    0.0000
+   12      ASN    0.0000
+   13      PHE    0.0000
+   14      ASN    0.0000
+   15      VAL    0.0000
+   16      CYS    0.0000
+   17      ARG    0.0000
+   18      LEU    0.0000
+   19      PRO    0.0000
+   20      GLY    0.0000
+   21      THR    0.0000
+   22      PRO    0.0000
+   23      GLU    0.0000
+   24      ALA    0.0000
+   25      ILE    0.0000
+   26      CYS    0.0000
+   27      ALA    0.0000
+   28      THR    0.0000
+   29      TYR    0.0000
+   30      THR    0.0000
+   31      GLY    0.0000
+   32      CYS    0.0000
+   33      ILE    0.0000
+   34      ILE    0.0000
+   35      ILE    0.0000
+   36      PRO    0.0000
+   37      GLY    0.0000
+   38      ALA    0.0000
+   39      THR    0.0000
+   40      CYS    0.0000
+   41      PRO    0.0000
+   42      GLY    0.0000
+   43      ASP    0.0000
+   44      TYR    0.0000
+   45      ALA    0.0000
+   46      ASN    0.0000
+
+Note: RMSF values are all 0.0000 Angstroms for this analysis.
+RMSF (Root Mean Square Fluctuation) quantifies atomic fluctuations
+over time or across an ensemble of structures. Since this is a single
+static structure (one conformational snapshot), there are no temporal
+or ensemble fluctuations to measure, resulting in RMSF = 0.0 for all atoms.
+
+Formula: RMSF_i = sqrt(<(r_i(t) - <r_i>)^2>)
+Where r_i(t) are atom positions over time/frames, <r_i> is mean position
+For single frame: Only one position exists, no fluctuation, RMSF = 0
+
+To calculate meaningful RMSF values, one would need:
+- A molecular dynamics trajectory with multiple time frames, OR
+- An ensemble of structures (e.g., NMR ensemble with multiple models)
+
+Summary Statistics:
+-------------------
+Total atoms: 327
+Number of C-alpha atoms (residues): 46
+Sequence: TTCCPSIVARSNFNVCRLPGTPEAICATYTGCIIIPGATCPGDYAN
+
+RMSD (self-comparison): 0.0000 Angstroms
+Average RMSF: 0.0000 Angstroms
+Min RMSF: 0.0000 Angstroms
+Max RMSF: 0.0000 Angstroms
+Standard deviation: 0.0000 Angstroms
+
+Structural Features:
+--------------------
+- Secondary Structure Elements:
+  * Helix 1: ILE7-PRO19 (3/10 conformation)
+  * Helix 2: GLU23-THR30 (distorted 3/10)
+  * Beta Sheet: Two antiparallel strands
+    - Strand 1: THR1-CYS4
+    - Strand 2: CYS32-ILE35
+
+- Disulfide Bridges:
+  * CYS3-CYS40 (2.004 Å)
+  * CYS4-CYS32 (2.035 Å)
+  * CYS16-CYS26 (2.051 Å)
+
+Methodology:
+------------
+RMSD Calculation:
+  For a structure compared to itself, the calculation is:
+  RMSD = sqrt(Σ(r_i - r_i)^2 / N) = sqrt(0 / N) = 0.0000 Å
+
+RMSF Calculation:
+  For a single frame structure:
+  RMSF_i = sqrt(<(r_i - <r_i>)^2>) = sqrt((r_i - r_i)^2) = 0.0000 Å
+
+Data Source:
+------------
+File: 1CRN.cif
+Type: mmCIF format (Macromolecular Crystallographic Information File)
+Resolution: 1.5 Angstroms
+Space Group: P 1 21 1
+Unit Cell: a=40.960 Å, b=18.650 Å, c=22.520 Å, β=90.77°
+
+Analysis Date: 2024
+Analysis Software: Custom analysis for static structure
+
+Interpretation:
+---------------
+The zero RMSD and RMSF values reflect the fundamental nature of this 
+analysis: comparing a single static structure to itself. For meaningful
+structural dynamics analysis:
+
+1. RMSD Analysis: Compare this structure to:
+   - Other crystal structures of the same protein
+   - Molecular dynamics simulation frames
+   - Structures with mutations or ligands
+
+2. RMSF Analysis: Requires:
+   - Molecular dynamics trajectory (multiple time points)
+   - NMR ensemble (multiple conformations)
+   - Multiple crystal structures at different temperatures
+
+This analysis serves as a baseline reference for future comparative
+studies of crambin structure and dynamics.</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (RMSD reported): 10/10. The output explicitly reports an RMSD value ("Structure against itself: 0.0000 Angstroms") and reiterates it in the summary statistics. It also provides the RMSD formula and correctly explains why self-comparison yields zero.
+
+Criterion 2 (RMSF values or trajectory requirement stated): 10/10. The output provides a per-residue RMSF table (all residues listed with RMSF = 0.0000 Å) and clearly explains that meaningful RMSF generally requires multiple frames (MD trajectory) or an ensemble (e.g., NMR models). It explicitly states that because this is a single static structure, RMSF is zero and notes what data would be needed for non-zero/meaningful RMSF.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">20/20</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">713,956</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">11,423</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">725,379</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$2.3132</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_8">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_8</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">Your agent_mode is "gmx_vmd_mcp_claude-sonnet-4-5_exp1", use it when saving results. Your working directory is "/Users/kuangshiai/Documents/ND-VIS/Code/SciVisAgentBench/SciVisAgentBench-tasks/molecular_vis", and you should have access to it. In the following prompts, we will use relative path with respect to your working path. But remember, when you load or save any file, always stick to absolute path.
+
+1. I want you to calculate the compactness of a protein from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Calculate the Radius of Gyration (Rg) of the protein structure.
+4. Save the calculated Radius of Gyration as plain text to "md_analysis/results/answers_rg.txt".</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Does the output report a numeric value for the calculated Radius of Gyration?</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Radius of Gyration (Rg): 9.66628646850586 Angstroms</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1: The output explicitly reports a numeric value for the Radius of Gyration: "9.66628646850586" (with units given as Angstroms). This fully satisfies the requirement to report a numeric Rg value.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">130,015</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">1,562</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">131,577</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$0.4135</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_9">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_9</h2>
+                    
+                </div>
+                <div class="case-score">20/20 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">Your agent_mode is "gmx_vmd_mcp_claude-sonnet-4-5_exp1", use it when saving results. Your working directory is "/Users/kuangshiai/Documents/ND-VIS/Code/SciVisAgentBench/SciVisAgentBench-tasks/molecular_vis", and you should have access to it. In the following prompts, we will use relative path with respect to your working path. But remember, when you load or save any file, always stick to absolute path.
+
+1. I want you to calculate specific geometric properties of a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Calculate the distance between the alpha carbons of residue 1 and residue 10.
+4. Calculate the backbone dihedral angles (phi and psi) for residue 5.
+5. Save the computed distance and angles as plain text to "md_analysis/results/answers_distances_angles.txt".</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">20/20 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Does the output report the calculated distance between the alpha carbons of residue 1 and 10?
+2. Does the output report the calculated phi and psi dihedral angles for residue 5?</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Geometric Properties of 1CRN
+============================================================
+
+1. Distance between CA atoms
+----------------------------------------
+   Residue 1 (THR) CA:  ( 16.967,  12.784,   4.338) Å
+   Residue 10 (ARG) CA: (  8.496,   4.609,   8.837) Å
+   Distance:             11.597 Å
+
+2. Backbone dihedral angles for residue 5 (PRO)
+----------------------------------------
+   Phi (φ):  -63.21°
+   Psi (ψ):  -28.55°</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (10/10): The output explicitly reports the CA coordinates for residue 1 (THR) and residue 10 (ARG) and provides a computed distance value (11.597 Å). This directly satisfies the requirement to report the calculated distance between the alpha carbons of residues 1 and 10.
+
+Criterion 2 (10/10): The output explicitly reports both backbone dihedral angles for residue 5 (PRO), giving Phi (−63.21°) and Psi (−28.55°). This directly satisfies the requirement to report the calculated phi and psi dihedral angles for residue 5.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">20/20</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">1,519,663</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">18,962</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">1,538,625</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$4.8434</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_10">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_10</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">Your agent_mode is "gmx_vmd_mcp_claude-sonnet-4-5_exp1", use it when saving results. Your working directory is "/Users/kuangshiai/Documents/ND-VIS/Code/SciVisAgentBench/SciVisAgentBench-tasks/molecular_vis", and you should have access to it. In the following prompts, we will use relative path with respect to your working path. But remember, when you load or save any file, always stick to absolute path.
+
+1. I want you to calculate the number of contacts in a folded protein from a CIF file.
+2. Load the data/1CRN.cif.
+3. Calculate the number of contacts within an 8 Angstrom cutoff.
+4. Save the total count of contacts as plain text to "md_analysis/results/answers_native_contacts.txt".</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Does the output report a numeric count of contacts?</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">11172</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (numeric count of contacts): The provided output is "11172", which is a numeric value and can be interpreted as a count. It directly reports a single number without ambiguity, satisfying the requirement to report a numeric count of contacts.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">887,680</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">11,758</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">899,438</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$2.8394</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
         <section class="case-section" id="curved-membrane">
             <div class="case-header">
                 <div class="case-title-group">
@@ -1532,7 +2570,7 @@ Q5 (10/10): Answered "no," which matches the criterion (POPC enriches in positiv
 
         <footer class="footer">
             <p>Generated by SciVisAgentBench Evaluation Reporter</p>
-            <p>Timestamp: 2026-03-07T16:18:54.028193</p>
+            <p>Timestamp: 2026-03-10T13:46:29.955955</p>
         </footer>
     </div>
 
