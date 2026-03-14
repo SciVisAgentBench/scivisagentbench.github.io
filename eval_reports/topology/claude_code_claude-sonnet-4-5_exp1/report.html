@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluation Report - claude_code</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .agent-name {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .timestamp {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .summary {
+            padding: 40px;
+            background: #f8f9fa;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .summary h2 {
+            color: #667eea;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .summary-card h3 {
+            color: #667eea;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .summary-card .value {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .summary-card .sub-value {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .score-excellent { color: #10b981; }
+        .score-good { color: #3b82f6; }
+        .score-fair { color: #f59e0b; }
+        .score-poor { color: #ef4444; }
+
+        .config-info {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .config-info h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .config-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .config-item label {
+            font-weight: 600;
+            color: #666;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+
+        .config-item value {
+            font-size: 1em;
+            color: #333;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+
+        .case-nav {
+            padding: 30px 40px;
+            background: white;
+            border-bottom: 2px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .case-nav h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .case-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .case-link {
+            padding: 8px 16px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .case-link:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .case-link-failed {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fca5a5;
+        }
+
+        .case-link-failed:hover {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+
+        .case-section {
+            padding: 40px;
+            border-bottom: 3px solid #f3f4f6;
+        }
+
+        .case-section:last-child {
+            border-bottom: none;
+        }
+
+        .case-section-failed {
+            background: #fef2f2;
+            border-left: 5px solid #dc2626;
+            border-bottom: 3px solid #fca5a5;
+        }
+
+        .case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .case-title-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .case-title {
+            font-size: 1.8em;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .status-badge {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.7em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .status-failed {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .status-warning {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .case-score {
+            font-size: 1.5em;
+            font-weight: 700;
+            padding: 10px 25px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .case-content {
+            display: grid;
+            gap: 30px;
+        }
+
+        .section-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section-box h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .task-description {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+            border: 1px solid #e5e7eb;
+        }
+
+        .image-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .image-box {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .image-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #e5e7eb;
+        }
+
+        .image-box .no-image {
+            width: 100%;
+            height: 300px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-size: 1.1em;
+        }
+
+        .rubric-scores {
+            display: grid;
+            gap: 15px;
+        }
+
+        .rubric-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .rubric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .rubric-title {
+            font-weight: 700;
+            color: #333;
+            flex: 1;
+        }
+
+        .rubric-score {
+            font-size: 1.3em;
+            font-weight: 700;
+            padding: 5px 15px;
+            border-radius: 20px;
+            background: #667eea;
+            color: white;
+        }
+
+        .rubric-criterion {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            color: #333;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .rubric-criterion strong {
+            color: #667eea;
+            font-style: normal;
+        }
+
+        .rubric-explanation {
+            color: #666;
+            line-height: 1.6;
+            margin-top: 10px;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+
+        .rubric-explanation strong {
+            color: #764ba2;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .metric-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .metric-label {
+            font-size: 0.85em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .metric-subvalue {
+            font-size: 0.9em;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .code-similarity {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #667eea;
+        }
+
+        .code-similarity h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .code-sim-score {
+            font-size: 2em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .code-sim-details {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .expandable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .expandable::before {
+            content: '▼ ';
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .expandable.collapsed::before {
+            transform: rotate(-90deg);
+        }
+
+        .expandable-content {
+            margin-top: 15px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .expandable-content.collapsed {
+            max-height: 0;
+            margin-top: 0;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .image-comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .case-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .case-title-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .case-title {
+                font-size: 1.5em;
+            }
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎯 SciVisAgentBench Evaluation Report</h1>
+            <div class="header-meta">
+                <span class="agent-name">claude_code</span>
+                <span class="timestamp">Generated: 2026-03-12T14:42:06.938602</span>
+            </div>
+        </header>
+
+        
+        <section class="summary">
+            <h2>📊 Overall Performance</h2>
+
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Overall Score</h3>
+                    <div class="value score-poor">
+                        53.8%
+                    </div>
+                    <div class="sub-value">
+                        113.0/210 Points
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3>Test Cases</h3>
+                    <div class="value">
+                        5/9
+                    </div>
+                    <div class="sub-value">
+                        Completed Successfully
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3>Avg Vision Score</h3>
+                    <div class="value">
+                        0.0%
+                    </div>
+                    <div class="sub-value">
+                        Visualization Quality
+                    </div>
+                    <div class="sub-value">
+                        0/0
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3>PSNR (Scaled)</h3>
+                    <div class="value">
+                        N/A
+                    </div>
+                    <div class="sub-value">
+                        Peak SNR (0/5 valid)
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3>SSIM (Scaled)</h3>
+                    <div class="value">
+                        N/A
+                    </div>
+                    <div class="sub-value">
+                        Structural Similarity
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3>LPIPS (Scaled)</h3>
+                    <div class="value">
+                        N/A
+                    </div>
+                    <div class="sub-value">
+                        Perceptual Distance
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3>Completion Rate</h3>
+                    <div class="value">
+                        55.6%
+                    </div>
+                    <div class="sub-value">
+                        Tasks Completed
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #667eea;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">ℹ️ About Scaled Metrics</h4>
+                <p style="color: #666; line-height: 1.6; margin: 0;">
+                    <strong>Scaled metrics</strong> account for completion rate to enable fair comparison across different evaluation modes.
+                    Formula: <em>PSNR<sub>scaled</sub> = (completed_cases / total_cases) × avg(PSNR)</em>,
+                    <em>SSIM<sub>scaled</sub> = (completed_cases / total_cases) × avg(SSIM)</em>,
+                    <em>LPIPS<sub>scaled</sub> = 1.0 - (completed_cases / total_cases) × (1.0 - avg(LPIPS))</em>.
+                    Cases with infinite PSNR (perfect match) are excluded from the PSNR calculation.
+                </p>
+            </div>
+
+            <div class="config-info">
+                <h3>🔧 Configuration</h3>
+                <div class="config-grid">
+                    <div class="config-item">
+                        <label>Provider</label>
+                        <value>anthropic</value>
+                    </div>
+                    <div class="config-item">
+                        <label>Model</label>
+                        <value>claude-sonnet-4-5</value>
+                    </div>
+                    <div class="config-item">
+                        <label>Base URL</label>
+                        <value>https://livai-api.llnl.gov</value>
+                    </div>
+                    <div class="config-item">
+                        <label>Input Price</label>
+                        <value>$3.00</value>
+                    </div>
+                    <div class="config-item">
+                        <label>Output Price</label>
+                        <value>$15.00</value>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+
+        <nav class="case-nav">
+            <h3>Jump to Case:</h3>
+            <div class="case-links">
+                <a href="#brain" class="case-link">brain</a>
+<a href="#cylinder" class="case-link">cylinder</a>
+<a href="#dragon" class="case-link case-link-failed">dragon</a>
+<a href="#isabel" class="case-link">isabel</a>
+<a href="#molecule" class="case-link case-link-failed">molecule</a>
+<a href="#moons" class="case-link case-link-failed">moons</a>
+<a href="#noisyTerrain" class="case-link">noisyTerrain</a>
+<a href="#ocean" class="case-link">ocean</a>
+<a href="#QMCPACK" class="case-link">QMCPACK</a>
+            </div>
+        </nav>
+
+        
+        <section class="case-section" id="brain">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 brain</h2>
+                    
+                </div>
+                <div class="case-score">27.0/30 (90.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. Load the file "brain/data/brain.vti". It is a symmetric tensor field, where the (1,1), (1,2) and (2,2) components of the tensor are respectively given by the arrays A, B, and D.
+2. Compute degenerate points of the tensor field.
+3. Save the degenerate points as "brain/results/{agent_mode}/brain.vtk" in legacy VTK format. Label the type of degenerate point for each point in an array called DegeneracyType. Use a value of 0 for trisectors and 1 for wedges.
+4. Analyze the visualization and answer the following questions:
+  Q1: Are there more trisectors than wedges? (yes/no)
+
+  Q2: Out of all degenerate points, the sum of one point's coordinates is the highest. What is this highest sum, rounded to the nearest integer?
+  (A) 124 (B) 136 (C) 148 (D) 160
+Save the answers to the analysis questions in plain text as "brain/results/{agent_mode}/answers.txt".
+Do not save any files other than the specified result files.
+</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">🔬 Rule-Based Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">7.0/10 (70.0%)</div>
+                </div>
+                
+            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: 600; color: #333;">evaluateDegeneratePoints</span>
+                    <span style="font-size: 1.2em; font-weight: 700; color: #f59e0b;">7.0/10 (70.0%)</span>
+                </div>
+                
+            </div>
+        
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">20/20 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: yes
+2. Q2 correct answer: (B)</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Q1: yes
+Q2: (B) 136</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1): The provided answer is "yes", which exactly matches the correct answer "yes". Score: 10/10.
+Criterion 2 (Q2): The provided answer is "(B) 136". The criterion specifies the correct answer as "(B)"; the selected option matches exactly. The additional numeric value "136" does not contradict the choice and does not change the selected option. Score: 10/10.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Rule-Based Score</div>
+                <div class="metric-value">7.0/10</div>
+                <div class="metric-subvalue">70.0%</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">20/20</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">1,175,187</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">22,854</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">1,198,041</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$3.8684</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="cylinder">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 cylinder</h2>
+                    
+                </div>
+                <div class="case-score">29.0/30 (96.7%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. Please load the file "cylinder/data/cylinder.vti"
+2. Apply persistence simplification of 0.01 to the Speed field.
+3. Compute the Morse-Smale segmentation of the simplified Speed field.
+4. Save the Morse-Smale segmentation as "cylinder/results/{agent_mode}/cylinder.vti". It should have a point array called Partition. For each point x, the array "Partition" should store the id number of the region in the segmentation that x belongs to.
+5. Analyze the visualization and answer the following questions:
+  Q1: How many unique partition regions are there?
+  (A) 152 (B) 163 (C) 174 (D) 185
+
+  Q2: How many points are in the largest partition region?
+  (A) 6879 (B) 7968 (C) 8796 (D) 9687
+Save the answers to the analysis questions in plain text as "cylinder/results/{agent_mode}/answers.txt".
+Do not save any files other than the specified result files.
+</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">🔬 Rule-Based Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">9.0/10 (90.0%)</div>
+                </div>
+                
+            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #22c55e; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: 600; color: #333;">evaluateMSSEgmentation</span>
+                    <span style="font-size: 1.2em; font-weight: 700; color: #22c55e;">9.0/10 (90.0%)</span>
+                </div>
+                
+            </div>
+        
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">20/20 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: (A)
+2. Q2 correct answer: (D)</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Q1: A
+Q2: D</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1 correct answer: A): The provided answer for Q1 is 'A', which exactly matches the specified correct answer. Score: 10/10.
+Criterion 2 (Q2 correct answer: D): The provided answer for Q2 is 'D', which exactly matches the specified correct answer. Score: 10/10.
+Total: 20/20. Both answers fully meet the evaluation criteria with exact matches.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Rule-Based Score</div>
+                <div class="metric-value">9.0/10</div>
+                <div class="metric-subvalue">90.0%</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">20/20</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">2,387,572</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">25,122</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">2,412,694</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$7.5395</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section case-section-failed" id="dragon">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 dragon</h2>
+                    <span class="status-badge status-failed">❌ FAILED</span>
+                </div>
+                <div class="case-score">0/10 (0.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. Load the dataset from "dragon/data/dragon.vtu".
+
+2. Compute the Morse-Smale complex on the scalar field named "density". Make sure 1-Separatrices are computed.
+
+3. Compute the critical points on the previous elevation scalar field. 
+
+4. Save the critical points as "dragon/results/{agent_mode}/dragon.vtk" in legacy VTK format.
+    - The output should contain the critical points as point dataset
+    - Include an array called "CriticalType" that labels each point according to what type of critical type it is. Use the following convention: 
+        * 0 for minima
+        * 1 for 1-saddles
+        * 2 for 2-saddles
+        * 3 for maxima
+    - The point coordinates should be in world coordinates 
+Do not save any files other than the specified result files.
+</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">🔬 Rule-Based Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">0/10 (0.0%)</div>
+                </div>
+                
+            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #dc2626; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: 600; color: #333;">evaluateDragonCriticalPoints</span>
+                    <span style="font-size: 1.2em; font-weight: 700; color: #dc2626;">0/10 (0.0%)</span>
+                </div>
+                <div style="color:#dc2626; margin-top:8px; font-size:0.9em;">2.0</div>
+            </div>
+        
+            </div>
+        </div>
+    
+
+                
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Rule-Based Score</div>
+                <div class="metric-value">0/10</div>
+                <div class="metric-subvalue">0.0%</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">2,256,039</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">18,202</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">2,274,241</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$7.0411</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="isabel">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 isabel</h2>
+                    <span class="status-badge status-warning">⚠️ LOW SCORE</span>
+                </div>
+                <div class="case-score">18.0/40 (45.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. Load the file "isabel/data/isabel.vti".
+2. Apply persistent simplification to the field "sf" with a persistence threshold of 0.04
+3. Compute the merge tree of the simplified field.
+4. Save the nodes of the merge tree as "isabel/results/{agent_mode}/isabel_nodes.vtk" in legacy VTK format. 
+  This file should have two point arrays. One should be called "CriticalType" and should store the type of critical point for each node. 
+  It should follow the following convention: 0: minima. 1: 1-saddles. 2: 2-saddles. 3: maxima. 4: degenerate critical points. 
+  The other point array should be called "Scalar" and should contain the scalar field value at each point in the merge tree.
+5. Save the edges of the merge tree as "isabel/results/{agent_mode}/isabel_edges.vtk" in legacy VTK format. 
+  The file should store each edge as a separate cell with type vtkLine.
+6. Analyze the visualization and answer the following questions:
+Q1: The parent node of the leaf (377, 265, 0) has coordinates (x,y,z). What is x+y+z?
+(A) 627 (B) 854 (C) 992 (D) 1039
+
+Q2: How many edges are there in the merge tree?
+(A) 154 (B) 195 (C) 204 (D) 254
+
+Q3: What is the highest scalar field value of a minimum, rounded to the nearest whole number?
+(A) 12 (B) 26 (C) 31 (D) 58
+Save the answers to the analysis questions in plain text as "isabel/results/{agent_mode}/answers.txt".
+Do not save any files other than the specified result files.
+</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">🔬 Rule-Based Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">8.0/10 (80.0%)</div>
+                </div>
+                
+            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #22c55e; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: 600; color: #333;">evaluateMergetree</span>
+                    <span style="font-size: 1.2em; font-weight: 700; color: #22c55e;">8.0/10 (80.0%)</span>
+                </div>
+                
+            </div>
+        
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/30 (33.3%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: (A)
+2. Q2 correct answer: (B)
+3. Q3 correct answer: (C)</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Q1: (B)
+Q2: (B)
+Q3: (B)</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Evaluation against the provided correct answers:
+
+1) Q1 (Correct: A; Given: B) — Score: 0/10
+The provided answer does not match the required correct option (A). Therefore it fails to meet the criterion.
+
+2) Q2 (Correct: B; Given: B) — Score: 10/10
+The provided answer exactly matches the required correct option (B). Fully meets the criterion.
+
+3) Q3 (Correct: C; Given: B) — Score: 0/10
+The provided answer does not match the required correct option (C). Therefore it fails to meet the criterion.
+
+Total: 0 + 10 + 0 = 10/30.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Rule-Based Score</div>
+                <div class="metric-value">8.0/10</div>
+                <div class="metric-subvalue">80.0%</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/30</div>
+                <div class="metric-subvalue">
+                    33.3%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">2,801,574</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">29,307</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">2,830,881</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$8.8443</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section case-section-failed" id="molecule">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 molecule</h2>
+                    <span class="status-badge status-failed">❌ FAILED</span>
+                </div>
+                <div class="case-score">0/10 (0.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. Load the data file "molecule/data/molecule.vti".
+2. Compute the Morse-Smale segmentation on the scalar field named "log(s)".
+3. Save the Morse-Smale segmentation as "molecule/results/{agent_mode}/molecule.vti". 
+It should have a point array called "Segmentation". 
+For each point x, the array "Segmentation" should store the id number of the region in the segmentation that x belongs to.
+Do not save any files other than the specified result files.
+</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">🔬 Rule-Based Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">0/10 (0.0%)</div>
+                </div>
+                
+            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #dc2626; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: 600; color: #333;">evaluateMoleculeSegmentation</span>
+                    <span style="font-size: 1.2em; font-weight: 700; color: #dc2626;">0.0/10 (0.0%)</span>
+                </div>
+                
+            </div>
+        
+            </div>
+        </div>
+    
+
+                
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Rule-Based Score</div>
+                <div class="metric-value">0/10</div>
+                <div class="metric-subvalue">0.0%</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">870,712</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">12,046</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">882,758</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$2.7928</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section case-section-failed" id="moons">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 moons</h2>
+                    <span class="status-badge status-failed">❌ FAILED</span>
+                </div>
+                <div class="case-score">0/10 (0.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. Load the data file "moons/data/moons.vti".
+2. Apply topological simplification to the field "SplatterValues" with a persistence threshold of 10.
+3. Compute the Morse-Smale segmentation on the simplified scalar field.
+4. Save only the Ascending Manifold as "moons/results/{agent_mode}/moons.vti".
+It should have a point array called "AscendingManifold". 
+For each point x, the array "AscendingManifold" should store the id number of the region that x belongs to.
+Do not save any files other than the specified result files.
+</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">🔬 Rule-Based Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">0/10 (0.0%)</div>
+                </div>
+                
+            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #dc2626; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: 600; color: #333;">evaluateMoonAscendingManifold</span>
+                    <span style="font-size: 1.2em; font-weight: 700; color: #dc2626;">0/10 (0.0%)</span>
+                </div>
+                <div style="color:#dc2626; margin-top:8px; font-size:0.9em;">Missing files: RS: /home/liu42/gitRepo/2026_AgentBench/SciVisAgentBench/SciVisAgentBench-tasks/topology/moons/results/claude_code_claude-sonnet-4-5_exp1/moons.vti</div>
+            </div>
+        
+            </div>
+        </div>
+    
+
+                
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Rule-Based Score</div>
+                <div class="metric-value">0/10</div>
+                <div class="metric-subvalue">0.0%</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">5,065,982</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">33,341</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">5,099,323</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$15.6981</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="noisyTerrain">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 noisyTerrain</h2>
+                    
+                </div>
+                <div class="case-score">9.0/10 (90.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. Load the dataset from "noisyTerrain/data/noisyTerrain.vtu".
+2. Compute the persistence diagram on the scalar field named "Blend".
+3. Apply a threshold to filter out pairs with persistence value less than 1.
+4. Save the persistence diagram as "noisyTerrain/results/{agent_mode}/noisyTerrain.vtk" in legacy VTK format.
+  - The output should contain the points in the persistence diagram as point data, and each persistence pair is represented as a cell.
+  - Include the following three scalar arrays with the given names and purposes:
+    * "Birth" array: store the birth value of each pair.
+    * "Persistence" array: store the persistence value of each pair.
+    * "IsFinite" array: use 1 to mark finite persistence and 0 to mark infinite persistence.
+Do not save any files other than the specified result files.
+</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">🔬 Rule-Based Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">9.0/10 (90.0%)</div>
+                </div>
+                
+            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #22c55e; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: 600; color: #333;">evaluateNoisyTerrainPersistenceDiagram</span>
+                    <span style="font-size: 1.2em; font-weight: 700; color: #22c55e;">9.0/10 (90.0%)</span>
+                </div>
+                
+            </div>
+        
+            </div>
+        </div>
+    
+
+                
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Rule-Based Score</div>
+                <div class="metric-value">9.0/10</div>
+                <div class="metric-subvalue">90.0%</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">871,373</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">7,033</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">878,406</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$2.7196</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="ocean">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 ocean</h2>
+                    
+                </div>
+                <div class="case-score">10/40 (25.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. Please load the asymmetric tensor field from "ocean/data/ocean.vti". The (1,1), (1,2), (2,1) and (2,2) entries are respectively given by the arrays A, B, C, and D
+
+2. Compute the eigenvector partition of the dataset.
+
+3. Save the degenerate points as "ocean/results/{agent_mode}/ocean_points.vtk" in legacy VTK format. 
+Include a point array called DegeneracyType which classifies each degenerate point. 
+It should have a value of 0 for trisectors and 1 for wedges.
+
+4. Save the partition information from the eigenvector partition as "ocean/results/{agent_mode}/ocean_eigenvector.vti" as VTK image data. 
+It should have a point array called Partition that stores the region identifiers as follows: 0: W_{c,s}. 1: W_{r,s}. 2: W_{r,n}. 3: W_{c,n}
+
+5. Compute the eigenvalue partition of the dataset.
+
+6. Save the partition information from the eigenvalue partition as "ocean/results/{agent_mode}/ocean_eigenvalue.vti" as VTK image data. 
+It should have a point array called Partition that stores the region identifiers as follows: 0: positive scaling. 1: counterclockwise rotation.
+2: negative scaling. 3: clockwise rotation. 4: anisotropic stretching.
+
+7. Analyze the visualization and answer the following questions:
+Q1: Are there more trisectors than wedges? (yes/no)
+
+Q2: How many points have the most common classification in the eigenvector partition?
+(A) 752342 (B) 802842 (C) 826348 (D) 994682
+
+Q3: Which is the least common classification in the eigenvalue partition?
+(A) Positive scaling (B) counterclockwise rotation (C) negative scaling (D) clockwise rotation
+Save the answers to the analysis questions in plain text as "ocean/results/{agent_mode}/answers.txt".
+Do not save any files other than the specified result files.
+</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">🔬 Rule-Based Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">0/10 (0.0%)</div>
+                </div>
+                
+            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #dc2626; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: 600; color: #333;">evaluate2DAsymmetricTFTopology</span>
+                    <span style="font-size: 1.2em; font-weight: 700; color: #dc2626;">0/10 (0.0%)</span>
+                </div>
+                <div style="color:#dc2626; margin-top:8px; font-size:0.9em;">np.float64(1.0)</div>
+            </div>
+        
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/30 (33.3%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: no
+2. Q2 correct answer: (C)
+3. Q3 correct answer: (C)</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Q1: yes
+Q2: (A) 5091
+Q3: (C) negative scaling</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Q1 (score 0/10): The provided answer is "yes", but the evaluation criterion states the correct answer is "no". This is fully incorrect.
+
+Q2 (score 0/10): The provided answer is "(A) 5091", but the evaluation criterion states the correct answer is "(C)". The selected option does not match the correct option, so it is incorrect.
+
+Q3 (score 10/10): The provided answer is "(C) negative scaling", and the evaluation criterion states the correct answer is "(C)". The option matches and the description is consistent, so it is correct.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Rule-Based Score</div>
+                <div class="metric-value">0/10</div>
+                <div class="metric-subvalue">0.0%</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/30</div>
+                <div class="metric-subvalue">
+                    33.3%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">857,892</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">20,307</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">878,199</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$2.8783</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="QMCPACK">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 QMCPACK</h2>
+                    
+                </div>
+                <div class="case-score">30.0/30 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. Please load the dataset from "QMCPACK/data/QMCPACK.vti".
+2. Compute the critical points of the scalar field.
+3. Save the critical points as "QMCPACK/results/{agent_mode}/QMCPACK.vtk" in legacy VTK format.
+  - The output should contain the critical points as point data
+  - Include an array called "CriticalType" that labels each point according to what type of critical type it is. Use the following convention:
+    * 0 for minima
+    * 1 for 1-saddles
+    * 2 for 2-saddles  
+    * 3 for maxima
+    * 4 for degenerate critical points
+  - The point coordinates should be in index space (grid coordinates), not world coordinates
+4. Analyze the visualization and answer the following questions:
+  Q1: How many index 1 saddles are there: 
+  (A) 248 (B) 274 (C) 299 (D) 344
+
+  Q2: What is the type of critical point closest to coordinates (4,58,12): 
+  (A) minimum (B) 1-saddle (C) 2-saddle (D) maximum
+Save the answers to the analysis questions in plain text as "QMCPACK/results/{agent_mode}/answers.txt".
+Do not save any files other than the specified result files.
+</div>
+                </div>
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">🔬 Rule-Based Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10.0/10 (100.0%)</div>
+                </div>
+                
+            <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #22c55e; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: 600; color: #333;">evaluateQmcpackCriticalPoints</span>
+                    <span style="font-size: 1.2em; font-weight: 700; color: #22c55e;">10.0/10 (100.0%)</span>
+                </div>
+                
+            </div>
+        
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">20/20 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: (C)
+2. Q2 correct answer: (D)</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Q1: (C) 299
+Q2: (D) maximum</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1 correct answer: (C)): The provided answer for Q1 is “(C) 299”, which matches the required correct option (C). Score: 10/10.
+Criterion 2 (Q2 correct answer: (D)): The provided answer for Q2 is “(D) maximum”, which matches the required correct option (D). Score: 10/10.
+Total: 20/20.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Rule-Based Score</div>
+                <div class="metric-value">10.0/10</div>
+                <div class="metric-subvalue">100.0%</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">20/20</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">636,134</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">9,328</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">645,462</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$2.0483</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <footer class="footer">
+            <p>Generated by SciVisAgentBench Evaluation Reporter</p>
+            <p>Timestamp: 2026-03-12T14:42:06.938602</p>
+        </footer>
+    </div>
+
+    <script>
+        
+        // Expandable sections
+        document.querySelectorAll('.expandable').forEach(element => {
+            element.addEventListener('click', function() {
+                this.classList.toggle('collapsed');
+                const content = this.nextElementSibling;
+                if (content && content.classList.contains('expandable-content')) {
+                    content.classList.toggle('collapsed');
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize expandable sections as collapsed
+        document.querySelectorAll('.expandable-content').forEach(content => {
+            content.style.maxHeight = content.scrollHeight + 'px';
+        });
+
+        console.log('📊 Evaluation Report Loaded');
+    
+    </script>
+</body>
+</html>
