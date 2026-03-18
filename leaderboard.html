@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SciVisAgentBench - Leaderboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .leaderboard-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .leaderboard-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .leaderboard-hero p {
+            font-size: 1.125rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .leaderboard-content {
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .judge-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .judge-tab {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .judge-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .judge-tab:hover {
+            color: var(--primary-color);
+        }
+
+        .task-suite-section {
+            margin-bottom: 3rem;
+        }
+
+        .task-suite-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 0;
+        }
+
+        .task-suite-header h3 {
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .leaderboard-table-wrapper {
+            overflow-x: auto;
+            background: white;
+            border-radius: 0 0 12px 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .leaderboard-table thead {
+            background: var(--bg-secondary);
+        }
+
+        .leaderboard-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .leaderboard-table th.numeric {
+            text-align: center;
+        }
+
+        .leaderboard-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .leaderboard-table td.numeric {
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+
+        .leaderboard-table tbody tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        .agent-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .model-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: #e5e7eb;
+            color: #374151;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+
+        .best-score {
+            color: #059669;
+            font-weight: 700;
+        }
+
+        .metric-value {
+            font-size: 0.85rem;
+        }
+
+        .rank-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .rank-1 {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #854d0e;
+        }
+
+        .rank-2 {
+            background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+            color: #374151;
+        }
+
+        .rank-3 {
+            background: linear-gradient(135deg, #cd7f32, #e8a87c);
+            color: #78350f;
+        }
+
+        .rank-other {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .info-box {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .info-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin: 0.5rem 0;
+        }
+
+        .legend {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .legend-symbol {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>SciVisAgentBench</h1>
+                <p class="tagline">A Comprehensive Evaluation Framework for Scientific Visualization Agents</p>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="leaderboard.html" class="active">Leaderboard</a></li>
+                <li><a href="examples.html">Examples</a></li>
+                <li><a href="index.html">Statistics</a></li>
+                <li><a href="https://scivisagentbench-human-eval.web.app" target="_blank">Human Evaluation</a></li>
+                <li><a href="index.html#submit">Contribution</a></li>
+                <li>
+                    <a href="https://github.com/KuangshiAi/SciVisAgentBench" target="_blank" title="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://huggingface.co/datasets/SciVisAgentBench/SciVisAgentBench-tasks" target="_blank" title="Hugging Face" style="font-size: 20px; line-height: 1;">
+                        🤗
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="leaderboard-hero">
+            <h1>Leaderboard</h1>
+            <p>
+                Performance rankings of scientific visualization agents across different task suites and evaluation metrics.
+                Explore how different agent architectures and LLM backbones perform on our benchmark tasks.
+            </p>
+        </div>
+
+        <div class="leaderboard-content">
+            <div class="info-box">
+                <h4>About This Leaderboard</h4>
+                <p>
+                    <strong>Evaluation Setup:</strong> All agents are evaluated using Claude Opus 4.6 or GPT-5.2 as LLM judges for most task suites.
+                    Topology Visualization uses rule-based evaluation and does not require an LLM judge.
+                    Scores and completion rates are reported as mean ± standard deviation across three repeated trials.
+                </p>
+                <p>
+                    <strong>Metrics:</strong> Overall Score (quality of outputs), Completion Rate (% of tasks completed),
+                    pass@k (success in at least one of first k trials), pass^k (success in all k trials).
+                </p>
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="legend-symbol">↑</span>
+                        <span>Higher is better</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-symbol">↓</span>
+                        <span>Lower is better</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="best-score">●</span>
+                        <span>Best score in category</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="judge-tabs">
+                <button class="judge-tab active" data-judge="opus46">Claude Opus 4.6 Judge</button>
+                <button class="judge-tab" data-judge="gpt52">GPT-5.2 Judge</button>
+            </div>
+
+            <!-- Claude Opus 4.6 Results -->
+            <div id="opus46-results" class="judge-results">
+                <!-- ParaView Visualization -->
+                <div class="task-suite-section">
+                    <div class="task-suite-header">
+                        <h3>ParaView Visualization</h3>
+                    </div>
+                    <div class="leaderboard-table-wrapper">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Agent + Model</th>
+                                    <th class="numeric">Overall Score ↑</th>
+                                    <th class="numeric">Completion Rate ↑</th>
+                                    <th class="numeric">pass@1 ↑</th>
+                                    <th class="numeric">pass@3 ↑</th>
+                                    <th class="numeric">pass^3 ↑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="rank-badge rank-1">1</span></td>
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">62.57 ± 0.51</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">97.92 ± 2.08</span></td>
+                                    <td class="numeric"><span class="metric-value">0.736</span></td>
+                                    <td class="numeric"><span class="metric-value">0.917</span></td>
+                                    <td class="metric-value">0.500</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-2">2</span></td>
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">60.17 ± 1.43</span></td>
+                                    <td class="numeric"><span class="metric-value">95.14 ± 2.41</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.771</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.938</span></td>
+                                    <td class="metric-value best-score">0.521</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-3">3</span></td>
+                                    <td><span class="agent-name">ChatVis</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">37.37 ± 3.02</span></td>
+                                    <td class="numeric"><span class="metric-value">54.17 ± 3.61</span></td>
+                                    <td class="numeric"><span class="metric-value">0.458</span></td>
+                                    <td class="numeric"><span class="metric-value">0.562</span></td>
+                                    <td class="metric-value">0.312</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">4</span></td>
+                                    <td><span class="agent-name">ChatVis</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">30.77 ± 1.10</span></td>
+                                    <td class="numeric"><span class="metric-value">44.44 ± 1.20</span></td>
+                                    <td class="numeric"><span class="metric-value">0.382</span></td>
+                                    <td class="numeric"><span class="metric-value">0.604</span></td>
+                                    <td class="metric-value">0.167</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">5</span></td>
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">26.43 ± 8.80</span></td>
+                                    <td class="numeric"><span class="metric-value">53.47 ± 15.07</span></td>
+                                    <td class="numeric"><span class="metric-value">0.257</span></td>
+                                    <td class="numeric"><span class="metric-value">0.417</span></td>
+                                    <td class="metric-value">0.146</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">6</span></td>
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">24.63 ± 3.72</span></td>
+                                    <td class="numeric"><span class="metric-value">46.53 ± 6.36</span></td>
+                                    <td class="numeric"><span class="metric-value">0.236</span></td>
+                                    <td class="numeric"><span class="metric-value">0.292</span></td>
+                                    <td class="metric-value">0.188</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Molecular Visualization -->
+                <div class="task-suite-section">
+                    <div class="task-suite-header">
+                        <h3>Molecular Visualization</h3>
+                    </div>
+                    <div class="leaderboard-table-wrapper">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Agent + Model</th>
+                                    <th class="numeric">Overall Score ↑</th>
+                                    <th class="numeric">Completion Rate ↑</th>
+                                    <th class="numeric">pass@1 ↑</th>
+                                    <th class="numeric">pass@3 ↑</th>
+                                    <th class="numeric">pass^3 ↑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="rank-badge rank-1">1</span></td>
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">62.30 ± 6.32</span></td>
+                                    <td class="numeric"><span class="metric-value">94.87 ± 8.88</span></td>
+                                    <td class="numeric"><span class="metric-value">0.872</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">1.000</span></td>
+                                    <td class="metric-value">0.769</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-2">2</span></td>
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">61.47 ± 6.78</span></td>
+                                    <td class="numeric"><span class="metric-value">94.87 ± 4.44</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.897</span></td>
+                                    <td class="numeric"><span class="metric-value">0.923</span></td>
+                                    <td class="metric-value best-score">0.846</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-3">3</span></td>
+                                    <td><span class="agent-name">GMX-VMD-MCP</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">60.23 ± 4.39</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">97.44 ± 4.44</span></td>
+                                    <td class="numeric"><span class="metric-value">0.846</span></td>
+                                    <td class="numeric"><span class="metric-value">0.846</span></td>
+                                    <td class="metric-value best-score">0.846</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">4</span></td>
+                                    <td><span class="agent-name">GMX-VMD-MCP</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">45.67 ± 7.48</span></td>
+                                    <td class="numeric"><span class="metric-value">66.67 ± 11.75</span></td>
+                                    <td class="numeric"><span class="metric-value">0.564</span></td>
+                                    <td class="numeric"><span class="metric-value">0.769</span></td>
+                                    <td class="metric-value">0.385</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Bioimage Visualization -->
+                <div class="task-suite-section">
+                    <div class="task-suite-header">
+                        <h3>Bioimage Visualization</h3>
+                    </div>
+                    <div class="leaderboard-table-wrapper">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Agent + Model</th>
+                                    <th class="numeric">Overall Score ↑</th>
+                                    <th class="numeric">Completion Rate ↑</th>
+                                    <th class="numeric">pass@1 ↑</th>
+                                    <th class="numeric">pass@3 ↑</th>
+                                    <th class="numeric">pass^3 ↑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="rank-badge rank-1">1</span></td>
+                                    <td><span class="agent-name">BioImage-Agent</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">66.67 ± 4.28</span></td>
+                                    <td class="numeric"><span class="metric-value">81.82 ± 0.00</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.788</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.818</span></td>
+                                    <td class="metric-value best-score">0.727</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-2">2</span></td>
+                                    <td><span class="agent-name">BioImage-Agent</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">57.67 ± 6.39</span></td>
+                                    <td class="numeric"><span class="metric-value">78.79 ± 5.25</span></td>
+                                    <td class="numeric"><span class="metric-value">0.636</span></td>
+                                    <td class="numeric"><span class="metric-value">0.727</span></td>
+                                    <td class="metric-value">0.545</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-3">3</span></td>
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">52.83 ± 9.80</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">90.91 ± 9.09</span></td>
+                                    <td class="numeric"><span class="metric-value">0.697</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.818</span></td>
+                                    <td class="metric-value">0.636</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">4</span></td>
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">41.90 ± 4.69</span></td>
+                                    <td class="numeric"><span class="metric-value">75.76 ± 10.50</span></td>
+                                    <td class="numeric"><span class="metric-value">0.576</span></td>
+                                    <td class="numeric"><span class="metric-value">0.727</span></td>
+                                    <td class="metric-value">0.364</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Object Identification -->
+                <div class="task-suite-section">
+                    <div class="task-suite-header">
+                        <h3>Object Identification</h3>
+                    </div>
+                    <div class="leaderboard-table-wrapper">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Agent + Model</th>
+                                    <th class="numeric">Overall Score ↑</th>
+                                    <th class="numeric">Completion Rate ↑</th>
+                                    <th class="numeric">pass@1 ↑</th>
+                                    <th class="numeric">pass@3 ↑</th>
+                                    <th class="numeric">pass^3 ↑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="rank-badge rank-1">1</span></td>
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">43.33 ± 5.28</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">92.59 ± 9.80</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.395</span></td>
+                                    <td class="numeric"><span class="metric-value">0.556</span></td>
+                                    <td class="metric-value best-score">0.185</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-2">2</span></td>
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">42.17 ± 0.50</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">92.59 ± 0.00</span></td>
+                                    <td class="numeric"><span class="metric-value">0.185</span></td>
+                                    <td class="numeric"><span class="metric-value">0.333</span></td>
+                                    <td class="metric-value">0.037</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-3">3</span></td>
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">41.50 ± 3.55</span></td>
+                                    <td class="numeric"><span class="metric-value">83.95 ± 9.32</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.395</span></td>
+                                    <td class="numeric"><span class="metric-value">0.704</span></td>
+                                    <td class="metric-value">0.111</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">4</span></td>
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">26.73 ± 7.36</span></td>
+                                    <td class="numeric"><span class="metric-value">49.38 ± 11.32</span></td>
+                                    <td class="numeric"><span class="metric-value">0.358</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.741</span></td>
+                                    <td class="metric-value">0.037</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GPT-5.2 Results (hidden by default) -->
+            <div id="gpt52-results" class="judge-results" style="display: none;">
+                <!-- ParaView Visualization -->
+                <div class="task-suite-section">
+                    <div class="task-suite-header">
+                        <h3>ParaView Visualization</h3>
+                    </div>
+                    <div class="leaderboard-table-wrapper">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Agent + Model</th>
+                                    <th class="numeric">Overall Score ↑</th>
+                                    <th class="numeric">Completion Rate ↑</th>
+                                    <th class="numeric">pass@1 ↑</th>
+                                    <th class="numeric">pass@3 ↑</th>
+                                    <th class="numeric">pass^3 ↑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="rank-badge rank-1">1</span></td>
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">64.87 ± 0.83</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">98.61 ± 2.41</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.778</span></td>
+                                    <td class="numeric"><span class="metric-value">0.896</span></td>
+                                    <td class="metric-value best-score">0.646</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-2">2</span></td>
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">63.13 ± 1.34</span></td>
+                                    <td class="numeric"><span class="metric-value">97.22 ± 2.41</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.778</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.985</span></td>
+                                    <td class="metric-value">0.562</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-3">3</span></td>
+                                    <td><span class="agent-name">ChatVis</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">39.08 ± 3.50</span></td>
+                                    <td class="numeric"><span class="metric-value">56.25 ± 4.66</span></td>
+                                    <td class="numeric"><span class="metric-value">0.479</span></td>
+                                    <td class="numeric"><span class="metric-value">0.604</span></td>
+                                    <td class="metric-value">0.354</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">4</span></td>
+                                    <td><span class="agent-name">ChatVis</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">32.77 ± 0.25</span></td>
+                                    <td class="numeric"><span class="metric-value">47.92 ± 2.08</span></td>
+                                    <td class="numeric"><span class="metric-value">0.389</span></td>
+                                    <td class="numeric"><span class="metric-value">0.688</span></td>
+                                    <td class="metric-value">0.146</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">5</span></td>
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">29.80 ± 9.46</span></td>
+                                    <td class="numeric"><span class="metric-value">59.72 ± 15.07</span></td>
+                                    <td class="numeric"><span class="metric-value">0.285</span></td>
+                                    <td class="numeric"><span class="metric-value">0.479</span></td>
+                                    <td class="metric-value">0.167</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">6</span></td>
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">27.47 ± 4.12</span></td>
+                                    <td class="numeric"><span class="metric-value">51.39 ± 6.70</span></td>
+                                    <td class="numeric"><span class="metric-value">0.299</span></td>
+                                    <td class="numeric"><span class="metric-value">0.417</span></td>
+                                    <td class="metric-value">0.208</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Molecular Visualization -->
+                <div class="task-suite-section">
+                    <div class="task-suite-header">
+                        <h3>Molecular Visualization</h3>
+                    </div>
+                    <div class="leaderboard-table-wrapper">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Agent + Model</th>
+                                    <th class="numeric">Overall Score ↑</th>
+                                    <th class="numeric">Completion Rate ↑</th>
+                                    <th class="numeric">pass@1 ↑</th>
+                                    <th class="numeric">pass@3 ↑</th>
+                                    <th class="numeric">pass^3 ↑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="rank-badge rank-1">1</span></td>
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">69.27 ± 4.21</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">97.44 ± 4.44</span></td>
+                                    <td class="numeric"><span class="metric-value">0.897</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">1.000</span></td>
+                                    <td class="metric-value">0.769</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-2">2</span></td>
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">64.47 ± 8.41</span></td>
+                                    <td class="numeric"><span class="metric-value">94.87 ± 4.44</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.923</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">1.000</span></td>
+                                    <td class="metric-value best-score">0.846</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-3">3</span></td>
+                                    <td><span class="agent-name">GMX-VMD-MCP</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">58.27 ± 5.46</span></td>
+                                    <td class="numeric"><span class="metric-value">92.31 ± 7.69</span></td>
+                                    <td class="numeric"><span class="metric-value">0.821</span></td>
+                                    <td class="numeric"><span class="metric-value">0.923</span></td>
+                                    <td class="metric-value">0.769</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">4</span></td>
+                                    <td><span class="agent-name">GMX-VMD-MCP</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">34.10 ± 15.59</span></td>
+                                    <td class="numeric"><span class="metric-value">56.41 ± 8.88</span></td>
+                                    <td class="numeric"><span class="metric-value">0.513</span></td>
+                                    <td class="numeric"><span class="metric-value">0.769</span></td>
+                                    <td class="metric-value">0.308</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Bioimage Visualization -->
+                <div class="task-suite-section">
+                    <div class="task-suite-header">
+                        <h3>Bioimage Visualization</h3>
+                    </div>
+                    <div class="leaderboard-table-wrapper">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Agent + Model</th>
+                                    <th class="numeric">Overall Score ↑</th>
+                                    <th class="numeric">Completion Rate ↑</th>
+                                    <th class="numeric">pass@1 ↑</th>
+                                    <th class="numeric">pass@3 ↑</th>
+                                    <th class="numeric">pass^3 ↑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="rank-badge rank-1">1</span></td>
+                                    <td><span class="agent-name">BioImage-Agent</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">61.47 ± 14.89</span></td>
+                                    <td class="numeric"><span class="metric-value">81.82 ± 0.00</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.667</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.818</span></td>
+                                    <td class="metric-value">0.455</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-2">2</span></td>
+                                    <td><span class="agent-name">BioImage-Agent</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">56.47 ± 8.45</span></td>
+                                    <td class="numeric"><span class="metric-value">81.82 ± 0.00</span></td>
+                                    <td class="numeric"><span class="metric-value">0.606</span></td>
+                                    <td class="numeric"><span class="metric-value">0.727</span></td>
+                                    <td class="metric-value">0.455</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-3">3</span></td>
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">53.23 ± 7.60</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">90.91 ± 9.09</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.667</span></td>
+                                    <td class="numeric"><span class="metric-value">0.727</span></td>
+                                    <td class="metric-value best-score">0.636</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">4</span></td>
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">43.83 ± 7.15</span></td>
+                                    <td class="numeric"><span class="metric-value">78.79 ± 13.89</span></td>
+                                    <td class="numeric"><span class="metric-value">0.576</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.818</span></td>
+                                    <td class="metric-value">0.364</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Object Identification -->
+                <div class="task-suite-section">
+                    <div class="task-suite-header">
+                        <h3>Object Identification</h3>
+                    </div>
+                    <div class="leaderboard-table-wrapper">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Agent + Model</th>
+                                    <th class="numeric">Overall Score ↑</th>
+                                    <th class="numeric">Completion Rate ↑</th>
+                                    <th class="numeric">pass@1 ↑</th>
+                                    <th class="numeric">pass@3 ↑</th>
+                                    <th class="numeric">pass^3 ↑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="rank-badge rank-1">1</span></td>
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">44.50 ± 4.66</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">92.59 ± 7.41</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.420</span></td>
+                                    <td class="numeric"><span class="metric-value">0.630</span></td>
+                                    <td class="metric-value best-score">0.148</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-2">2</span></td>
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">44.43 ± 2.30</span></td>
+                                    <td class="numeric"><span class="metric-value">88.89 ± 6.42</span></td>
+                                    <td class="numeric"><span class="metric-value">0.358</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.741</span></td>
+                                    <td class="metric-value best-score">0.148</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-3">3</span></td>
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">42.77 ± 1.53</span></td>
+                                    <td class="numeric"><span class="metric-value">92.59 ± 3.70</span></td>
+                                    <td class="numeric"><span class="metric-value">0.259</span></td>
+                                    <td class="numeric"><span class="metric-value">0.407</span></td>
+                                    <td class="metric-value">0.111</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">4</span></td>
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">32.43 ± 8.13</span></td>
+                                    <td class="numeric"><span class="metric-value">60.49 ± 14.02</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.420</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.778</span></td>
+                                    <td class="metric-value">0.074</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topology Visualization (Rule-Based Evaluation) - Always Visible -->
+            <div style="margin-top: 3rem; padding-top: 2rem; border-top: 3px solid var(--border-color);">
+                <div class="info-box">
+                    <h4>Rule-Based Evaluation</h4>
+                    <p>
+                        The following task suite uses rule-based evaluation metrics and does not require an LLM judge.
+                        Results are consistent across different evaluation methods.
+                    </p>
+                </div>
+
+                <div class="task-suite-section">
+                    <div class="task-suite-header">
+                        <h3>Topology Visualization (Rule-Based)</h3>
+                    </div>
+                    <div class="leaderboard-table-wrapper">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Agent + Model</th>
+                                    <th class="numeric">Overall Score ↑</th>
+                                    <th class="numeric">Completion Rate ↑</th>
+                                    <th class="numeric">pass@1 ↑</th>
+                                    <th class="numeric">pass@3 ↑</th>
+                                    <th class="numeric">pass^3 ↑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="rank-badge rank-1">1</span></td>
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">76.43 ± 10.06</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">85.19 ± 6.42</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.778</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.889</span></td>
+                                    <td class="metric-value best-score">0.556</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-2">2</span></td>
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">45.23 ± 8.81</span></td>
+                                    <td class="numeric"><span class="metric-value">59.26 ± 6.42</span></td>
+                                    <td class="numeric"><span class="metric-value">0.444</span></td>
+                                    <td class="numeric"><span class="metric-value">0.556</span></td>
+                                    <td class="metric-value">0.333</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-3">3</span></td>
+                                    <td><span class="agent-name">TopoPilot2</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">32.07 ± 1.01</span></td>
+                                    <td class="numeric"><span class="metric-value">55.56 ± 0.00</span></td>
+                                    <td class="numeric"><span class="metric-value">0.185</span></td>
+                                    <td class="numeric"><span class="metric-value">0.333</span></td>
+                                    <td class="metric-value">0.000</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">4</span></td>
+                                    <td><span class="agent-name">TopoPilot2</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">31.13 ± 2.71</span></td>
+                                    <td class="numeric"><span class="metric-value">55.56 ± 0.00</span></td>
+                                    <td class="numeric"><span class="metric-value">0.148</span></td>
+                                    <td class="numeric"><span class="metric-value">0.222</span></td>
+                                    <td class="metric-value">0.111</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Image-Based Metrics for ParaView -->
+                <div class="task-suite-section" style="margin-top: 2rem;">
+                    <div class="task-suite-header">
+                        <h3>Image-Based Evaluation Metrics (ParaView Visualization)</h3>
+                    </div>
+                    <div class="leaderboard-table-wrapper">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Agent + Model</th>
+                                    <th class="numeric">PSNR<sub>scaled</sub> ↑</th>
+                                    <th class="numeric">SSIM<sub>scaled</sub> ↑</th>
+                                    <th class="numeric">LPIPS<sub>scaled</sub> ↓</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="rank-badge rank-1">1</span></td>
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">21.27 ± 1.02</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.92 ± 0.02</span></td>
+                                    <td class="numeric"><span class="metric-value">0.10 ± 0.03</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-2">2</span></td>
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">20.99 ± 0.68</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.92 ± 0.02</span></td>
+                                    <td class="numeric"><span class="metric-value best-score">0.10 ± 0.02</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-3">3</span></td>
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">12.00 ± 2.96</span></td>
+                                    <td class="numeric"><span class="metric-value">0.54 ± 0.14</span></td>
+                                    <td class="numeric"><span class="metric-value">0.49 ± 0.14</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">4</span></td>
+                                    <td><span class="agent-name">ChatVis</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">10.50 ± 0.97</span></td>
+                                    <td class="numeric"><span class="metric-value">0.50 ± 0.04</span></td>
+                                    <td class="numeric"><span class="metric-value">0.50 ± 0.04</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">5</span></td>
+                                    <td><span class="agent-name">ChatVis</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">9.63 ± 0.67</span></td>
+                                    <td class="numeric"><span class="metric-value">0.44 ± 0.01</span></td>
+                                    <td class="numeric"><span class="metric-value">0.57 ± 0.01</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="rank-badge rank-other">6</span></td>
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">9.36 ± 1.27</span></td>
+                                    <td class="numeric"><span class="metric-value">0.46 ± 0.06</span></td>
+                                    <td class="numeric"><span class="metric-value">0.57 ± 0.05</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Token Usage Statistics -->
+                <div class="task-suite-section" style="margin-top: 2rem;">
+                    <div class="task-suite-header">
+                        <h3>Token Usage Statistics</h3>
+                    </div>
+                    <div class="leaderboard-table-wrapper">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Task Suite</th>
+                                    <th>Agent + Model</th>
+                                    <th class="numeric"># Input Tokens</th>
+                                    <th class="numeric"># Output Tokens</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- ParaView Visualization -->
+                                <tr style="background: #f9fafb;">
+                                    <td rowspan="6" style="vertical-align: middle; font-weight: 600;">ParaView<br>Visualization</td>
+                                    <td><span class="agent-name">ChatVis</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">156.64K ± 8.02K</span></td>
+                                    <td class="numeric"><span class="metric-value">180.56K ± 8.84K</span></td>
+                                </tr>
+                                <tr style="background: #f9fafb;">
+                                    <td><span class="agent-name">ChatVis</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">116.83K ± 7.59K</span></td>
+                                    <td class="numeric"><span class="metric-value">152.70K ± 6.88K</span></td>
+                                </tr>
+                                <tr style="background: #f9fafb;">
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">5.71M ± 0.61M</span></td>
+                                    <td class="numeric"><span class="metric-value">33.30K ± 1.99K</span></td>
+                                </tr>
+                                <tr style="background: #f9fafb;">
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">28.51M ± 3.30M</span></td>
+                                    <td class="numeric"><span class="metric-value">380.30K ± 42.53K</span></td>
+                                </tr>
+                                <tr style="background: #f9fafb;">
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">39.49M ± 6.62M</span></td>
+                                    <td class="numeric"><span class="metric-value">425.32K ± 55.52K</span></td>
+                                </tr>
+                                <tr style="background: #f9fafb;">
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">45.57M ± 9.47M</span></td>
+                                    <td class="numeric"><span class="metric-value">396.60K ± 23.27K</span></td>
+                                </tr>
+
+                                <!-- Molecular Visualization -->
+                                <tr>
+                                    <td rowspan="4" style="vertical-align: middle; font-weight: 600;">Molecular<br>Visualization</td>
+                                    <td><span class="agent-name">GMX-VMD-MCP</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">1.56M ± 0.17M</span></td>
+                                    <td class="numeric"><span class="metric-value">28.27K ± 6.57K</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="agent-name">GMX-VMD-MCP</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">5.89M ± 1.00M</span></td>
+                                    <td class="numeric"><span class="metric-value">82.90K ± 12.53K</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">5.07M ± 0.12M</span></td>
+                                    <td class="numeric"><span class="metric-value">81.73K ± 3.45K</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">8.63M ± 1.81M</span></td>
+                                    <td class="numeric"><span class="metric-value">112.28K ± 17.22K</span></td>
+                                </tr>
+
+                                <!-- Bioimage Visualization -->
+                                <tr style="background: #f9fafb;">
+                                    <td rowspan="4" style="vertical-align: middle; font-weight: 600;">Bioimage<br>Visualization</td>
+                                    <td><span class="agent-name">BioImage-Agent</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">931.66K ± 186.31K</span></td>
+                                    <td class="numeric"><span class="metric-value">6.26K ± 1.47K</span></td>
+                                </tr>
+                                <tr style="background: #f9fafb;">
+                                    <td><span class="agent-name">BioImage-Agent</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">1.58M ± 0.02M</span></td>
+                                    <td class="numeric"><span class="metric-value">18.47K ± 1.28K</span></td>
+                                </tr>
+                                <tr style="background: #f9fafb;">
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">8.60M ± 0.17M</span></td>
+                                    <td class="numeric"><span class="metric-value">125.66K ± 2.43K</span></td>
+                                </tr>
+                                <tr style="background: #f9fafb;">
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">10.36M ± 3.76M</span></td>
+                                    <td class="numeric"><span class="metric-value">104.83K ± 25.78K</span></td>
+                                </tr>
+
+                                <!-- Topology Visualization -->
+                                <tr>
+                                    <td rowspan="4" style="vertical-align: middle; font-weight: 600;">Topology<br>Visualization</td>
+                                    <td><span class="agent-name">TopoPilot2</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">394.00K ± 6.06K</span></td>
+                                    <td class="numeric"><span class="metric-value">2.89K ± 0.17K</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="agent-name">TopoPilot2</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">3.74M ± 3.67M</span></td>
+                                    <td class="numeric"><span class="metric-value">57.93K ± 32.35K</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">17.26M ± 1.87M</span></td>
+                                    <td class="numeric"><span class="metric-value">172.37K ± 18.51K</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">46.04M ± 4.48M</span></td>
+                                    <td class="numeric"><span class="metric-value">193.58K ± 27.62K</span></td>
+                                </tr>
+
+                                <!-- Object Identification -->
+                                <tr style="background: #f9fafb;">
+                                    <td rowspan="4" style="vertical-align: middle; font-weight: 600;">Object<br>Identification</td>
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">4.12M ± 0.39M</span></td>
+                                    <td class="numeric"><span class="metric-value">24.58K ± 1.20K</span></td>
+                                </tr>
+                                <tr style="background: #f9fafb;">
+                                    <td><span class="agent-name">ParaView-MCP</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">11.42M ± 0.49M</span></td>
+                                    <td class="numeric"><span class="metric-value">119.24K ± 4.65K</span></td>
+                                </tr>
+                                <tr style="background: #f9fafb;">
+                                    <td><span class="agent-name">Claude Code</span><span class="model-badge">Claude-Sonnet-4.5</span></td>
+                                    <td class="numeric"><span class="metric-value">16.83M ± 0.28M</span></td>
+                                    <td class="numeric"><span class="metric-value">273.90K ± 22.71K</span></td>
+                                </tr>
+                                <tr style="background: #f9fafb;">
+                                    <td><span class="agent-name">Codex</span><span class="model-badge">GPT-5.2</span></td>
+                                    <td class="numeric"><span class="metric-value">38.43M ± 3.55M</span></td>
+                                    <td class="numeric"><span class="metric-value">344.27K ± 14.95K</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer" style="margin-top: 3rem;">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>SciVisAgentBench</h4>
+                    <p>Building the future of scientific visualization agents through comprehensive evaluation.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="https://github.com/KuangshiAi/SciVisAgentBench">GitHub Repository</a></li>
+                        <li><a href="https://huggingface.co/datasets/SciVisAgentBench/SciVisAgentBench-tasks">Task Repository</a></li>
+                        <li><a href="https://arxiv.org/abs/2509.15160" target="_blank">Position Paper</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>For questions or collaboration inquiries, please contact us via GitHub, or contact Kuangshi Ai via <strong>kai@nd.edu</strong></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SciVisAgentBench. Released under CC BY 4.0 License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.judge-tab');
+        const results = document.querySelectorAll('.judge-results');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+
+                // Hide all results
+                results.forEach(r => r.style.display = 'none');
+                // Show selected results
+                const judge = tab.getAttribute('data-judge');
+                document.getElementById(`${judge}-results`).style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
