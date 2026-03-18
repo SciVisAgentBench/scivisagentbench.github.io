@@ -1,0 +1,169 @@
+\begin{table*}[t]
+\centering
+\small
+\caption{Benchmark performance across all five task suites of SciVisAgentBench using {\bf Claude-Opus-4.6} as the LLM judge for evaluation. For each agent+model setting, we report overall score, completion rate, pass@${\{1,2,3\}}$ (i.e., success in at least one of the first $k$ trials), and pass$\textasciicircum{\{1,2,3\}}$ (i.e., success in all $k$ trials). Scores and completion rates are reported as mean$\pm$std across three repeated trials.}
+\label{tab:main_results_all_parts_opus46}
+\vspace{-0.1in}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{clcccccccc}
+\toprule
+Task Suite & Setting & Overall Score $\uparrow$ & Completion Rate $\uparrow$ & pass@1 $\uparrow$ & pass@2 $\uparrow$ & pass@3 $\uparrow$ & pass$\textasciicircum1$ $\uparrow$ & pass$\textasciicircum2$ $\uparrow$ & pass$\textasciicircum3$ $\uparrow$ \\
+\midrule
+
+\multirow{6}{*}{\shortstack{ParaView\\Visualization}}
+& ChatVis+GPT-5.2 & 30.77$\pm$1.10 & 44.44$\pm$1.20 & 0.382 & 0.528 & 0.604 & 0.382 & 0.236 & 0.167 \\
+& ChatVis+Claude-Sonnet-4.5 & 37.37$\pm$3.02 & 54.17$\pm$3.61 & 0.458 & 0.542 & 0.562 & 0.458 & 0.375 & 0.312 \\
+& ParaView-MCP+GPT-5.2 & 24.63$\pm$3.72 & 46.53$\pm$6.36 & 0.236 & 0.271 & 0.292 & 0.236 & 0.201 & 0.188 \\
+& ParaView-MCP+Claude-Sonnet-4.5 & 26.43$\pm$8.80 & 53.47$\pm$15.07 & 0.257 & 0.347 & 0.417 & 0.257 & 0.167 & 0.146 \\
+& Claude-Code+Claude-Sonnet-4.5 & \textbf{62.57$\pm$0.51} & \textbf{97.92$\pm$2.08} & 0.736 & 0.875 & 0.917 & 0.736 & 0.597 & 0.500 \\
+& Codex+GPT-5.2 & 60.17$\pm$1.43 & 95.14$\pm$2.41 & \textbf{0.771} & \textbf{0.910} & \textbf{0.938} & \textbf{0.771} & \textbf{0.632} & \textbf{0.521} \\
+
+\midrule
+
+\multirow{4}{*}{\shortstack{Molecular\\Visualization}}
+& GMX-VMD-MCP+GPT-5.2 & 45.67$\pm$7.48 & 66.67$\pm$11.75 & 0.564 & 0.692 & 0.769 & 0.564 & 0.436 & 0.385 \\
+& GMX-VMD-MCP+Claude-Sonnet-4.5 & 60.23$\pm$4.39 & \textbf{97.44$\pm$4.44} & 0.846 & 0.846 & 0.846 & 0.846 & 0.846 & 0.846 \\
+& Claude-Code+Claude-Sonnet-4.5 & 61.47$\pm$6.78 & 94.87$\pm$4.44 & \textbf{0.897} & 0.923 & 0.923 & \textbf{0.897} & \textbf{0.872} & \textbf{0.846} \\
+& Codex+GPT-5.2 & \textbf{62.30$\pm$6.32} & 94.87$\pm$8.88 & 0.872 & \textbf{0.949} & \textbf{1.000} & 0.872 & 0.795 & 0.769 \\
+
+\midrule
+
+\multirow{4}{*}{\shortstack{Bioimage\\Visualization}}
+& BioImage-Agent+GPT-5.2 & \textbf{66.67$\pm$4.28} & 81.82$\pm$0.00 & \textbf{0.788} & \textbf{0.818} & \textbf{0.818} & \textbf{0.788} & \textbf{0.758} & \textbf{0.727} \\
+& BioImage-Agent+Claude-Sonnet-4.5 & 57.67$\pm$6.39 & 78.79$\pm$5.25 & 0.636 & 0.697 & 0.727 & 0.636 & 0.576 & 0.545 \\
+& Claude-Code+Claude-Sonnet-4.5 & 52.83$\pm$9.80 & \textbf{90.91$\pm$9.09} & 0.697 & 0.758 & \textbf{0.818} & 0.697 & 0.636 & 0.636 \\
+& Codex+GPT-5.2 & 41.90$\pm$4.69 & 75.76$\pm$10.50 & 0.576 & 0.697 & 0.727 & 0.576 & 0.455 & 0.364 \\
+
+\midrule
+
+\multirow{4}{*}{\shortstack{Topology\\Visualization}}
+& TopoPilot2+GPT-5.2 & 31.13$\pm$2.71 & 55.56$\pm$0.00 & 0.148 & 0.185 & 0.222 & 0.148 & 0.111 & 0.111 \\
+& TopoPilot2+Claude-Sonnet-4.5 & 32.07$\pm$1.01 & 55.56$\pm$0.00 & 0.185 & 0.296 & 0.333 & 0.185 & 0.074 & 0.000 \\
+& Claude-Code+Claude-Sonnet-4.5 & 45.23$\pm$8.81 & 59.26$\pm$6.42 & 0.444 & 0.519 & 0.556 & 0.444 & 0.370 & 0.333 \\
+& Codex+GPT-5.2 & \textbf{76.43$\pm$10.06} & \textbf{85.19$\pm$6.42} & \textbf{0.778} & \textbf{0.889} & \textbf{0.889} & \textbf{0.778} & \textbf{0.667} & \textbf{0.556} \\
+
+\midrule
+
+\multirow{4}{*}{\shortstack{Object\\Identification}}
+& ParaView-MCP+GPT-5.2 & 26.73$\pm$7.36 & 49.38$\pm$11.32 & 0.358 & \textbf{0.593} & \textbf{0.741} & 0.358 & 0.123 & 0.037 \\
+& ParaView-MCP+Claude-Sonnet-4.5 & 42.17$\pm$0.50 & 92.59$\pm$0.00 & 0.185 & 0.284 & 0.333 & 0.185 & 0.086 & 0.037 \\
+& Claude-Code+Claude-Sonnet-4.5 & 41.50$\pm$3.55 & 83.95$\pm$9.32 & 0.358 & 0.556 & 0.704 & 0.358 & 0.160 & 0.111 \\
+& Codex+GPT-5.2 & \textbf{43.33$\pm$5.28} & \textbf{92.59$\pm$9.80} & \textbf{0.395} & 0.519 & 0.556 & \textbf{0.395} & \textbf{0.272} & \textbf{0.185} \\
+
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}
+
+
+\begin{table*}[t]
+\centering
+\small
+\caption{Benchmark performance across four task suites of SciVisAgentBench using {\bf GPT-5.2} as the LLM judge for evaluation. Scores and completion rates are reported as mean$\pm$std across three repeated trials. Topology visualization results are excluded because they use rule-based evaluation and do not require an LLM judge.}
+\label{tab:main_results_all_parts_gpt52}
+\vspace{-0.1in}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{clcccccccc}
+\toprule
+Task Suite & Setting & Overall Score $\uparrow$ & Completion Rate $\uparrow$ & pass@1 $\uparrow$ & pass@2 $\uparrow$ & pass@3 $\uparrow$ & pass$\textasciicircum1$ $\uparrow$ & pass$\textasciicircum2$ $\uparrow$ & pass$\textasciicircum3$ $\uparrow$ \\
+\midrule
+\multirow{6}{*}{\shortstack{ParaView\\Visualization}}
+& ChatVis+GPT-5.2 & 32.77$\pm$0.25 & 47.92$\pm$2.08 & 0.389 & 0.569 & 0.688 & 0.389 & 0.208 & 0.146 \\
+& ChatVis+Claude-Sonnet-4.5 & 39.08$\pm$3.50 & 56.25$\pm$4.66 & 0.479 & 0.562 & 0.604 & 0.479 & 0.396 & 0.354 \\
+& ParaView-MCP+GPT-5.2 & 27.47$\pm$4.12 & 51.39$\pm$6.70 & 0.299 & 0.368 & 0.417 & 0.299 & 0.229 & 0.208 \\
+& ParaView-MCP+Claude-Sonnet-4.5 & 29.80$\pm$9.46 & 59.72$\pm$15.07 & 0.285 & 0.389 & 0.479 & 0.285 & 0.181 & 0.167 \\
+& Claude-Code+Claude-Sonnet-4.5 & \textbf{64.87$\pm$0.83} & \textbf{98.61$\pm$2.41} & \textbf{0.778} & 0.861 & 0.896 & \textbf{0.778} & \textbf{0.694} & \textbf{0.646} \\
+& Codex+GPT-5.2 & 63.13$\pm$1.34 & 97.22$\pm$2.41 & \textbf{0.778} & \textbf{0.910} & \textbf{0.985} & \textbf{0.778} & 0.646 & 0.562 \\
+\midrule
+\multirow{4}{*}{\shortstack{Molecular\\Visualization}}
+& GMX-VMD-MCP+GPT-5.2 & 34.10$\pm$15.59 & 56.41$\pm$8.88 & 0.513 & 0.667 & 0.769 & 0.513 & 0.359 & 0.308 \\
+& GMX-VMD-MCP+Claude-Sonnet-4.5 & 58.27$\pm$5.46 & 92.31$\pm$7.69 & 0.821 & 0.872 & 0.923 & 0.821 & 0.769 & 0.769 \\
+& Claude-Code+Claude-Sonnet-4.5 & 64.47$\pm$8.41 & 94.87$\pm$4.44 & \textbf{0.923} & \textbf{0.974} & \textbf{1.000} & \textbf{0.923} & \textbf{0.872} & \textbf{0.846} \\
+& Codex+GPT-5.2 & \textbf{69.27$\pm$4.21} & \textbf{97.44$\pm$4.44} & 0.897 & \textbf{0.974} & \textbf{1.000} & 0.897 & 0.821 & 0.769 \\
+\midrule
+\multirow{4}{*}{\shortstack{Bioimage\\Visualization}}
+& BioImage-Agent+GPT-5.2 & \textbf{61.47$\pm$14.89} & 81.82$\pm$0.00 & \textbf{0.667} & \textbf{0.788} & \textbf{0.818} & \textbf{0.667} & 0.545 & 0.455 \\
+& BioImage-Agent+Claude-Sonnet-4.5 & 56.47$\pm$8.45 & 81.82$\pm$0.00 & 0.606 & 0.697 & 0.727 & 0.606 & 0.515 & 0.455 \\
+& Claude-Code+Claude-Sonnet-4.5 & 53.23$\pm$7.60 & \textbf{90.91$\pm$9.09} & \textbf{0.667} & 0.697 & 0.727 & \textbf{0.667} & \textbf{0.636} & \textbf{0.636} \\
+& Codex+GPT-5.2 & 43.83$\pm$7.15 & 78.79$\pm$13.89 & 0.576 & 0.727 & \textbf{0.818} & 0.576 & 0.424 & 0.364 \\
+\midrule
+\multirow{4}{*}{\shortstack{Object\\Identification}}
+& ParaView-MCP+GPT-5.2 & 32.43$\pm$8.13 & 60.49$\pm$14.02 & \textbf{0.420} & \textbf{0.654} & \textbf{0.778} & \textbf{0.420} & \textbf{0.185} & 0.074 \\
+& ParaView-MCP+Claude-Sonnet-4.5 & 42.77$\pm$1.53 & 92.59$\pm$3.70 & 0.259 & 0.358 & 0.407 & 0.259 & 0.160 & 0.111 \\
+& Claude-Code+Claude-Sonnet-4.5 & 44.43$\pm$2.30 & 88.89$\pm$6.42 & 0.358 & 0.556 & 0.741 & 0.358 & 0.160 & \textbf{0.148} \\
+& Codex+GPT-5.2 & \textbf{44.50$\pm$4.66} & \textbf{92.59$\pm$7.41} & \textbf{0.420} & 0.580 & 0.630 & \textbf{0.420} & \textbf{0.259} & \textbf{0.148} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}
+
+
+\begin{table}[t]
+\centering
+\small
+\caption{Image-based evaluation metrics on ParaView visualization tasks. Values are reported as mean$\pm$std across three repeated trials.}
+\label{tab:paraview_image_metrics}
+\vspace{-0.1in}
+\begin{adjustbox}{width=\columnwidth}
+\begin{tabular}{lccc}
+\toprule
+Setting & $\mathrm{PSNR}_{\text{scaled}} \uparrow$ & $\mathrm{SSIM}_{\text{scaled}} \uparrow$ & $\mathrm{LPIPS}_{\text{scaled}} \downarrow$ \\
+\midrule
+ChatVis+GPT-5.2 & 9.63$\pm$0.67 & 0.44$\pm$0.01 & 0.57$\pm$0.01 \\
+ChatVis+Claude-Sonnet-4.5 & 10.50$\pm$0.97 & 0.50$\pm$0.04 & 0.50$\pm$0.04 \\
+ParaView-MCP+GPT-5.2 & 9.36$\pm$1.27 & 0.46$\pm$0.06 & 0.57$\pm$0.05 \\
+ParaView-MCP+Claude-Sonnet-4.5 & 12.00$\pm$2.96 & 0.54$\pm$0.14 & 0.49$\pm$0.14 \\
+Claude-Code+Claude-Sonnet-4.5 & 20.99$\pm$0.68 & \textbf{0.92$\pm$0.02} & \textbf{0.10$\pm$0.02} \\
+Codex+GPT-5.2 & \textbf{21.27$\pm$1.02} & \textbf{0.92$\pm$0.02} & 0.10$\pm$0.03 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+
+\begin{table}[t]
+\centering
+\small
+\caption{Token usage across all five task suites of SciVisAgentBench. Input and output tokens are reported as mean$\pm$std across three repeated trials. Token counts are shown using K (thousands) and M (millions) for readability. Cached tokens are counted as regular input tokens for consistent accounting and comparison across settings.}
+\label{tab:token_cost_all_parts}
+\vspace{-0.1in}
+\begin{adjustbox}{width=\columnwidth}
+\begin{tabular}{clcc}
+\toprule
+Task Suite & Setting & \# Input Tokens & \# Output Tokens \\
+\midrule
+\multirow{6}{*}{\shortstack{ParaView\\Visualization}}
+& ChatVis+GPT-5.2          & 156.64K$\pm$8.02K & 180.56K$\pm$8.84K \\
+& ChatVis+Claude-Sonnet-4.5 & 116.83K$\pm$7.59K & 152.70K$\pm$6.88K \\
+& ParaView-MCP+GPT-5.2     & 5.71M$\pm$0.61M   & 33.30K$\pm$1.99K  \\
+& ParaView-MCP+Claude-Sonnet-4.5 & 28.51M$\pm$3.30M  & 380.30K$\pm$42.53K \\
+& Claude-Code+Claude-Sonnet-4.5 & 39.49M$\pm$6.62M & 425.32K$\pm$55.52K \\
+& Codex+GPT-5.2 & 45.57M$\pm$9.47M & 396.60K$\pm$23.27K \\
+\midrule
+\multirow{4}{*}{\shortstack{Molecular\\Visualization}}
+& GMX-VMD-MCP+GPT-5.2      & 1.56M$\pm$0.17M & 28.27K$\pm$6.57K \\
+& GMX-VMD-MCP+Claude-Sonnet-4.5   & 5.89M$\pm$1.00M & 82.90K$\pm$12.53K \\
+& Claude-Code+Claude-Sonnet-4.5 & 5.07M$\pm$0.12M & 81.73K$\pm$3.45K \\
+& Codex+GPT-5.2 & 8.63M$\pm$1.81M & 112.28K$\pm$17.22K \\
+\midrule
+\multirow{4}{*}{\shortstack{Bioimage\\Visualization}}
+& BioImage-Agent+GPT-5.2 & 931.66K$\pm$186.31K & 6.26K$\pm$1.47K \\
+& BioImage-Agent+Claude-Sonnet-4.5  & 1.58M$\pm$0.02M & 18.47K$\pm$1.28K \\
+& Claude-Code+Claude-Sonnet-4.5 & 8.60M$\pm$0.17M & 125.66K$\pm$2.43K \\
+& Codex+GPT-5.2 & 10.36M$\pm$3.76M & 104.83K$\pm$25.78K \\
+\midrule
+\multirow{4}{*}{\shortstack{Topology\\Visualization}}
+& TopoPilot2+GPT-5.2    & 394.00K$\pm$6.06K & 2.89K$\pm$0.17K \\
+& TopoPilot2+Claude-Sonnet-4.5 & 3.74M$\pm$3.67M & 57.93K$\pm$32.35K \\
+& Claude-Code+Claude-Sonnet-4.5 & 17.26M$\pm$1.87M & 172.37K$\pm$18.51K \\
+& Codex+GPT-5.2 & 46.04M$\pm$4.48M & 193.58K$\pm$27.62K \\
+\midrule
+\multirow{4}{*}{\shortstack{Object\\Identification}}
+& ParaView-MCP+GPT-5.2     & 4.12M$\pm$0.39M & 24.58K$\pm$1.20K \\
+& ParaView-MCP+Claude-Sonnet-4.5  & 11.42M$\pm$0.49M & 119.24K$\pm$4.65K \\
+& Claude-Code+Claude-Sonnet-4.5 & 16.83M$\pm$0.28M & 273.90K$\pm$22.71K \\
+& Codex+GPT-5.2 & 38.43M$\pm$3.55M & 344.27K$\pm$14.95K \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}

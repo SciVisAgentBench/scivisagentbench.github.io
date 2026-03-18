@@ -120,37 +120,39 @@
         }
 
         .report-links {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 0.75rem;
         }
 
         .report-link {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 1rem;
+            justify-content: center;
+            padding: 1rem 0.5rem;
             background: var(--bg-secondary);
             border-radius: 8px;
             text-decoration: none;
             color: var(--text-primary);
             transition: all 0.2s;
             border: 1px solid var(--border-color);
+            text-align: center;
         }
 
         .report-link:hover {
             background: var(--primary-color);
             color: white;
-            transform: translateX(5px);
+            transform: translateY(-3px);
         }
 
         .report-link span {
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .report-link svg {
-            width: 20px;
-            height: 20px;
+            display: none;
         }
 
         .back-button {
@@ -269,6 +271,12 @@
                                     <path d="M5 12h14M12 5l7 7-7 7"/>
                                 </svg>
                             </a>
+                            <a href="eval_reports/paraview/codex_cli_gpt-5.2_exp1/report.html" class="report-link">
+                                <span>Codex</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -297,6 +305,12 @@
                                     <path d="M5 12h14M12 5l7 7-7 7"/>
                                 </svg>
                             </a>
+                            <a href="eval_reports/molecular_vis/codex_cli_gpt-5.2_exp1/report.html" class="report-link">
+                                <span>Codex</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -305,7 +319,7 @@
                 <!-- BioImage Napari MCP Reports -->
                 <div class="report-card">
                     <div class="report-card-header">
-                        <h3>Bioimage VisualizationCases</h3>
+                        <h3>Bioimage Visualization Cases</h3>
                         <p>Biological image analysis and visualization with Napari</p>
                         <span class="tech-badge">Napari</span>
                         <span class="tech-badge">Biology</span>
@@ -321,6 +335,12 @@
                             </a>
                             <a href="eval_reports/bioimage/claude_code_claude-sonnet-4-5_exp1/report.html" class="report-link">
                                 <span>Claude Code</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                            <a href="eval_reports/bioimage/codex_cli_gpt-5.2_exp1/report.html" class="report-link">
+                                <span>Codex</span>
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M5 12h14M12 5l7 7-7 7"/>
                                 </svg>
@@ -354,6 +374,12 @@
                                     <path d="M5 12h14M12 5l7 7-7 7"/>
                                 </svg>
                             </a>
+                            <a href="eval_reports/topology/codex_cli_gpt-5.2_exp1/report.html" class="report-link">
+                                <span>Codex</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -376,6 +402,12 @@
                             </a>
                             <a href="eval_reports/anonymized/claude_code_claude-sonnet-4-5_exp1/report.html" class="report-link">
                                 <span>Claude Code</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                            <a href="eval_reports/anonymized/codex_cli_gpt-5.2_exp1/report.html" class="report-link">
+                                <span>Codex</span>
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M5 12h14M12 5l7 7-7 7"/>
                                 </svg>

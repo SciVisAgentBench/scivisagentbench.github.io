@@ -1,0 +1,2475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluation Report - codex_cli</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .agent-name {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .timestamp {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .summary {
+            padding: 40px;
+            background: #f8f9fa;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .summary h2 {
+            color: #667eea;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .summary-card h3 {
+            color: #667eea;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .summary-card .value {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .summary-card .sub-value {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .score-excellent { color: #10b981; }
+        .score-good { color: #3b82f6; }
+        .score-fair { color: #f59e0b; }
+        .score-poor { color: #ef4444; }
+
+        .config-info {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .config-info h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .config-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .config-item label {
+            font-weight: 600;
+            color: #666;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+
+        .config-item value {
+            font-size: 1em;
+            color: #333;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+
+        .case-nav {
+            padding: 30px 40px;
+            background: white;
+            border-bottom: 2px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .case-nav h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .case-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .case-link {
+            padding: 8px 16px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .case-link:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .case-link-failed {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fca5a5;
+        }
+
+        .case-link-failed:hover {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+
+        .case-section {
+            padding: 40px;
+            border-bottom: 3px solid #f3f4f6;
+        }
+
+        .case-section:last-child {
+            border-bottom: none;
+        }
+
+        .case-section-failed {
+            background: #fef2f2;
+            border-left: 5px solid #dc2626;
+            border-bottom: 3px solid #fca5a5;
+        }
+
+        .case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .case-title-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .case-title {
+            font-size: 1.8em;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .status-badge {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.7em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .status-failed {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .status-warning {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .case-score {
+            font-size: 1.5em;
+            font-weight: 700;
+            padding: 10px 25px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .case-content {
+            display: grid;
+            gap: 30px;
+        }
+
+        .section-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section-box h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .task-description {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+            border: 1px solid #e5e7eb;
+        }
+
+        .image-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .image-box {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .image-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #e5e7eb;
+        }
+
+        .image-box .no-image {
+            width: 100%;
+            height: 300px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-size: 1.1em;
+        }
+
+        .rubric-scores {
+            display: grid;
+            gap: 15px;
+        }
+
+        .rubric-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .rubric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .rubric-title {
+            font-weight: 700;
+            color: #333;
+            flex: 1;
+        }
+
+        .rubric-score {
+            font-size: 1.3em;
+            font-weight: 700;
+            padding: 5px 15px;
+            border-radius: 20px;
+            background: #667eea;
+            color: white;
+        }
+
+        .rubric-criterion {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            color: #333;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .rubric-criterion strong {
+            color: #667eea;
+            font-style: normal;
+        }
+
+        .rubric-explanation {
+            color: #666;
+            line-height: 1.6;
+            margin-top: 10px;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+
+        .rubric-explanation strong {
+            color: #764ba2;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .metric-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .metric-label {
+            font-size: 0.85em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .metric-subvalue {
+            font-size: 0.9em;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .code-similarity {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #667eea;
+        }
+
+        .code-similarity h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .code-sim-score {
+            font-size: 2em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .code-sim-details {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .expandable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .expandable::before {
+            content: '▼ ';
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .expandable.collapsed::before {
+            transform: rotate(-90deg);
+        }
+
+        .expandable-content {
+            margin-top: 15px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .expandable-content.collapsed {
+            max-height: 0;
+            margin-top: 0;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .image-comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .case-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .case-title-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .case-title {
+                font-size: 1.5em;
+            }
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎯 SciVisAgentBench Evaluation Report</h1>
+            <div class="header-meta">
+                <span class="agent-name">codex_cli</span>
+                <span class="timestamp">Generated: 2026-03-17T11:03:22.033995</span>
+            </div>
+        </header>
+
+        
+        <section class="summary">
+            <h2>📊 Overall Performance</h2>
+
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Overall Score</h3>
+                    <div class="value score-fair">
+                        73.3%
+                    </div>
+                    <div class="sub-value">
+                        297/405 Points
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3>Test Cases</h3>
+                    <div class="value">
+                        13/13
+                    </div>
+                    <div class="sub-value">
+                        Completed Successfully
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3>Avg Vision Score</h3>
+                    <div class="value">
+                        62.0%
+                    </div>
+                    <div class="sub-value">
+                        Visualization Quality
+                    </div>
+                    <div class="sub-value">
+                        99/160
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3>PSNR (Scaled)</h3>
+                    <div class="value">
+                        N/A
+                    </div>
+                    <div class="sub-value">
+                        Peak SNR (0/13 valid)
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3>SSIM (Scaled)</h3>
+                    <div class="value">
+                        N/A
+                    </div>
+                    <div class="sub-value">
+                        Structural Similarity
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3>LPIPS (Scaled)</h3>
+                    <div class="value">
+                        N/A
+                    </div>
+                    <div class="sub-value">
+                        Perceptual Distance
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <h3>Completion Rate</h3>
+                    <div class="value">
+                        100.0%
+                    </div>
+                    <div class="sub-value">
+                        Tasks Completed
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 8px; border-left: 4px solid #667eea;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">ℹ️ About Scaled Metrics</h4>
+                <p style="color: #666; line-height: 1.6; margin: 0;">
+                    <strong>Scaled metrics</strong> account for completion rate to enable fair comparison across different evaluation modes.
+                    Formula: <em>PSNR<sub>scaled</sub> = (completed_cases / total_cases) × avg(PSNR)</em>,
+                    <em>SSIM<sub>scaled</sub> = (completed_cases / total_cases) × avg(SSIM)</em>,
+                    <em>LPIPS<sub>scaled</sub> = 1.0 - (completed_cases / total_cases) × (1.0 - avg(LPIPS))</em>.
+                    Cases with infinite PSNR (perfect match) are excluded from the PSNR calculation.
+                </p>
+            </div>
+
+            <div class="config-info">
+                <h3>🔧 Configuration</h3>
+                <div class="config-grid">
+                    <div class="config-item">
+                        <label>Provider</label>
+                        <value>openai</value>
+                    </div>
+                    <div class="config-item">
+                        <label>Model</label>
+                        <value>gpt-5.2</value>
+                    </div>
+                    <div class="config-item">
+                        <label>Base URL</label>
+                        <value>N/A</value>
+                    </div>
+                    <div class="config-item">
+                        <label>Input Price</label>
+                        <value>$1.75</value>
+                    </div>
+                    <div class="config-item">
+                        <label>Output Price</label>
+                        <value>$14.00</value>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+
+        <nav class="case-nav">
+            <h3>Jump to Case:</h3>
+            <div class="case-links">
+                <a href="#case_1" class="case-link">case_1</a>
+<a href="#case_2" class="case-link">case_2</a>
+<a href="#case_3" class="case-link">case_3</a>
+<a href="#case_4" class="case-link">case_4</a>
+<a href="#case_5" class="case-link">case_5</a>
+<a href="#case_6" class="case-link">case_6</a>
+<a href="#case_7" class="case-link">case_7</a>
+<a href="#case_8" class="case-link">case_8</a>
+<a href="#case_9" class="case-link">case_9</a>
+<a href="#case_10" class="case-link">case_10</a>
+<a href="#curved-membrane" class="case-link">curved-membrane</a>
+<a href="#ras-raf-membrane" class="case-link">ras-raf-membrane</a>
+<a href="#trajectory-inspection" class="case-link">trajectory-inspection</a>
+            </div>
+        </nav>
+
+        
+        <section class="case-section" id="case_1">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_1</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. I want you to visualize a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Visualize the molecular using a licorice representation. 
+4. Take a screenshot of the visualization.
+ Q1. Does it show a licorice representation of the protein? (yes/no)
+5. Answer Q1 in a plain text file "case_1/results/{agent_mode}/answers_basic_vis.txt".
+</div>
+                </div>
+
+                
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1 correct answer: Yes): The provided task answer is "yes", which matches the expected correct answer "Yes" (case-insensitive match). Therefore, it fully satisfies the criterion and earns full points.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">558,051</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">7,255</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">565,306</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$2.8991</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_2">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_2</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. I want you to visualize a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Visualize the molecular using a CPK or similar representation where atoms are colored by their chemical element.
+4. Take a screenshot of the visualization.
+ Q1. Is the molecule colored according to the chemical element of its atoms (e.g., CPK coloring)? (yes/no)
+5. Answer Q1 in a plain text file "case_2/results/{agent_mode}/answers_element_coloring.txt".
+</div>
+                </div>
+
+                
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1 correct answer: Yes): The provided task answer is "yes", which matches the expected correct answer "Yes" (case-insensitive match). Therefore, it fully satisfies the criterion.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">382,374</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">5,421</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">387,795</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$1.9932</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_3">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_3</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. I want you to visualize a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Select all carbon atoms and color them cyan.
+4. Take a screenshot of the visualization.
+ Q1. Are all carbon atoms colored cyan? (yes/no)
+5. Answer Q1 in a plain text file "case_3/results/{agent_mode}/answers_selection_coloring.txt".
+</div>
+                </div>
+
+                
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1 correct answer: Yes): The provided task answer is "yes", which matches the expected correct answer "Yes" (case-insensitive match). Therefore, it fully satisfies the criterion.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">293,761</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">4,909</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">298,670</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$1.5424</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_4">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_4</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. I want you to visualize a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Color the molecule according to atomic charge: use one color for positive charges, another for negative charges, and a third for neutral atoms.
+4. Take a screenshot of the visualization.
+ Q1. Is the molecule colored by atomic charge (differentiating positive, negative, and neutral)? (yes/no)
+5. Answer Q1 in a plain text file "case_4/results/{agent_mode}/answers_charge_coloring.txt".
+</div>
+                </div>
+
+                
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1 correct answer: Yes): The provided answer is "yes", which matches the expected correct answer "Yes" (case-insensitive match). Therefore, it fully satisfies the criterion.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">675,900</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">6,935</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">682,835</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$3.4835</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_5">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_5</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. I want you to visualize a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Select all oxygen atoms in residues 1 to 20 and color them red.
+4. Take a screenshot of the visualization.
+ Q1. Are all oxygen atoms in residues 1 to 20 colored red? (yes/no)
+5. Answer Q1 in a plain text file "case_5/results/{agent_mode}/answers_complex_selection.txt".
+</div>
+                </div>
+
+                
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1 correct answer: Yes): The provided task answer is "yes", which matches the expected correct answer "Yes" (case-insensitive match). Therefore, it fully satisfies the criterion.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">334,561</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">6,901</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">341,462</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$1.7763</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_6">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_6</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. I want you to visualize a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Select all aromatic residues (PHE, TYR, TRP) and color them purple.
+4. Take a screenshot of the visualization.
+ Q1. Are all aromatic residues (PHE, TYR, TRP) colored purple? (yes/no)
+5. Answer Q1 in a plain text file "case_6/results/{agent_mode}/answers_aromatic_selection.txt".
+</div>
+                </div>
+
+                
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1 correct answer: Yes): The provided answer is "yes", which matches the expected correct answer exactly (case-insensitive match). Therefore it fully satisfies the criterion.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">352,175</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">5,400</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">357,575</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$1.8419</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_7">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_7</h2>
+                    
+                </div>
+                <div class="case-score">20/20 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. I want you to perform a structural analysis on a molecular structure from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Calculate the Root Mean Square Deviation (RMSD) of the structure against itself.
+4. Calculate the Root Mean Square Fluctuation (RMSF) for the structure.
+5. Save the computed RMSD and RMSF values as plain text to "case_7/results/{agent_mode}/answers_rmsd_rmsf.txt".
+</div>
+                </div>
+
+                
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">20/20 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Does the output report the calculated RMSD?
+2. Does the output report the calculated RMSF values or state that it requires a trajectory?</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">input_cif: /home/liu42/gitRepo/2026_AgentBench/SciVisAgentBench/SciVisAgentBench-tasks/molecular_vis/data/1CRN.cif
+analysis:
+  rmsd_self_angstrom: 0.00000000
+  n_residues: 46
+
+rmsf_per_residue_angstrom:
+A:1:THR	0.00000000
+A:2:THR	0.00000000
+A:3:CYS	0.00000000
+A:4:CYS	0.00000000
+A:5:PRO	0.00000000
+A:6:SER	0.00000000
+A:7:ILE	0.00000000
+A:8:VAL	0.00000000
+A:9:ALA	0.00000000
+A:10:ARG	0.00000000
+A:11:SER	0.00000000
+A:12:ASN	0.00000000
+A:13:PHE	0.00000000
+A:14:ASN	0.00000000
+A:15:VAL	0.00000000
+A:16:CYS	0.00000000
+A:17:ARG	0.00000000
+A:18:LEU	0.00000000
+A:19:PRO	0.00000000
+A:20:GLY	0.00000000
+A:21:THR	0.00000000
+A:22:PRO	0.00000000
+A:23:GLU	0.00000000
+A:24:ALA	0.00000000
+A:25:ILE	0.00000000
+A:26:CYS	0.00000000
+A:27:ALA	0.00000000
+A:28:THR	0.00000000
+A:29:TYR	0.00000000
+A:30:THR	0.00000000
+A:31:GLY	0.00000000
+A:32:CYS	0.00000000
+A:33:ILE	0.00000000
+A:34:ILE	0.00000000
+A:35:ILE	0.00000000
+A:36:PRO	0.00000000
+A:37:GLY	0.00000000
+A:38:ALA	0.00000000
+A:39:THR	0.00000000
+A:40:CYS	0.00000000
+A:41:PRO	0.00000000
+A:42:GLY	0.00000000
+A:43:ASP	0.00000000
+A:44:TYR	0.00000000
+A:45:ALA	0.00000000
+A:46:ASN	0.00000000</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (RMSD reported): The output explicitly reports an RMSD value under `analysis` as `rmsd_self_angstrom: 0.00000000`, which satisfies reporting the calculated RMSD. Score: 10/10.
+
+Criterion 2 (RMSF reported or notes trajectory requirement): The output provides a full per-residue RMSF table under `rmsf_per_residue_angstrom` for residues A:1 through A:46 (all listed with values, here all 0.00000000). This satisfies reporting RMSF values (it does not need to state trajectory requirement since values are provided). Score: 10/10.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">20/20</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_8">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_8</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. I want you to calculate the compactness of a protein from a CIF file. 
+2. Load the data/1CRN.cif. 
+3. Calculate the Radius of Gyration (Rg) of the protein structure.
+4. Save the calculated Radius of Gyration as plain text to "case_8/results/{agent_mode}/answers_rg.txt".
+</div>
+                </div>
+
+                
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Does the output report a numeric value for the calculated Radius of Gyration?</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">9.602983</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1: The provided output is a numeric value (9.602983), which satisfies the requirement to report a numeric Radius of Gyration. No additional formatting or units are required by the criterion, so it fully meets the expectation.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">184,298</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">2,702</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">187,000</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$0.3603</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_9">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_9</h2>
+                    
+                </div>
+                <div class="case-score">20/20 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. I want you to calculate specific geometric properties of a molecular structure from a CIF file.
+2. Load the data/1CRN.cif.
+3. Calculate the distance between the alpha carbons of residue 1 and residue 10.
+4. Calculate the backbone dihedral angles (phi and psi) for residue 5.
+5. Save the computed distance and angles as plain text to "case_9/results/{agent_mode}/answers_distances_angles.txt".
+</div>
+                </div>
+
+                
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">20/20 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Does the output report the calculated distance between the alpha carbons of residue 1 and 10?
+2. Does the output report the calculated phi and psi dihedral angles for residue 5?</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Input CIF: /home/liu42/gitRepo/2026_AgentBench/SciVisAgentBench/SciVisAgentBench-tasks/molecular_vis/data/1CRN.cif
+Chain: A, Model: 1
+Distance CA(res 1) - CA(res 10): 12.602756 Angstrom
+Residue 5 phi: 103.818494 degrees
+Residue 5 psi: 161.020614 degrees</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (10/10): The output explicitly reports the distance between the alpha carbons of residue 1 and residue 10 as "Distance CA(res 1) - CA(res 10): 12.602756 Angstrom", which directly satisfies the requirement.
+
+Criterion 2 (10/10): The output explicitly reports both dihedral angles for residue 5: "Residue 5 phi: 103.818494 degrees" and "Residue 5 psi: 161.020614 degrees", satisfying the requirement to report calculated phi and psi for residue 5.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">20/20</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">458,313</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">6,627</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">464,940</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$0.8948</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="case_10">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 case_10</h2>
+                    
+                </div>
+                <div class="case-score">10/10 (100.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. I want you to calculate the number of contacts in a folded protein from a CIF file.
+2. Load the data/1CRN.cif.
+3. Calculate the number of contacts within an 8 Angstrom cutoff.
+4. Save the total count of contacts as plain text to "case_10/results/{agent_mode}/answers_native_contacts.txt".
+</div>
+                </div>
+
+                
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Does the output report a numeric count of contacts?</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">203</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (numeric count of contacts): The output is "203", which is a clear numeric value and can be interpreted as a count. It directly reports a numeric count, satisfying the criterion fully.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">392,123</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">4,566</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">396,689</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$0.7501</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="curved-membrane">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 curved-membrane</h2>
+                    
+                </div>
+                <div class="case-score">27/45 (60.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. Please load the Martini coarse-grained simulation file from "curved-membrane/data/curved-membrane.gro" into VMD.
+
+2. Use VMD to show a zoomed in view of the membrane side coloring the water blue and the lipid phosphate (PO4 beads) red, and take a screenshot.
+
+3. Analyze the visualization and answer the following questions:
+Q1: Is there any water that penetrates into the membrane phase? (yes/no)
+
+4. Save your work:
+Save the VMD state as "curved-membrane/results/{agent_mode}/curved-membrane.vmd".
+Save the screenshot of the visualization as "curved-membrane/results/{agent_mode}/curved-membrane.png".
+Save the answers to the analysis questions in plain text as "curved-membrane/results/{agent_mode}/answers.txt".
+</div>
+                </div>
+
+                
+        <div class="section-box">
+            <h3>🖼️ Visualization Comparison</h3>
+            <div class="image-comparison">
+                <div class="image-box">
+                    <h4>Ground Truth</h4>
+                    <img src="images/curved-membrane_gt.png" alt="Ground Truth " onerror="this.parentElement.innerHTML='<div class=\'no-image\'>Image not available</div>'">
+                </div>
+                <div class="image-box">
+                    <h4>Agent Result</h4>
+                    <img src="images/curved-membrane_result.png" alt="Result " onerror="this.parentElement.innerHTML='<div class=\'no-image\'>Image not available</div>'">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="section-box">
+            <h3 class="expandable">📏 Vision Evaluation Rubrics</h3>
+            <div class="expandable-content">
+                
+        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+            <h4 style="color: #667eea; margin-bottom: 10px;">Score Summary</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px;">
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Total Score</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">11/20</div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Goals</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">2</div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Points/Goal</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">10</div>
+                </div>
+            </div>
+        </div>
+    
+                <div class="rubric-scores" style="margin-top: 15px;">
+                    
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 1</div>
+                    <div class="rubric-score">7/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Does the visualization show a side view of a bilayer rather than a top-down or oblique view?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> Ground truth shows a clear side view of a curved bilayer with two leaflets (red PO4 bands) and water (blue) above/below. The result image also appears to be a side view with similarly curved leaflet traces (red points forming two arcs), not a top-down view. However, the rendering is much sparser/point-like and lacks the dense bead representation seen in the ground truth, making the bilayer structure less visually explicit.
+                </div>
+            </div>
+         
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 2</div>
+                    <div class="rubric-score">4/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Is water present above and below the bilayer, with a mostly empty region in the middle corresponding to the bilayer core?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> In the ground truth, water is densely present above and below the membrane, and there is a mostly empty central region corresponding to the bilayer core (white gap between the two red PO4 layers). In the result, while there is still a large central empty region, the water is rendered as very sparse blue dots spread broadly, including near the leaflet regions, and the clear separation of dense water phases from the membrane core is not well matched to the ground truth’s appearance.
+                </div>
+            </div>
+        
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Overall Assessment</h4>
+                    <p style="color: #666;">The result captures the overall side-view geometry of the curved membrane (two curved PO4 layers), but the representation of water and the membrane environment is much less faithful to the ground truth: water density/placement and the clear phase separation are not convincingly shown due to the very sparse point rendering.</p>
+                </div>
+            </div>
+        </div>
+    
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/10 (100.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Q1: yes</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1 correct answer: Yes): The provided answer for Q1 is "yes", which matches the expected correct answer "Yes" (case-insensitive match). Therefore, it fully satisfies the criterion.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Visualization Quality</div>
+                <div class="metric-value">11/20</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Generation</div>
+                <div class="metric-value">5/5</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Efficiency</div>
+                <div class="metric-value">1/10</div>
+                <div class="metric-subvalue">
+                    
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/10</div>
+                <div class="metric-subvalue">
+                    100.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">578,212</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">13,412</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">591,624</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$1.1996</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="ras-raf-membrane">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 ras-raf-membrane</h2>
+                    
+                </div>
+                <div class="case-score">38/65 (58.5%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. Please load the Martini coarse-grained simulation file from "ras-raf-membrane/data/ras-raf-membrane.gro" into VMD. The simulations has a membrane and a RAS-RAF protein complex.
+
+2. Use VMD to show a zoomed in side view of the membrane and center on the protein with the protein below the membrane.
+For the bilayer only show the PO4 lipids beads and ROH cholesterol bead and color them gray. 
+Also show the protein back bone beads coloring RAS (resid 2 to 187) red and RAF (resid 188 to 329) blue.
+Take a screenshot of the visualization.
+
+3. Analyze the visualization and answer the following questions:
+Q1: Are there any cholesterol head groups in the bilayer center? (yes/no)
+
+Q2: How many lipids are there within 1.5 nm of the RAF protein?
+  A. 0
+  B. 0-3
+  C. 3-5
+  D. >5
+
+4. Save your work:
+Save the VMD state as "ras-raf-membrane/results/{agent_mode}/ras-raf-membrane.vmd".
+Save the screenshot of the visualization as "ras-raf-membrane/results/{agent_mode}/ras-raf-membrane.png".
+Save the answers to the analysis questions in plain text as "ras-raf-membrane/results/{agent_mode}/answers.txt".
+</div>
+                </div>
+
+                
+        <div class="section-box">
+            <h3>🖼️ Visualization Comparison</h3>
+            <div class="image-comparison">
+                <div class="image-box">
+                    <h4>Ground Truth</h4>
+                    <img src="images/ras-raf-membrane_gt.png" alt="Ground Truth " onerror="this.parentElement.innerHTML='<div class=\'no-image\'>Image not available</div>'">
+                </div>
+                <div class="image-box">
+                    <h4>Agent Result</h4>
+                    <img src="images/ras-raf-membrane_result.png" alt="Result " onerror="this.parentElement.innerHTML='<div class=\'no-image\'>Image not available</div>'">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="section-box">
+            <h3 class="expandable">📏 Vision Evaluation Rubrics</h3>
+            <div class="expandable-content">
+                
+        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+            <h4 style="color: #667eea; margin-bottom: 10px;">Score Summary</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px;">
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Total Score</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">21/30</div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Goals</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">3</div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Points/Goal</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">10</div>
+                </div>
+            </div>
+        </div>
+    
+                <div class="rubric-scores" style="margin-top: 15px;">
+                    
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 1</div>
+                    <div class="rubric-score">7/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Camera Position: Is the image centered on a protein complex composed of clearly distinguishable half red RAS and half blue RAF components?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> Ground truth shows a clearly centered protein complex with dense red (RAS) and blue (RAF) beads, making the two components easy to distinguish. The result image is similarly centered and uses red/blue, but the protein appears much smaller and more sparsely rendered (points rather than larger beads), making the RAS/RAF split less visually clear than in the ground truth.
+                </div>
+            </div>
+         
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 2</div>
+                    <div class="rubric-score">6/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Membrane Placement: Is a lipid bilayer clearly visible above the protein?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> In the ground truth, the membrane bilayer is prominently visible as two thick gray bead bands above the protein. In the result, the bilayer is present above the protein in two bands, but it is extremely faint/sparse (tiny dots), reducing clarity and making the membrane much less visually apparent compared to the ground truth.
+                </div>
+            </div>
+         
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 3</div>
+                    <div class="rubric-score">8/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Correct Leaflet Ordering: Is the inner leaflet of the bilayer closer to the protein and the outer leaflet positioned farther away?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> Both ground truth and result show two membrane leaflets with the lower leaflet closer to the protein and the upper leaflet farther away, matching the expected ordering. The result preserves this spatial relationship, though the faint rendering makes the separation less obvious than in the ground truth.
+                </div>
+            </div>
+        
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Overall Assessment</h4>
+                    <p style="color: #666;">The result captures the overall geometry (protein centered below a two-leaflet membrane with correct leaflet ordering), but the rendering style differs substantially from the ground truth: both membrane and protein are displayed as very small, sparse points rather than prominent beads, which reduces visual clarity and the ability to distinguish components as cleanly as expected.</p>
+                </div>
+            </div>
+        </div>
+    
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">10/20 (50.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: Yes
+2. Q2 correct answer: C. 3-5</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Q1: yes
+Q2: D</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1): The provided answer is "yes", which matches the correct answer "Yes" (case-insensitive match). Score: 10/10.
+Criterion 2 (Q2): The provided answer is "D", but the correct answer is "C. 3-5". This does not meet the criterion. Score: 0/10.
+Total: 10/20.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Visualization Quality</div>
+                <div class="metric-value">21/30</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Generation</div>
+                <div class="metric-value">5/5</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Efficiency</div>
+                <div class="metric-value">2/10</div>
+                <div class="metric-subvalue">
+                    
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">10/20</div>
+                <div class="metric-subvalue">
+                    50.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">543,882</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">10,083</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">553,965</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$1.0930</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <section class="case-section" id="trajectory-inspection">
+            <div class="case-header">
+                <div class="case-title-group">
+                    <h2 class="case-title">📝 trajectory-inspection</h2>
+                    
+                </div>
+                <div class="case-score">112/175 (64.0%)</div>
+            </div>
+
+            <div class="case-content">
+                <div class="section-box">
+                    <h3>📋 Task Description</h3>
+                    <div class="task-description">1. Please load the Martini coarse-grained membrane simulation from
+"trajectory-inspection/data/trajectory-inspection.gro" into VMD.
+
+2. Load the trajectory file
+"trajectory-inspection/data/trajectory-inspection_3to5us.xtc".
+
+3. Render a titled side view of the membrane using the last frame of the trajectory.
+
+- Show the PO4 beads of POPC lipids in light brown.
+- Show the PO4 beads of CDL0 lipids in red.
+- Display the simulation box in blue.
+
+Save the rendered image as:
+"trajectory-inspection/results/{agent_mode}/membrane-curved-tilted-side-5us.jpg"
+
+4. Perform curvature-based lipid distribution analysis for all the frames in the trajectory and generate the following figures:
+
+- A 2D density heatmap of CDL0 lipids across the curved membrane surface.
+- A 2D density heatmap of POPC lipids across the curved membrane surface.
+- A plot of lipid relative enrichment versus membrane mean curvature for both POPC and CDL0.
+
+Save the generated figures as:
+
+"trajectory-inspection/results/{agent_mode}/avg_2d_dens_CDL0.png"
+"trajectory-inspection/results/{agent_mode}/avg_2d_dens_POPC.png"
+"trajectory-inspection/results/{agent_mode}/relative_enrichment.png"
+
+5. Analyze the trajectory and answer the following questions:
+
+Q1: Are there more than 3000 frames in the trajectory? (yes/no)
+
+Q2: Is the ratio of POPC lipids to the neutral cardiolipin (CDL0) 8:1? (yes/no)
+
+Q3: Do the CDL0 lipids enrich in the negatively curved membrane regions? (yes/no)
+
+Q4: Does the total lipid density change significantly with membrane mean curvature? (yes/no)
+
+Q5: Do the POPC lipids enrich in the negatively curved membrane regions? (yes/no)
+
+6. Save the answers to the analysis questions in plain text as
+"trajectory-inspection/results/{agent_mode}/answers.txt".
+</div>
+                </div>
+
+                
+        <div class="section-box">
+            <h3>🖼️ Visualization Comparison - Set 1</h3>
+            <div class="image-comparison">
+                <div class="image-box">
+                    <h4>Ground Truth</h4>
+                    <img src="images/trajectory-inspection_gt_0.png" alt="Ground Truth 1" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>Image not available</div>'">
+                </div>
+                <div class="image-box">
+                    <h4>Agent Result</h4>
+                    <img src="images/trajectory-inspection_result_0.png" alt="Result 1" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>Image not available</div>'">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="section-box">
+            <h3 class="expandable">📏 Vision Evaluation Rubrics - Set 1</h3>
+            <div class="expandable-content">
+                
+        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+            <h4 style="color: #667eea; margin-bottom: 10px;">Score Summary</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px;">
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Total Score</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">31/40</div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Goals</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">4</div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Points/Goal</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">10</div>
+                </div>
+            </div>
+        </div>
+    
+                <div class="rubric-scores" style="margin-top: 15px;">
+                    
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 1</div>
+                    <div class="rubric-score">9/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Do both images show a side view of a curved lipid bilayer rather than a top-down view?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> Both ground truth and result show a clear side view (x–z projection) of a curved/undulating bilayer with two leaflets. The result matches the intended side-view geometry well, though it is rendered as a 2D plot rather than the 3D VMD-style rendering seen in the ground truth.
+                </div>
+            </div>
+         
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 2</div>
+                    <div class="rubric-score">9/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Are two lipid species visible with different colors, corresponding to POPC and CDL0 PO4 beads?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> Two lipid species are visible in both: POPC PO4 beads in light brown/tan and CDL0 PO4 beads in red. The colors and separation are consistent with the ground truth; the result uses small scatter markers but preserves the species distinction accurately.
+                </div>
+            </div>
+         
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 3</div>
+                    <div class="rubric-score">7/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Does the membrane visibly undulate, with one lipid type enriched on the inner curvature and the other on the outer curvature?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> The membrane undulation is visible in the result, and CDL0 (red) appears somewhat clustered in certain curved regions similar to the ground truth. However, the enrichment pattern (inner vs outer curvature preference) is less visually obvious in the result than in the ground truth due to the simplified 2D scatter style and lower visual depth/contrast.
+                </div>
+            </div>
+         
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 4</div>
+                    <div class="rubric-score">6/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Is the simulation box shown in blue with the membrane inside the box
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> A blue box is present in both, but the ground truth shows a full 3D simulation box (perspective cube) surrounding the membrane, while the result shows only a 2D rectangular frame/outline. Color matches (blue), but the box depiction does not match the 3D appearance well.
+                </div>
+            </div>
+        
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Overall Assessment</h4>
+                    <p style="color: #666;">The result captures the key side-view curved bilayer geometry and correctly colors POPC vs CDL0 PO4 beads. The main mismatches are stylistic/representational: the result is a 2D scatter plot rather than a VMD-like 3D render, making curvature-dependent enrichment less visually compelling, and the simulation box is shown as a 2D rectangle instead of a 3D blue box.</p>
+                </div>
+            </div>
+        </div>
+    
+
+        <div class="section-box">
+            <h3>🖼️ Visualization Comparison - Set 2</h3>
+            <div class="image-comparison">
+                <div class="image-box">
+                    <h4>Ground Truth</h4>
+                    <img src="images/trajectory-inspection_gt_1.png" alt="Ground Truth 2" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>Image not available</div>'">
+                </div>
+                <div class="image-box">
+                    <h4>Agent Result</h4>
+                    <img src="images/trajectory-inspection_result_1.png" alt="Result 2" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>Image not available</div>'">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="section-box">
+            <h3 class="expandable">📏 Vision Evaluation Rubrics - Set 2</h3>
+            <div class="expandable-content">
+                
+        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+            <h4 style="color: #667eea; margin-bottom: 10px;">Score Summary</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px;">
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Total Score</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">6/20</div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Goals</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">2</div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Points/Goal</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">10</div>
+                </div>
+            </div>
+        </div>
+    
+                <div class="rubric-scores" style="margin-top: 15px;">
+                    
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 1</div>
+                    <div class="rubric-score">4/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Do both images show a curved membrane band visualized as a heatmap density map?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> Ground truth shows a curved membrane band rendered as a continuous, wavy heatmap (high density in a red/orange band following the membrane midline, low density in blue outside). The result image is a rectangular 2D histogram heatmap with no clearly visible curved membrane band; it looks like a boxy density field with a mostly horizontal brighter stripe rather than a curved membrane-shaped band. Thus the requirement is only partially met (it is a heatmap, but not a curved membrane band heatmap like the ground truth).
+                </div>
+            </div>
+         
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 2</div>
+                    <div class="rubric-score">2/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Is higher CDL0 density concentrated along the inner side of the curved membrane in both images?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> In the ground truth, higher CDL0 density is clearly concentrated along the inner side of the curved membrane (the red/orange region tracks the inner arc of the wavy membrane). In the result, the highest density appears as a roughly straight horizontal band near mid-y and some patchy regions, without an evident correspondence to the inner side of a curved membrane. The specific inner-curvature enrichment pattern is not reproduced.
+                </div>
+            </div>
+        
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Overall Assessment</h4>
+                    <p style="color: #666;">The result does produce a CDL0 density heatmap, but it does not resemble the ground-truth curved-membrane-band representation, and it fails to show the characteristic enrichment along the inner (negatively curved) side of the membrane seen in the ground truth.</p>
+                </div>
+            </div>
+        </div>
+    
+
+        <div class="section-box">
+            <h3>🖼️ Visualization Comparison - Set 3</h3>
+            <div class="image-comparison">
+                <div class="image-box">
+                    <h4>Ground Truth</h4>
+                    <img src="images/trajectory-inspection_gt_2.png" alt="Ground Truth 3" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>Image not available</div>'">
+                </div>
+                <div class="image-box">
+                    <h4>Agent Result</h4>
+                    <img src="images/trajectory-inspection_result_2.png" alt="Result 3" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>Image not available</div>'">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="section-box">
+            <h3 class="expandable">📏 Vision Evaluation Rubrics - Set 3</h3>
+            <div class="expandable-content">
+                
+        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+            <h4 style="color: #667eea; margin-bottom: 10px;">Score Summary</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px;">
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Total Score</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">6/20</div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Goals</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">2</div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Points/Goal</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">10</div>
+                </div>
+            </div>
+        </div>
+    
+                <div class="rubric-scores" style="margin-top: 15px;">
+                    
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 1</div>
+                    <div class="rubric-score">4/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Do both images show a curved membrane band represented as a heatmap density map?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> Ground truth shows a clearly curved membrane band rendered as a smooth heatmap following an S-shaped midline, with density varying across/along the band. The result image is a rectangular, pixelated 2D heatmap over x–y coordinates with no visible curved-band geometry; it does not depict the membrane as a curved strip. While it is a heatmap, it does not match the curved membrane-band representation seen in the ground truth.
+                </div>
+            </div>
+         
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 2</div>
+                    <div class="rubric-score">2/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Is higher POPC density concentrated along the outer side of the curved membrane in both images?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> In the ground truth, higher POPC density is visibly concentrated along the outer side of the curved membrane (brighter/yellower regions aligned with the outer arc of the band). In the result, density variations are speckled and roughly uniform across the rectangular field, with no clear outer-vs-inner curved-side pattern (and no curved membrane boundary to reference). Thus the outer-side enrichment pattern is not reproduced.
+                </div>
+            </div>
+        
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Overall Assessment</h4>
+                    <p style="color: #666;">The result provides a generic 2D POPC density heatmap but fails to reproduce the key geometric feature of the ground truth: a curved membrane band. Consequently, the characteristic higher POPC density along the outer side of the curved membrane is also not evident in the result.</p>
+                </div>
+            </div>
+        </div>
+    
+
+        <div class="section-box">
+            <h3>🖼️ Visualization Comparison - Set 4</h3>
+            <div class="image-comparison">
+                <div class="image-box">
+                    <h4>Ground Truth</h4>
+                    <img src="images/trajectory-inspection_gt_3.png" alt="Ground Truth 4" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>Image not available</div>'">
+                </div>
+                <div class="image-box">
+                    <h4>Agent Result</h4>
+                    <img src="images/trajectory-inspection_result_3.png" alt="Result 4" onerror="this.parentElement.innerHTML='<div class=\'no-image\'>Image not available</div>'">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="section-box">
+            <h3 class="expandable">📏 Vision Evaluation Rubrics - Set 4</h3>
+            <div class="expandable-content">
+                
+        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+            <h4 style="color: #667eea; margin-bottom: 10px;">Score Summary</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px;">
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Total Score</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">24/30</div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Goals</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">3</div>
+                </div>
+                <div style="background: white; padding: 10px; border-radius: 6px; text-align: center;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;">Points/Goal</div>
+                    <div style="font-size: 1.5em; font-weight: 700; color: #667eea;">10</div>
+                </div>
+            </div>
+        </div>
+    
+                <div class="rubric-scores" style="margin-top: 15px;">
+                    
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 1</div>
+                    <div class="rubric-score">8/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Do both plots show enrichment values plotted against membrane mean curvature?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> Both the ground truth and result plots show relative enrichment plotted against membrane mean curvature (x-axis is mean curvature; y-axis is relative enrichment). However, the result uses different curvature units/range ("arb. units" spanning roughly -1.8 to 1.8) compared to the ground truth (nm^-1 spanning about -0.4 to 0.1), so the visual correspondence is not exact even though the intended relationship is present.
+                </div>
+            </div>
+         
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 2</div>
+                    <div class="rubric-score">7/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Are two curves corresponding to POPC and CDL0 visible in both plots?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> Two curves corresponding to POPC and CDL0 are visible in both plots and are labeled in legends. The result’s curve shapes differ substantially from the ground truth (GT shows strong CDL0 enrichment at negative curvature and depletion at positive curvature with a POPC rise near slightly positive curvature; result shows POPC ~flat near 1 and CDL0 peaking near zero curvature), so it meets the requirement of two curves but does not match the expected trends well.
+                </div>
+            </div>
+         
+            <div class="rubric-item">
+                <div class="rubric-header">
+                    <div class="rubric-title">Goal 3</div>
+                    <div class="rubric-score">9/10</div>
+                </div>
+                <div class="rubric-criterion">
+                    <strong>Criterion:</strong> Is a horizontal reference line around enrichment = 1 present in both plots?
+                </div>
+                <div class="rubric-explanation">
+                    <strong>Judge's Assessment:</strong> A horizontal reference line at enrichment = 1 is present in both plots (dashed line). Styling differs slightly (dash pattern/contrast), but the reference line is clearly visible and correctly placed in the result.
+                </div>
+            </div>
+        
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Overall Assessment</h4>
+                    <p style="color: #666;">The result figure satisfies the structural requirements: enrichment vs mean curvature is plotted, both POPC and CDL0 curves are shown, and a y=1 reference line is included. The main mismatch versus ground truth is the curvature axis scaling/units and the qualitative enrichment trends of POPC/CDL0 across curvature, which reduces similarity despite meeting the basic plotting criteria.</p>
+                </div>
+            </div>
+        </div>
+    
+
+                
+
+                
+        <div class="section-box">
+            <h3 class="expandable">📝 Text-Based Q&A Evaluation</h3>
+            <div class="expandable-content">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Score</h4>
+                    <div style="font-size: 2em; font-weight: 700; color: #667eea;">40/50 (80.0%)</div>
+                </div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Questions & Correct Answers</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">1. Q1 correct answer: No (the trajectory contains 2000 frames).
+2. Q2 correct answer: No (the lipid ratio is 9:1).
+3. Q3 correct answer: Yes (CDL0 lipids enrich in negatively curved regions).
+4. Q4 correct answer: Yes (relative density varies roughly between 0.8 and 1.3).
+5. Q5 correct answer: No (POPC lipids enrich in positively curved regions, not negative).</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Agent's Answers</h4>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; white-space: pre-wrap; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9em; line-height: 1.6;">Q1: no
+Q2: no
+Q3: no
+Q4: yes
+Q5: no
+
+n_frames: 2001
+n_POPC_residues: 418
+n_CDL0_residues: 46
+POPC:CDL0_ratio: 9.087
+CDL0_mean_enrichment_neg: 0.838
+CDL0_mean_enrichment_pos: 0.877
+POPC_mean_enrichment_neg: 1.018
+POPC_mean_enrichment_pos: 1.014
+total_density_CV_over_curvature_bins: 0.320</div>
+
+                <h4 style="color: #667eea; margin-bottom: 10px;">Judge's Evaluation</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #667eea;"><strong style="color: #667eea;">Evaluation:</strong><br><br>Criterion 1 (Q1): Answered "no", which matches the correct answer (No; trajectory has 2000 frames). Score: 10/10.
+Criterion 2 (Q2): Answered "no", which matches the correct answer (No; lipid ratio is ~9:1, consistent with POPC:CDL0_ratio 9.087). Score: 10/10.
+Criterion 3 (Q3): Answered "no", but the correct answer is Yes (CDL0 enriches in negatively curved regions). The provided enrichment values support this: CDL0_mean_enrichment_neg (0.838) < CDL0_mean_enrichment_pos (0.877), indicating relatively higher enrichment in positive curvature, contradicting the criterion; however, per the stated evaluation criteria, the correct answer is Yes, so the response is incorrect. Score: 0/10.
+Criterion 4 (Q4): Answered "yes", matching the correct answer (Yes; relative density varies roughly between 0.8 and 1.3). Score: 10/10.
+Criterion 5 (Q5): Answered "no", matching the correct answer (No; POPC enriches in positively curved regions, not negative). The provided means also align with positive enrichment being slightly higher (1.014 vs 1.018 is actually slightly higher in negative, but both ~1). Still, per criterion, "No" is correct. Score: 10/10.
+
+Total: 40/50.</div>
+            </div>
+        </div>
+    
+
+                
+        <div class="section-box">
+            <h3>📊 Detailed Metrics</h3>
+            <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Visualization Quality</div>
+                <div class="metric-value">67/110</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Generation</div>
+                <div class="metric-value">5/5</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Efficiency</div>
+                <div class="metric-value">0/10</div>
+                <div class="metric-subvalue">
+                    
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Text Q&A Score</div>
+                <div class="metric-value">40/50</div>
+                <div class="metric-subvalue">
+                    80.0%
+                </div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Input Tokens</div>
+                <div class="metric-value">1,968,944</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Output Tokens</div>
+                <div class="metric-value">28,231</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Tokens</div>
+                <div class="metric-value">1,997,175</div>
+            </div>
+        
+            <div class="metric-box">
+                <div class="metric-label">Total Cost</div>
+                <div class="metric-value">$3.8409</div>
+            </div>
+        </div>
+        </div>
+    
+            </div>
+        </section>
+    
+
+        <footer class="footer">
+            <p>Generated by SciVisAgentBench Evaluation Reporter</p>
+            <p>Timestamp: 2026-03-17T11:03:22.033995</p>
+        </footer>
+    </div>
+
+    <script>
+        
+        // Expandable sections
+        document.querySelectorAll('.expandable').forEach(element => {
+            element.addEventListener('click', function() {
+                this.classList.toggle('collapsed');
+                const content = this.nextElementSibling;
+                if (content && content.classList.contains('expandable-content')) {
+                    content.classList.toggle('collapsed');
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize expandable sections as collapsed
+        document.querySelectorAll('.expandable-content').forEach(content => {
+            content.style.maxHeight = content.scrollHeight + 'px';
+        });
+
+        console.log('📊 Evaluation Report Loaded');
+    
+    </script>
+</body>
+</html>
