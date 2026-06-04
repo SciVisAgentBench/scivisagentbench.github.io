@@ -726,10 +726,20 @@ section {
     font-weight: 700;
 }
 
+.about-text ul.news-list li::before {
+    content: none;
+}
+
 .paper-links {
     display: flex;
     gap: 1rem;
     margin-top: 2rem;
+}
+
+.paper-links .btn {
+    flex: 1 1 0;
+    text-align: center;
+    white-space: nowrap;
 }
 
 /* Footer */

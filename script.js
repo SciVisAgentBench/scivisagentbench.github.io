@@ -1,7 +1,7 @@
 // Application State
 const appState = {
     submissions: [],
-    currentPage: 'statistics',
+    currentPage: 'about',
     testCases: [],
     filteredTestCases: [],
     stats: {

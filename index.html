@@ -15,10 +15,10 @@
                 <p class="tagline">A Comprehensive Evaluation Framework for Scientific Visualization Agents</p>
             </div>
             <ul class="nav-links">
-                <li><a href="#" data-page="about">About</a></li>
+                <li><a href="#" data-page="about" class="active">About</a></li>
                 <li><a href="leaderboard.html">Leaderboard</a></li>
                 <li><a href="examples.html">Examples</a></li>
-                <li><a href="#" data-page="statistics" class="active">Statistics</a></li>
+                <li><a href="#" data-page="statistics">Statistics</a></li>
                 <li><a href="https://scivisagentbench-human-eval.web.app" target="_blank">Human Evaluation</a></li>
                 <li><a href="#" data-page="submit">Contribution</a></li>
                 <li style="display: flex; align-items: center; gap: 1rem; margin-left: 0.8rem;">
@@ -42,7 +42,7 @@
 
     <main>
         <!-- Statistics Page -->
-        <div id="page-statistics" class="page active">
+        <div id="page-statistics" class="page">
             <!-- Benchmark Coverage Section -->
             <section class="benchmark-section">
                 <div class="container">
@@ -579,12 +579,47 @@
         </div>
 
         <!-- About Page -->
-        <div id="page-about" class="page">
+        <div id="page-about" class="page active">
             <section class="about-section">
                 <div class="container">
-                    <h2 class="section-title">About SciVisAgentBench</h2>
+                    <h2 class="section-title"><a href="https://arxiv.org/abs/2603.29139" target="_blank" style="color: inherit; text-decoration: none;">SciVisAgentBench: A Benchmark for Evaluating Scientific Data Analysis and Visualization Agents</a></h2>
                     <div class="about-content">
                         <div class="about-text">
+
+                            <div class="authors-section" style="margin-bottom: 2rem; padding: 1.25rem 1.5rem; background: var(--bg-secondary, #f9fafb); border-radius: 0.75rem; border-left: 4px solid var(--primary, #3b82f6);">
+                                <p style="margin: 0 0 0.6rem 0; font-size: 0.95rem; line-height: 1.7; color: var(--text-primary);">
+                                    Kuangshi Ai<sup>1</sup>, Haichao Miao<sup>2</sup>, Kaiyuan Tang<sup>1</sup>, Nathaniel Gorski<sup>3</sup>, Jianxin Sun<sup>4</sup>, Guoxi Liu<sup>5</sup>, Helgi I. Ingolfsson<sup>2</sup>, David Lenz<sup>6</sup>, Hanqi Guo<sup>5</sup>, Hongfeng Yu<sup>4</sup>, Teja Leburu<sup>7</sup>, Michael Molash<sup>7</sup>, Bei Wang<sup>3</sup>, Tom Peterka<sup>6</sup>, Chaoli Wang<sup>1</sup>, Shusen Liu<sup>2</sup>
+                                </p>
+                                <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.8; border-top: 1px solid var(--border, #e5e7eb); padding-top: 0.6rem;">
+                                    <sup>1</sup> University of Notre Dame &nbsp;
+                                    <sup>2</sup> Lawrence Livermore National Laboratory &nbsp;
+                                    <sup>3</sup> University of Utah &nbsp;
+                                    <sup>4</sup> University of Nebraska–Lincoln &nbsp;
+                                    <sup>5</sup> The Ohio State University &nbsp;
+                                    <sup>6</sup> Argonne National Laboratory &nbsp;
+                                    <sup>7</sup> Anthropic
+                                </div>
+                            </div>
+
+                            <div class="paper-links" style="margin-bottom: 2rem;">
+                                <a href="https://arxiv.org/abs/2603.29139" class="btn btn-secondary" target="_blank">Main Benchmark Paper</a>
+                                <a href="https://github.com/KuangshiAi/SciVisAgentBench" class="btn btn-primary" target="_blank">GitHub</a>
+                                <a href="https://huggingface.co/datasets/SciVisAgentBench/SciVisAgentBench-tasks" class="btn btn-primary" target="_blank">Hugging Face</a>
+                                <a href="https://arxiv.org/abs/2509.15160" class="btn btn-secondary" target="_blank">Position Paper</a>
+                            </div>
+
+                            <h3>News</h3>
+                            <ul class="news-list" style="list-style: none; padding: 0; margin-bottom: 2rem;">
+                                <li style="display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border, #e5e7eb);">
+                                    <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); white-space: nowrap; padding-top: 0.15rem;">06/03/2026</span>
+                                    <span><strong>Docker Evaluation Environment:</strong> Agents can now run inside a containerized environment bundling the full visualization toolchain (ParaView, napari, VTK, TopologyToolKit, MDAnalysis, and more), isolated from the local filesystem and ground truth for safe and trustworthy evaluation.</span>
+                                </li>
+                                <li style="display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border, #e5e7eb);">
+                                    <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); white-space: nowrap; padding-top: 0.15rem;">02/03/2026</span>
+                                    <span><strong>Easy Evaluation Framework:</strong> A new lightweight framework lets you evaluate any agent by implementing a single method, replacing complex 500+ line test runners.</span>
+                                </li>
+                            </ul>
+
                             <h3>What is SciVisAgentBench?</h3>
                             <p>
                                 SciVisAgentBench is a comprehensive evaluation framework for scientific data analysis
@@ -614,8 +649,9 @@
                                 metrics for robust assessment.
                             </p>
 
-                            <p>See our <a href="https://github.com/KuangshiAi/SciVisAgentBench" target="_blank">GitHub repository</a> for evaluation examples and deployment guides.</p>
+                            <p>Visit our <a href="https://github.com/KuangshiAi/SciVisAgentBench" target="_blank">GitHub repository</a> for deployment guidance, and the <a href="examples.html">examples page</a> for evaluation examples.</p>
 
+                            <!--
                             <h3>Team</h3>
                             <p>
                                 The core team for this project comprises the University of Notre Dame and Lawrence Livermore National Laboratory.
@@ -630,7 +666,6 @@
                                 We are grateful to all contributors who have helped build this benchmark.
                             </p>
 
-                            <!-- Contributors Table -->
                             <div class="contributors-section" style="margin-top: 1.5rem;">
                                 <div class="table-container">
                                     <table class="contributors-table">
@@ -650,21 +685,8 @@
                                     </table>
                                 </div>
                             </div>
+                            -->
 
-                            <div class="paper-links" style="margin-top: 2rem;">
-                            <a href="https://github.com/KuangshiAi/SciVisAgentBench" class="btn btn-primary" target="_blank">
-                                View on GitHub
-                            </a>
-                            <a href="https://huggingface.co/datasets/SciVisAgentBench/SciVisAgentBench-tasks" class="btn btn-primary" target="_blank">
-                                View on Hugging Face
-                            </a>
-                            <a href="https://arxiv.org/abs/2603.29139" class="btn btn-secondary" target="_blank">
-                                Read Benchmark Paper
-                            </a>
-                            <a href="https://arxiv.org/abs/2509.15160" class="btn btn-secondary" target="_blank">
-                                Read Position Paper
-                            </a>
-                            </div>
                         </div>
                     </div>
                 </div>
